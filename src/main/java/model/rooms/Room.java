@@ -3,6 +3,7 @@ package model.rooms;
 import model.Coordinates;
 import model.Direction;
 import model.entities.Entity;
+import model.entities.characters.Player;
 
 import java.util.List;
 import java.util.Set;
@@ -26,4 +27,7 @@ public interface Room {
     void removeFinalWay(Direction direction);
 
     void generate();
+
+    boolean isNearFromDoor(Player player);
+    Direction directionFromNearestDoor(Player player);
 }

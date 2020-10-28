@@ -39,6 +39,7 @@ public class Game implements Runnable {
 
     private void loop() {
         while (true) {
+            // IA
             if (System.currentTimeMillis() - lastProcessedAI > App.MONSTER_AI_LATENCY_MS) {
                 lastProcessedAI = System.currentTimeMillis();
                 canProcessAI = true;
@@ -54,6 +55,11 @@ public class Game implements Runnable {
             }
 
             if (canProcessAI) canProcessAI = false;
+
+
+            // CHANGEMENT DE SALLE
+
+
 
             MainGUI.getInstance().render();
 
