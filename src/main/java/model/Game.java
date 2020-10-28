@@ -57,10 +57,6 @@ public class Game implements Runnable {
             if (canProcessAI) canProcessAI = false;
 
 
-            // CHANGEMENT DE SALLE
-
-
-
             MainGUI.getInstance().render();
 
             try {
@@ -80,15 +76,19 @@ public class Game implements Runnable {
         switch (direction) {
             case UP:
                 newRoom = rooms[x][y-1];
+                player.moveToDoor(Direction.DOWN);
                 break;
             case RIGHT:
                 newRoom = rooms[x+1][y];
+                player.moveToDoor(Direction.LEFT);
                 break;
             case DOWN:
                 newRoom = rooms[x][y+1];
+                player.move(Direction.UP);
                 break;
             case LEFT:
                 newRoom = rooms[x-1][y];
+                player.move(Direction.RIGHT);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + direction);

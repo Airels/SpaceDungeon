@@ -9,6 +9,7 @@ import model.Direction;
 import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
 import model.items.Item;
+import model.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,20 +50,20 @@ public class Player extends Character {
     public void moveToDoor(Direction position) {
         switch (position) {
             case LEFT:
-                coords.setX(10);
+                coords.setX(App.WALL_SIZE);
                 coords.setY(App.HEIGHT/2);
                 break;
             case UP:
                 coords.setX(App.WIDTH/2);
-                coords.setY(10);
+                coords.setY(App.WALL_SIZE);
                 break;
             case RIGHT:
-                coords.setX(App.WIDTH-10);
+                coords.setX(App.WIDTH-App.WALL_SIZE);
                 coords.setY(App.HEIGHT/2);
                 break;
             case DOWN:
                 coords.setX(App.WIDTH/2);
-                coords.setY(App.HEIGHT-10);
+                coords.setY(App.HEIGHT-App.WALL_SIZE);
                 break;
         }
     }
@@ -97,4 +98,13 @@ public class Player extends Character {
         return healthPoints;
     }
 
+
+    @Override
+    public void move(Direction direction) {
+        super.move(direction);
+
+        // CHANGEMENT DE SALLE
+        if (Room.isNearFromDoor(this))
+            Game.getInstance().nextRoom(Room.directionFromNearestDoor(this));
+    }
 }

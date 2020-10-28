@@ -49,18 +49,18 @@ public interface Room {
     }
 
     static Coordinates getTopWayCoordinates() {
-        return new Coordinates(App.WIDTH/2, 0);
+        return new Coordinates(App.WIDTH/2, App.WALL_SIZE);
     }
 
     static Coordinates getLeftWayCoordinates() {
-        return new Coordinates(0, App.HEIGHT/2);
+        return new Coordinates(App.WALL_SIZE, App.HEIGHT/2);
     }
 
     static Coordinates getDownWayCoordinates() {
-        return new Coordinates(App.WIDTH/2, App.HEIGHT);
+        return new Coordinates(App.WIDTH/2, App.HEIGHT-App.WALL_SIZE);
     }
 
     static Coordinates getRightWayCoordinates() {
-        return new Coordinates(App.WIDTH, App.HEIGHT/2);
+        return new Coordinates(App.WIDTH-App.WALL_SIZE, App.HEIGHT/2);
     }
 }
