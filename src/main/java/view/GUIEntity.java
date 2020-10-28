@@ -58,6 +58,11 @@ class GUIEntity implements GUIObject {
     public void render() {
         Coordinates coords = entity.getCoords();
 
+        shape.setCenterX(coords.getX());
+        shape.setCenterY(coords.getY());
+
+        // TODO : Effet de fluidité à corriger plus tard
+        /*
         double oldX = shape.getCenterX(),
                 oldY = shape.getCenterY(),
                 newX = coords.getX(),
@@ -77,5 +82,7 @@ class GUIEntity implements GUIObject {
                 shape.setCenterY(newY);
             }
         }
+
+         */
     }
 }
