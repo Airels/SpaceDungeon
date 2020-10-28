@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 public enum PlayerType {
 
-    NORMAL(100, 20, 5, 1, 20, Color.GREEN);
+    NORMAL(100, 20, 40, 1, 20, Color.GREEN);
 
     PlayerType(int healthPoints, int strength, int actionRange, double speed, double size, Color color) {
         this.healthPoints = healthPoints;

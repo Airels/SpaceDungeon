@@ -30,7 +30,6 @@ public class Player extends Character {
         this.inventory = new ArrayList<>();
         this.coords = new Coordinates(App.WIDTH/2, App.HEIGHT/2);
         this.size = size;
-        this.actionRange = size*2;
         this.color = color;
     }
 
