@@ -2,22 +2,32 @@ package controller;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
-import model.Player;
+import javafx.scene.input.MouseEvent;
+import model.Direction;
+import model.entities.characters.Player;
 
 public class JavaFXController {
-    EventHandler<? super KeyEvent> eventHandler;
 
-    JavaFXController(Player player){
-
-     eventHandler = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
+    public static EventHandler<? super KeyEvent> getKeyEventHandler(Player player) {
+        return (EventHandler<KeyEvent>) event -> {
             switch (event.getCode()) {
-                case UP:    player.goNorth(); break;
-                case DOWN:  player.goNorth(); break;
-                case LEFT:  player.goNorth(); break;
-                case RIGHT: player.goNorth(); break;
+                case Z: case W: case UP:    player.move(Direction.UP);    break;
+                case Q: case A: case LEFT:  player.move(Direction.LEFT);  break;
+                case S:         case DOWN:  player.move(Direction.DOWN);  break;
+                case D:         case RIGHT: player.move(Direction.RIGHT); break;
             }
-        }
-    }; }
+        };
+    }
+
+    public static EventHandler<? super MouseEvent> getMousePressedEventHandler(Player player) {
+        return (EventHandler<MouseEvent>) event -> {
+            switch (event.getButton()) {
+                case PRIMARY:
+                    player.attack();
+                    break;
+                case SECONDARY:
+                    player.action();
+            }
+        };
+    }
 }

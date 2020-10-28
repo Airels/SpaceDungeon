@@ -1,48 +1,55 @@
 package controller;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Text;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Player;
-import view.JavaFXView;
-import view.View;
+import model.Game;
+import model.entities.characters.Player;
+import model.entities.characters.PlayerType;
+import view.MainGUI;
 
 public class App extends Application {
-    /*
+    public static final double WIDTH = 800,
+                                HEIGHT = 600;
 
-    /**
-     * The main entry point for all JavaFX applications.
-     * The start method is called after the init method has returned,
-     * and after the system is ready for the application to begin running.
-     *
-     * <p>
-     * NOTE: This method is called on the JavaFX Application Thread.
-     * </p>
-     *
-     * @param primaryStage the primary stage for this application, onto which
-     *                     the application scene can be set.
-     *                     Applications may create other stages, if needed, but they will not be
-     *                     primary stages.
-     * @throws Exception if something goes wrong
-     */
+    // Please, do not touch at references
+    public static final double WIDTH_REFERENCE = 800,
+                                HEIGHT_REFERENCE = 600;
+
+    public static final int FPS = 60;
+
+    public static final Color BACKGROUND_COLOR = Color.DARKGRAY;
+    public static final Color WALL_COLOR = Color.LIGHTGRAY;
+    public static final int WALL_SIZE = 20;
+    public static final int PLAYER_SIZE = 20;
+
+    public static final int MONSTER_AI_LATENCY_MS = 250;
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Space Dungeon");
         Group root = new Group();
-        JavaFXView view = new JavaFXView();
-        Text message = view.text;
-        root.getChildren().add(message);
-        root.getChildren().add(new Canvas(400,200));
-        Scene scene = new Scene(root);
-        Player player = new Player(view);
-        JavaFXController javaFXController = new JavaFXController(player);
-        scene.setOnKeyPressed(javaFXController.eventHandler);
-        primaryStage.setScene(scene);
+
+        primaryStage.setScene(new Scene(root, WIDTH, HEIGHT, BACKGROUND_COLOR));
+        // primaryStage.setFullScreen(true);
+        // primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
+
+        Player player = new Player(PlayerType.NORMAL);
+
+        Game game = new Game(player);
+        MainGUI gui = new MainGUI(root);
+
+        primaryStage.setOnCloseRequest(e -> System.exit(0));
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(player));
+        primaryStage.addEventHandler(MouseEvent.MOUSE_PRESSED, JavaFXController.getMousePressedEventHandler(player));
+
+        new Thread(game).start();
     }
 }
