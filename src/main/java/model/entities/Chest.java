@@ -1,5 +1,7 @@
 package model.entities;
 
+import controller.App;
+import model.Coordinates;
 import model.Game;
 import model.entities.characters.Player;
 import model.items.Item;
@@ -10,6 +12,12 @@ public class Chest extends Entity {
     private List<Item> items;
 
     public Chest(List<Item> items){
+        // TODO : Coordonnées aléatoires à implémenter
+        this(new Coordinates(App.WIDTH/2, App.HEIGHT/2), items);
+    }
+
+    public Chest(Coordinates coords, List<Item> items) {
+        this.coords = coords;
         this.items = items;
     }
 
@@ -18,7 +26,5 @@ public class Chest extends Entity {
         Player player = game.getPlayer();
 
         player.getInventory().addAll(items);
-
     }
-
 }
