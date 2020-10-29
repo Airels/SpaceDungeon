@@ -70,25 +70,26 @@ public class MainGUI {
      */
 
     public void addEntity(Entity entity) {
+        Color colorOfEntity = Color.BLACK;
+
         if (entity instanceof Character)
-            addEntity(entity, ((Character) entity).getColor());
+            colorOfEntity = ((Character) entity).getColor();
         else if (entity instanceof Chest)
-            addEntity(entity, App.CHEST_COLOR);
+            colorOfEntity = App.CHEST_COLOR;
         else if (entity instanceof DroppedItem) {
             Item item = ((DroppedItem) entity).getItem();
             if (item instanceof Key)
-                addEntity(entity, App.KEYS_COLOR);
+                colorOfEntity = App.KEYS_COLOR;
         }
-        else
-            addEntity(entity, Color.BLACK);
+
+        addEntity(entity, colorOfEntity);
     }
 
     private void addEntity(Entity entity, Color color) {
-        Platform.runLater(() -> {
-            GUIEntity guiEntity = new GUIEntity(entity, color);
-            root.getChildren().add(guiEntity.getFxModel());
-            guiEntities.add(guiEntity);
-        });
+        GUIEntity guiEntity = new GUIEntity(entity, color);
+        guiEntities.add(guiEntity);
+
+        Platform.runLater(() -> root.getChildren().add(guiEntity.getFxModel()));
     }
 
     public void removeEntity(Entity entity) {
