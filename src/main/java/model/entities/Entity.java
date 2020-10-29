@@ -1,5 +1,6 @@
 package model.entities;
 
+import controller.App;
 import model.Coordinates;
 import model.Game;
 
@@ -36,7 +37,7 @@ public abstract class Entity {
     }
 
     public double getSize() {
-        return size;
+        return (size == 0) ? App.DEFAULT_ENTITY_SIZE : size;
     }
 
     @Override
