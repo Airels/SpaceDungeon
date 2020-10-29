@@ -29,6 +29,9 @@ public class App extends Application {
 
     public static final int MONSTER_AI_LATENCY_MS = 250;
 
+    public static final Color CHEST_COLOR = Color.BROWN,
+                                KEYS_COLOR = Color.GOLD;
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Space Dungeon");

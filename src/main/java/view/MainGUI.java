@@ -1,11 +1,14 @@
 package view;
 
+import controller.App;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import model.Game;
+import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.Character;
+import model.items.Key;
 import model.rooms.Room;
 
 import java.util.ArrayList;
@@ -67,6 +70,10 @@ public class MainGUI {
     public void addEntity(Entity entity) {
         if (entity instanceof Character)
             addEntity(entity, ((Character) entity).getColor());
+        if (entity instanceof Chest)
+            addEntity(entity, App.CHEST_COLOR);
+        if (entity instanceof Key)
+            addEntity(en);
         else
             addEntity(entity, Color.BLACK);
     }
