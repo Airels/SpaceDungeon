@@ -72,9 +72,9 @@ public class MainGUI {
     public void addEntity(Entity entity) {
         if (entity instanceof Character)
             addEntity(entity, ((Character) entity).getColor());
-        if (entity instanceof Chest)
+        else if (entity instanceof Chest)
             addEntity(entity, App.CHEST_COLOR);
-        if (entity instanceof DroppedItem) {
+        else if (entity instanceof DroppedItem) {
             Item item = ((DroppedItem) entity).getItem();
             if (item instanceof Key)
                 addEntity(entity, App.KEYS_COLOR);
