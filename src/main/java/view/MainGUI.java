@@ -6,8 +6,10 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import model.Game;
 import model.entities.Chest;
+import model.entities.DroppedItem;
 import model.entities.Entity;
 import model.entities.characters.Character;
+import model.items.Item;
 import model.items.Key;
 import model.rooms.Room;
 
@@ -72,8 +74,11 @@ public class MainGUI {
             addEntity(entity, ((Character) entity).getColor());
         if (entity instanceof Chest)
             addEntity(entity, App.CHEST_COLOR);
-        if (entity instanceof Key)
-            addEntity(en);
+        if (entity instanceof DroppedItem) {
+            Item item = ((DroppedItem) entity).getItem();
+            if (item instanceof Key)
+                addEntity(entity, App.KEYS_COLOR);
+        }
         else
             addEntity(entity, Color.BLACK);
     }
