@@ -3,6 +3,7 @@ package view;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import model.Game;
 import model.entities.Entity;
 import model.entities.characters.Character;
 import model.rooms.Room;
@@ -14,13 +15,14 @@ public class MainGUI {
     private static MainGUI mainGUI;
     private final Group root;
     private GUIRoom actualRoom;
-
     private final List<GUIEntity> guiEntities;
+    private boolean canUpdate;
 
     public MainGUI(Group root) {
         mainGUI = this;
         guiEntities = new ArrayList<>();
         this.root = root;
+        canUpdate = true;
     }
 
     public static MainGUI getInstance() {
@@ -35,6 +37,7 @@ public class MainGUI {
     }
 
     // Never called to add player
+    /*
     public void updateEntities(List<Entity> entities) {
         Platform.runLater(() -> {
             List<GUIEntity> entitiesToRemove = new ArrayList<>(guiEntities);
@@ -49,12 +52,7 @@ public class MainGUI {
             addEntity(entity);
     }
 
-    public void addEntity(Entity entity) {
-        if (entity instanceof Character)
-            addEntity(entity, ((Character) entity).getColor());
-        else
-            addEntity(entity, Color.BLACK);
-    }
+     */
 
     /*
     private void addEntity(Entity entity, String imgPath) {
@@ -65,6 +63,13 @@ public class MainGUI {
         });
     }
      */
+
+    public void addEntity(Entity entity) {
+        if (entity instanceof Character)
+            addEntity(entity, ((Character) entity).getColor());
+        else
+            addEntity(entity, Color.BLACK);
+    }
 
     private void addEntity(Entity entity, Color color) {
         Platform.runLater(() -> {
@@ -85,20 +90,24 @@ public class MainGUI {
 
     private void removeEntity(GUIEntity guiEntity) {
         if (guiEntities.contains(guiEntity)) {
+            guiEntities.remove(guiEntity);
             Platform.runLater(() -> root.getChildren().remove(guiEntity.getFxModel()));
         }
     }
 
-    public void renderRoom(Room room) {
+    public void loadRoom(Room room) {
         GUIRoom guiRoom = new GUIRoom(room);
         guiRoom.render();
 
-        Platform.runLater(() -> {
-            if (actualRoom != null)
-                root.getChildren().removeAll(actualRoom.getFxModels());
+        for (GUIEntity entity : guiEntities)
+            removeEntity(entity);
+        guiEntities.clear();
 
-            root.getChildren().addAll(guiRoom.getFxModels());
-        });
+        Platform.runLater(() -> root.getChildren().addAll(guiRoom.getFxModels()));
+        for (Entity entity : room.getEntities())
+            addEntity(entity);
+
+        addEntity(Game.getInstance().getPlayer());
 
         actualRoom = guiRoom;
     }

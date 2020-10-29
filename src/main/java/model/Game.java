@@ -151,8 +151,7 @@ public class Game implements Runnable {
 
     private void loadRoom(Room room) {
         actualRoom = room;
-        MainGUI.getInstance().renderRoom(room);
-        MainGUI.getInstance().updateEntities(actualRoom.getEntities());
+        MainGUI.getInstance().loadRoom(room);
     }
 
     private void spawnPlayer() {
