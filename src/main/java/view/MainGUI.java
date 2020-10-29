@@ -99,6 +99,7 @@ public class MainGUI {
         GUIRoom guiRoom = new GUIRoom(room);
         guiRoom.render();
 
+        List<GUIEntity> guiEntities = new ArrayList<>(this.guiEntities); // Avoid concurrent modification exception
         for (GUIEntity entity : guiEntities)
             removeEntity(entity);
         guiEntities.clear();
