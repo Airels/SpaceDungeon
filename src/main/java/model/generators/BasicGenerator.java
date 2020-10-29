@@ -114,7 +114,7 @@ public class BasicGenerator implements DungeonGenerator {
 
                     Direction wayToOpen = possibleWays[(int) (Math.random() * 4)];
                     currentRoom.addOpenedWay(wayToOpen);
-                }
+                }   // pas ouvrir chemin si presque fini de generer les salles.
             }
         }
         return rooms;
