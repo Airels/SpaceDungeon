@@ -48,8 +48,6 @@ public class Player extends Character {
     }
 
     public void moveToDoor(Direction position) {
-        System.out.println(position);
-
         switch (position) {
             case LEFT:
                 coords.setX(App.WALL_SIZE + size);
