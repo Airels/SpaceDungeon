@@ -109,6 +109,7 @@ public class BasicGenerator implements DungeonGenerator {
                }else{
                    wayToOpen=Direction.DOWN;
                }
+               currentRoom.addOpenedWay(wayToOpen);
             }
         }
         return rooms;
