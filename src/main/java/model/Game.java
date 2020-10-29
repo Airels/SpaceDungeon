@@ -83,11 +83,11 @@ public class Game implements Runnable {
                 break;
             case DOWN:
                 newRoom = rooms[x][y+1];
-                player.move(Direction.UP);
+                player.moveToDoor(Direction.UP);
                 break;
             case LEFT:
                 newRoom = rooms[x-1][y];
-                player.move(Direction.RIGHT);
+                player.moveToDoor(Direction.RIGHT);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + direction);
