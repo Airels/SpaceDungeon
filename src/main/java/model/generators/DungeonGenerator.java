@@ -9,5 +9,5 @@ import model.rooms.SimpleRoom;
 public interface DungeonGenerator {
 
     Room[][] generate();
-    Room[][] getSpawnRoom();
+    Coordinates getSpawnRoom();
 }
