@@ -50,20 +50,20 @@ public class Player extends Character {
     public void moveToDoor(Direction position) {
         switch (position) {
             case LEFT:
-                coords.setX(App.WALL_SIZE);
+                coords.setX(App.WALL_SIZE + size);
                 coords.setY(App.HEIGHT/2);
                 break;
             case UP:
                 coords.setX(App.WIDTH/2);
-                coords.setY(App.WALL_SIZE);
+                coords.setY(App.WALL_SIZE + size);
                 break;
             case RIGHT:
-                coords.setX(App.WIDTH-App.WALL_SIZE);
+                coords.setX(App.WIDTH-App.WALL_SIZE - size);
                 coords.setY(App.HEIGHT/2);
                 break;
             case DOWN:
                 coords.setX(App.WIDTH/2);
-                coords.setY(App.HEIGHT-App.WALL_SIZE);
+                coords.setY(App.HEIGHT-App.WALL_SIZE - size);
                 break;
         }
     }

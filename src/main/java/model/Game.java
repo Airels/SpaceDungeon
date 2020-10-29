@@ -151,6 +151,8 @@ public class Game implements Runnable {
     private void loadRoom(Room room) {
         actualRoom = room;
         MainGUI.getInstance().loadRoom(room);
+
+        System.out.println(actualRoom.getCoords().toString());
     }
 
     public void gameOver() {
