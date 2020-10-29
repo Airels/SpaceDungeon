@@ -164,4 +164,8 @@ public class Game implements Runnable {
         System.out.println("GAME OVER");
         System.exit(0);
     }
+
+    public Room getActualRoom() {
+        return actualRoom;
+    }
 }
