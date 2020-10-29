@@ -33,7 +33,6 @@ public class Game implements Runnable {
 
         loadRoom(rooms[0][0]);
 
-        spawnPlayer();
         loop();
     }
 
@@ -152,10 +151,6 @@ public class Game implements Runnable {
     private void loadRoom(Room room) {
         actualRoom = room;
         MainGUI.getInstance().loadRoom(room);
-    }
-
-    private void spawnPlayer() {
-        MainGUI.getInstance().addEntity(player);
     }
 
     public void gameOver() {
