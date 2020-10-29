@@ -36,6 +36,8 @@ public class App extends Application {
     public static final Color CHEST_COLOR = Color.BROWN,
             KEYS_COLOR = Color.GOLD;
 
+    public static final int DEFAULT_ENTITY_SIZE = 10;
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Space Dungeon");
