@@ -28,7 +28,7 @@ public class BasicGenerator implements DungeonGenerator {
         if(nbOfMonsterRooms + nbOfBossRoom >= maxNbOfRooms )
             this.nbOfMonsterRooms = minNbOfMonsterRooms;
 
-        int minNeededRoom = 0;
+        int minNeededRoom = 1;
 
         if(minNbOfRooms - nbOfBossRoom - nbOfMonsterRooms > 0)
             minNeededRoom = minNbOfRooms - nbOfBossRoom - nbOfMonsterRooms;
@@ -39,9 +39,9 @@ public class BasicGenerator implements DungeonGenerator {
 
     @Override
     public Room[][] generate() {
-        Room[][] rooms = new Room[nbOfRooms][nbOfRooms];
-        int bossRoomX = (int)(Math.random()*nbOfRooms);
-        int bossRoomY = (int)(Math.random()*nbOfRooms);
+        Room[][] rooms = new Room[nbOfRooms*3][nbOfRooms*3];
+        int bossRoomX = (int)(nbOfRooms + Math.random()*nbOfRooms);
+        int bossRoomY = (int)(nbOfRooms + Math.random()*nbOfRooms);
         Monster boss = new Monster(MonsterType.ALIEN);
         Direction[] possibleWays = {Direction.DOWN,Direction.LEFT,Direction.RIGHT,Direction.RIGHT,Direction.UP};
         Direction bossOpenedWay = possibleWays[(int) (Math.random()*4)];
@@ -60,56 +60,61 @@ public class BasicGenerator implements DungeonGenerator {
             for (Direction way : ways) {
                 int roomType = (int) (Math.random() * 2); // result 0 or 1 -> 0: SimpleRoom / 1: MonsterRoom
 
-
                 if (way == Direction.DOWN && rooms[currentX][currentY + 1] == null) {
                     if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
-                        rooms[currentX][currentY + 1] = new SimpleRoom(new Coordinates(currentX, currentY + 1));
+                        rooms[currentX][currentY + 1] =
+                                new SimpleRoom(new Coordinates(currentX, currentY + 1),Direction.UP);
                         simpleRooms.add(rooms[currentX][currentY+1]);
                     } else {
-                        rooms[currentX][currentY + 1] = new MonsterRoom(new Coordinates(currentX, currentY + 1));
+                        rooms[currentX][currentY + 1] =
+                                new MonsterRoom(new Coordinates(currentX, currentY + 1),Direction.UP);
                     }
                     currentY += 1;
                 }
 
                 if (way == Direction.UP && rooms[currentX][currentY - 1] == null) {
                     if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
-                        rooms[currentX][currentY - 1] = new SimpleRoom(new Coordinates(currentX, currentY - 1));
+                        rooms[currentX][currentY - 1] =
+                                new SimpleRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
                         simpleRooms.add(rooms[currentX][currentY-1]);
                     } else {
-                        rooms[currentX][currentY - 1] = new MonsterRoom(new Coordinates(currentX, currentY - 1));
+                        rooms[currentX][currentY - 1] =
+                                new MonsterRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
                     }
                     currentY -= 1;
                 }
 
                 if (way == Direction.RIGHT && rooms[currentX + 1][currentY] == null) {
                     if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
-                        rooms[currentX + 1][currentY] = new SimpleRoom(new Coordinates(currentX + 1, currentY));
+                        rooms[currentX + 1][currentY] =
+                                new SimpleRoom(new Coordinates(currentX + 1, currentY),Direction.LEFT);
                         simpleRooms.add(rooms[currentX+1][currentY]);
                     } else {
-                        rooms[currentX + 1][currentY] = new MonsterRoom(new Coordinates(currentX + 1, currentY));
+                        rooms[currentX + 1][currentY] =
+                                new MonsterRoom(new Coordinates(currentX + 1, currentY),Direction.LEFT);
                     }
                     currentX += 1;
                 }
 
                 if (way == Direction.LEFT && rooms[currentX - 1][currentY] == null) {
                     if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
-                        rooms[currentX - 1][currentY] = new SimpleRoom(new Coordinates(currentX - 1, currentY));
+                        rooms[currentX - 1][currentY] =
+                                new SimpleRoom(new Coordinates(currentX - 1, currentY),Direction.RIGHT);
                         simpleRooms.add(rooms[currentX-1][currentY]);
                     } else {
-                        rooms[currentX - 1][currentY] = new MonsterRoom(new Coordinates(currentX - 1, currentY));
+                        rooms[currentX - 1][currentY] =
+                                new MonsterRoom(new Coordinates(currentX - 1, currentY),Direction.RIGHT);
                     }
                     currentX -= 1;
                 }
             }
             currentRoom = rooms[currentX][currentY];
             if(currentRoom.getOpenedWays().size() == 1){
-               Direction wayToOpen = possibleWays[(int)(Math.random()*4)];
-               if(currentRoom.getOpenedWays().contains(wayToOpen) && wayToOpen != Direction.UP) {
-                   wayToOpen = Direction.UP;
-               }else{
-                   wayToOpen=Direction.DOWN;
-               }
-               currentRoom.addOpenedWay(wayToOpen);
+                for (int j = 0; j < (int) (Math.random()*3) ; j++) {
+
+                    Direction wayToOpen = possibleWays[(int) (Math.random() * 4)];
+                    currentRoom.addOpenedWay(wayToOpen);
+                }
             }
         }
         return rooms;
