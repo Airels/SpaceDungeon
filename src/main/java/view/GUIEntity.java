@@ -1,6 +1,5 @@
 package view;
 
-import controller.App;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -30,7 +29,6 @@ class GUIEntity implements GUIObject {
         else if (entity instanceof Monster)
             shape = new Circle(coords.getX(), coords.getY(), App.PLAYER_SIZE, Color.RED);
     }
-
      */
 
     public GUIEntity(Entity entity, Color color) {
@@ -38,6 +36,7 @@ class GUIEntity implements GUIObject {
         this.img = null;
 
         Coordinates coords = entity.getCoords();
+
         shape = new Circle(coords.getX(), coords.getY(), entity.getSize(), color);
     }
 
