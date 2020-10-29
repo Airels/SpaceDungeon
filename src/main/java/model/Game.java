@@ -149,6 +149,10 @@ public class Game implements Runnable {
         actualRoom.getEntities().remove(entity);
     }
 
+    public void reloadRoom() {
+        loadRoom(actualRoom);
+    }
+
     private void loadRoom(Room room) {
         actualRoom = room;
         MainGUI.getInstance().loadRoom(room);

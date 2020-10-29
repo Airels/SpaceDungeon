@@ -82,10 +82,12 @@ public class Player extends Character {
 
         // DOORS ACTION
         if (Room.isNearFromDoor(this)){
-            Room room = Game.getInstance().getActualRoom();
+            Game game = Game.getInstance();
+            Room room = game.getActualRoom();
 
             Direction doorToOpen = Room.directionFromNearestDoor(this);
             room.removeDoorWay(doorToOpen);
+            game.reloadRoom();
         }
     }
 
