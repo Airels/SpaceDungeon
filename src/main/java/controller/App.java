@@ -13,24 +13,26 @@ import model.entities.characters.PlayerType;
 import view.MainGUI;
 
 public class App extends Application {
-    public static final double WIDTH = 800,
-                                HEIGHT = 600;
+    public static final double
+            WIDTH = 800,
+            HEIGHT = 600;
 
-    // Please, do not touch at references
-    public static final double WIDTH_REFERENCE = 800,
-                                HEIGHT_REFERENCE = 600;
+    // Please, do not touch at these references
+    public static final double
+            WIDTH_REFERENCE = 800,
+            HEIGHT_REFERENCE = 600;
 
     public static final int FPS = 60;
 
-    public static final Color BACKGROUND_COLOR = Color.DARKGRAY;
-    public static final Color WALL_COLOR = Color.LIGHTGRAY;
+    public static final Color BACKGROUND_COLOR = Color.DARKGRAY,
+            WALL_COLOR = Color.LIGHTGRAY,
+            DOOR_COLOR = Color.GOLD;
     public static final int WALL_SIZE = 20;
-    public static final int PLAYER_SIZE = 20;
 
     public static final int MONSTER_AI_LATENCY_MS = 250;
 
     public static final Color CHEST_COLOR = Color.BROWN,
-                                KEYS_COLOR = Color.GOLD;
+            KEYS_COLOR = Color.GOLD;
 
     @Override
     public void start(Stage primaryStage) {
