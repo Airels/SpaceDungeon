@@ -11,7 +11,11 @@ public class TestGenerator implements DungeonGenerator {
         Room[][] rooms = new Room[2][2];
 
         rooms[0][0] = new SimpleRoom(new Coordinates(0, 0), Direction.RIGHT);
-        rooms[1][0] = new SimpleRoom(new Coordinates(1, 0), Direction.LEFT);
+        rooms[1][0] = new SimpleRoom(new Coordinates(1, 0), Direction.LEFT, Direction.DOWN);
+
+        rooms[1][0].addDoorWay(Direction.DOWN);
+
+        rooms[1][1] = new SimpleRoom(new Coordinates(1, 1), Direction.UP);
 
         return rooms;
     }
