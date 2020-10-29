@@ -5,6 +5,7 @@ import model.entities.Entity;
 import model.entities.characters.Character;
 import model.entities.characters.Player;
 import model.entities.characters.monsters.Monster;
+import model.generators.DungeonGenerator;
 import model.rooms.Room;
 import view.MainGUI;
 
