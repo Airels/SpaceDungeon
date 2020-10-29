@@ -41,6 +41,6 @@ public abstract class Entity {
 
     @Override
     public String toString() {
-        return name;
+        return (name == null) ? "Unnamed entity" : name;
     }
 }

@@ -19,6 +19,7 @@ public class Chest extends Entity {
     public Chest(Coordinates coords, List<Item> items) {
         this.coords = coords;
         this.items = items;
+        this.name = "Chest";
     }
 
     public void openChest(){
