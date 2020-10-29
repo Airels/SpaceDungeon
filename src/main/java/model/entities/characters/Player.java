@@ -106,8 +106,9 @@ public class Player extends Character {
         // CHANGEMENT DE SALLE
         if (Room.isNearFromDoor(this)){
             Game game = Game.getInstance();
-            Set<Direction> doorWays = game.getActualRoom().getDoorWays();
-            if(doorWays.contains(Room.directionFromNearestDoor(this)))
+            Set<Direction> doorWays = game.getActualRoom().getOpenedWays();
+
+            if (doorWays.contains(Room.directionFromNearestDoor(this)))
                 game.nextRoom(Room.directionFromNearestDoor(this));
         }
     }
