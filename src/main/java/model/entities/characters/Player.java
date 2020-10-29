@@ -10,6 +10,7 @@ import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
 import model.items.Item;
+import model.items.Key;
 import model.rooms.Room;
 
 import java.util.ArrayList;
@@ -84,10 +85,21 @@ public class Player extends Character {
         if (Room.isNearFromDoor(this)){
             Game game = Game.getInstance();
             Room room = game.getActualRoom();
+            boolean hasKey = false;
 
-            Direction doorToOpen = Room.directionFromNearestDoor(this);
-            room.removeDoorWay(doorToOpen);
-            game.reloadRoom();
+            for (Item item : inventory) {
+                if (item instanceof Key) {
+                    inventory.remove(item);
+                    hasKey = true;
+                    break;
+                }
+            }
+
+            if (hasKey) {
+                Direction doorToOpen = Room.directionFromNearestDoor(this);
+                room.removeDoorWay(doorToOpen);
+                game.reloadRoom();
+            }
         }
     }
 
@@ -124,10 +136,12 @@ public class Player extends Character {
         // CHANGEMENT DE SALLE
         if (Room.isNearFromWay(this)){
             Game game = Game.getInstance();
-            Set<Direction> doorWays = game.getActualRoom().getOpenedWays();
+            Set<Direction> ways = game.getActualRoom().getOpenedWays();
+            Set<Direction> doorWays = game.getActualRoom().getDoorWays();
+            Direction directionFromNearestWay = Room.directionFromNearestWay(this);
 
-            if (doorWays.contains(Room.directionFromNearestWay(this)))
-                game.nextRoom(Room.directionFromNearestWay(this));
+            if (ways.contains(directionFromNearestWay) && !doorWays.contains(directionFromNearestWay))
+                game.nextRoom(directionFromNearestWay);
         }
     }
 }
