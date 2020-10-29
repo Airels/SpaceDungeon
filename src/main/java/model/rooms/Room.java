@@ -3,6 +3,7 @@ package model.rooms;
 import controller.App;
 import model.Coordinates;
 import model.Direction;
+import model.Game;
 import model.entities.Entity;
 import model.entities.characters.Player;
 
@@ -29,11 +30,11 @@ public interface Room {
 
     void generate();
 
-    static boolean isNearFromDoor(Player player) {
-        return !(directionFromNearestDoor(player) == null);
+    static boolean isNearFromWay(Player player) {
+        return !(directionFromNearestWay(player) == null);
     }
 
-    static Direction directionFromNearestDoor(Player player) {
+    static Direction directionFromNearestWay(Player player) {
         Coordinates coords = player.getCoords();
 
         if (coords.getDistance(getTopWayCoordinates()) < player.getActionRange())
@@ -44,6 +45,40 @@ public interface Room {
             return Direction.DOWN;
         if (coords.getDistance(getRightWayCoordinates()) < player.getActionRange())
             return Direction.RIGHT;
+
+        return null;
+    }
+
+    static boolean isNearFromDoor(Player player) {
+        return !(directionFromNearestDoor(player) == null);
+    }
+
+    static Direction directionFromNearestDoor(Player player) {
+        Coordinates coords = player.getCoords();
+        Set<Direction> waysClosedByDoor = Game.getInstance().getActualRoom().getDoorWays();
+
+        for (Direction wayClosedByDoor : waysClosedByDoor) {
+            switch (wayClosedByDoor) {
+                case UP:
+                    if (coords.getDistance(getTopWayCoordinates()) < player.getActionRange())
+                        return Direction.UP;
+                    break;
+                case DOWN:
+                    if (coords.getDistance(getDownWayCoordinates()) < player.getActionRange())
+                        return Direction.DOWN;
+                    break;
+                case LEFT:
+                    if (coords.getDistance(getLeftWayCoordinates()) < player.getActionRange())
+                        return Direction.LEFT;
+                    break;
+                case RIGHT:
+                    if (coords.getDistance(getRightWayCoordinates()) < player.getActionRange())
+                        return Direction.RIGHT;
+                    break;
+                default:
+                    throw new RuntimeException("Unhandled direction: " + wayClosedByDoor);
+            }
+        }
 
         return null;
     }
