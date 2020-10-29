@@ -6,6 +6,7 @@ import model.entities.characters.Character;
 import model.entities.characters.Player;
 import model.entities.characters.monsters.Monster;
 import model.generators.DungeonGenerator;
+import model.generators.TestGenerator;
 import model.rooms.Room;
 import view.MainGUI;
 
@@ -30,9 +31,11 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        rooms = DungeonGenerator.generate();
+        DungeonGenerator generator = new TestGenerator();
+        rooms = generator.generate();
+        Coordinates spawnRoom = generator.getSpawnRoom();
 
-        loadRoom(rooms[0][0]);
+        loadRoom(rooms[(int) spawnRoom.getX()][(int) spawnRoom.getY()]);
 
         loop();
     }
