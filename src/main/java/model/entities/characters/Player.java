@@ -13,6 +13,7 @@ import model.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Player extends Character {
 
@@ -103,7 +104,11 @@ public class Player extends Character {
         super.move(direction);
 
         // CHANGEMENT DE SALLE
-        if (Room.isNearFromDoor(this))
-            Game.getInstance().nextRoom(Room.directionFromNearestDoor(this));
+        if (Room.isNearFromDoor(this)){
+            Game game = Game.getInstance();
+            Set<Direction> doorWays = game.getActualRoom().getDoorWays();
+            if(doorWays.contains(Room.directionFromNearestDoor(this)))
+                game.nextRoom(Room.directionFromNearestDoor(this));
+        }
     }
 }
