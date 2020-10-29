@@ -43,7 +43,7 @@ public class BasicGenerator implements DungeonGenerator {
         int bossRoomX = (int)(nbOfRooms + Math.random()*nbOfRooms);
         int bossRoomY = (int)(nbOfRooms + Math.random()*nbOfRooms);
         Monster boss = new Monster(MonsterType.ALIEN);
-        Direction[] possibleWays = {Direction.DOWN,Direction.LEFT,Direction.RIGHT,Direction.RIGHT,Direction.UP};
+        Direction[] possibleWays = {Direction.DOWN,Direction.LEFT,Direction.RIGHT,Direction.UP};
         Direction bossOpenedWay = possibleWays[(int) (Math.random()*4)];
 
         rooms[bossRoomX][bossRoomY] = new BossRoom(new Coordinates(bossRoomX,bossRoomY),boss,bossOpenedWay);
