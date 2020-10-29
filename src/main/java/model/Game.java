@@ -76,28 +76,35 @@ public class Game implements Runnable {
         int y = (int) actualRoom.getCoords().getY();
         Room newRoom;
 
-        switch (direction) {
-            case UP:
-                newRoom = rooms[x][y-1];
-                player.moveToDoor(Direction.DOWN);
-                break;
-            case RIGHT:
-                newRoom = rooms[x+1][y];
-                player.moveToDoor(Direction.LEFT);
-                break;
-            case DOWN:
-                newRoom = rooms[x][y+1];
-                player.moveToDoor(Direction.UP);
-                break;
-            case LEFT:
-                newRoom = rooms[x-1][y];
-                player.moveToDoor(Direction.RIGHT);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + direction);
-        }
+        try {
+            switch (direction) {
+                case UP:
+                    newRoom = rooms[x][y-1];
+                    player.moveToDoor(Direction.DOWN);
+                    break;
+                case RIGHT:
+                    newRoom = rooms[x+1][y];
+                    player.moveToDoor(Direction.LEFT);
+                    break;
+                case DOWN:
+                    newRoom = rooms[x][y+1];
+                    player.moveToDoor(Direction.UP);
+                    break;
+                case LEFT:
+                    newRoom = rooms[x-1][y];
+                    player.moveToDoor(Direction.RIGHT);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + direction);
+            }
 
-        loadRoom(newRoom);
+            loadRoom(newRoom);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.print("Index Out Of Bounds: Did you assigned coordinates correctly ? ");
+            System.err.println("Actual coords: " + x + ", " + y + " (might be wrong, check your generator)");
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
     public static Game getInstance() {
