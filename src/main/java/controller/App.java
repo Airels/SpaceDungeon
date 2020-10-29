@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import model.Game;
 import model.entities.characters.Player;
 import model.entities.characters.PlayerType;
+import model.generators.DungeonGenerator;
+import model.generators.TestGenerator;
 import view.MainGUI;
 
 public class App extends Application {
