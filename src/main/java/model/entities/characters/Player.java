@@ -6,6 +6,7 @@ import model.Coordinates;
 import model.Fight;
 import model.Game;
 import model.Direction;
+import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
 import model.items.Item;
@@ -70,7 +71,22 @@ public class Player extends Character {
 
     @Override
     public void action() {
+        // ENTITIES ACTION
+        List<Entity> closestEntities = Game.getInstance().closestEntities(this);
 
+        for (Entity entity : closestEntities) {
+            if (entity instanceof Chest) {
+                ((Chest) entity).openChest(); return;
+            }
+        }
+
+        // DOORS ACTION
+        if (Room.isNearFromDoor(this)){
+            Room room = Game.getInstance().getActualRoom();
+
+            Direction doorToOpen = Room.directionFromNearestDoor(this);
+            room.removeDoorWay(doorToOpen);
+        }
     }
 
     @Override
@@ -104,12 +120,12 @@ public class Player extends Character {
         super.move(direction);
 
         // CHANGEMENT DE SALLE
-        if (Room.isNearFromDoor(this)){
+        if (Room.isNearFromWay(this)){
             Game game = Game.getInstance();
             Set<Direction> doorWays = game.getActualRoom().getOpenedWays();
 
-            if (doorWays.contains(Room.directionFromNearestDoor(this)))
-                game.nextRoom(Room.directionFromNearestDoor(this));
+            if (doorWays.contains(Room.directionFromNearestWay(this)))
+                game.nextRoom(Room.directionFromNearestWay(this));
         }
     }
 }
