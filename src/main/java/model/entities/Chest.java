@@ -22,9 +22,14 @@ public class Chest extends Entity {
     }
 
     public void openChest(){
+        System.out.println("Chest picked up");
+
         Game game = Game.getInstance();
         Player player = game.getPlayer();
 
         player.getInventory().addAll(items);
+
+        game.deleteEntity(this);
+        game.reloadRoom();
     }
 }
