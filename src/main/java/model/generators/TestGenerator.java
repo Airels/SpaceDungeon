@@ -27,8 +27,11 @@ public class TestGenerator implements DungeonGenerator {
         room.getEntities().add(chest);
         rooms[1][0] = room;
 
-        rooms[1][1] = new SimpleRoom(new Coordinates(1, 1), Direction.UP, Direction.DOWN);
+        rooms[1][1] = new SimpleRoom(new Coordinates(1, 1), Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT);
+        rooms[1][1].addDoorWay(Direction.UP);
         rooms[1][1].addDoorWay(Direction.DOWN);
+        rooms[1][1].addDoorWay(Direction.LEFT);
+        rooms[1][1].addDoorWay(Direction.RIGHT);
 
         return rooms;
     }
