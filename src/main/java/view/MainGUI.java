@@ -95,7 +95,7 @@ public class MainGUI {
         GUIEntity guiEntity = new GUIEntity(entity, color);
         guiEntities.add(guiEntity);
 
-        Platform.runLater(() -> root.getChildren().add(guiEntity.getFxModel()));
+        Platform.runLater(() -> root.getChildren().addAll(guiEntity.getFxModels()));
     }
 
     public void removeEntity(Entity entity) {
@@ -110,7 +110,7 @@ public class MainGUI {
     private void removeEntity(GUIEntity guiEntity) {
         if (guiEntities.contains(guiEntity)) {
             guiEntities.remove(guiEntity);
-            Platform.runLater(() -> root.getChildren().remove(guiEntity.getFxModel()));
+            Platform.runLater(() -> root.getChildren().removeAll(guiEntity.getFxModels()));
         }
     }
 

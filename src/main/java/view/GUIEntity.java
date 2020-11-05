@@ -6,30 +6,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Coordinates;
 import model.entities.Entity;
+import model.entities.characters.Character;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 class GUIEntity implements GUIObject {
     private Entity entity;
     private Image img;
     private Circle shape;
-
-    /*
-    public GUIEntity(Entity entity, String imgPath) {
-        this.entity = entity;
-        this.img = null;
-
-        Coordinates coords = entity.getCoords();
-
-        // TODO : Temporaire
-        if (entity instanceof Player)
-            shape = new Circle(coords.getX(), coords.getY(), ((Player) entity).getSize(), Color.GREEN);
-        else if (entity instanceof Monster)
-            shape = new Circle(coords.getX(), coords.getY(), App.PLAYER_SIZE, Color.RED);
-    }
-     */
+    private HealthBar healthBar;
 
     GUIEntity(Entity entity, Color color) {
         this.entity = entity;
@@ -38,6 +23,9 @@ class GUIEntity implements GUIObject {
         Coordinates coords = entity.getCoords();
 
         shape = new Circle(coords.getX(), coords.getY(), entity.getSize(), color);
+
+        if (entity instanceof Character)
+            healthBar = new HealthBar((Character) entity);
     }
 
     public Node getFxModel() {
@@ -46,7 +34,10 @@ class GUIEntity implements GUIObject {
 
     @Override
     public List<Node> getFxModels() {
-        return new ArrayList<>(Collections.singletonList(shape));
+        if (healthBar == null)
+            return new ArrayList<>(Collections.singletonList(shape));
+
+        return new ArrayList<>(Arrays.asList(shape, healthBar.getFxModel()));
     }
 
     protected Entity getEntity() {
@@ -59,6 +50,8 @@ class GUIEntity implements GUIObject {
 
         shape.setCenterX(coords.getX());
         shape.setCenterY(coords.getY());
+
+        if (healthBar != null) healthBar.render();
 
         // TODO : Effet de fluidité à corriger plus tard
         /*
