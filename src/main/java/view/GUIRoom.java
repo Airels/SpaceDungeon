@@ -108,7 +108,7 @@ public class GUIRoom implements GUIObject {
 
     @Override
     public Node getFxModel() {
-        throw new IllegalCallerException("There is multiple fx nodes, call getFxModels() instead");
+        throw new UnsupportedOperationException("There is multiple fx nodes, call getFxModels() instead");
     }
 
     @Override
