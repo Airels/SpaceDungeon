@@ -17,6 +17,7 @@ public class GUINotification implements GUIObject {
     GUINotification(String message, int duration) {
         text = new Text(message);
         text.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
+        text.setTextAlignment(TextAlignment.CENTER);
 
         this.duration = duration;
         creationTime = System.currentTimeMillis();
@@ -28,7 +29,7 @@ public class GUINotification implements GUIObject {
         Coordinates playerCoords = Game.getInstance().getPlayer().getCoords();
 
         text.setX(playerCoords.getX() - text.getLayoutBounds().getWidth()/2);
-        text.setY(playerCoords.getY() - App.NOTIFICATION_MARGIN_WITH_PLAYER);
+        text.setY(playerCoords.getY() - App.NOTIFICATION_MARGIN - text.getLayoutBounds().getHeight());
     }
 
     @Override
