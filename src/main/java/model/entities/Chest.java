@@ -5,6 +5,7 @@ import model.Coordinates;
 import model.Game;
 import model.entities.characters.Player;
 import model.items.Item;
+import view.MainGUI;
 
 import java.util.List;
 
@@ -32,5 +33,13 @@ public class Chest extends Entity {
 
         game.deleteEntity(this);
         game.reloadRoom();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("You opened a chest, you got :");
+
+        for (Item item : items)
+            stringBuilder.append("\n- ").append(item.name());
+
+        game.showNotification(stringBuilder.toString());
     }
 }

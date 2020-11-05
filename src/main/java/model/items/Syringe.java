@@ -34,6 +34,11 @@ public class Syringe implements Item {
 
     }
 
+    @Override
+    public String name() {
+        return "Syringe";
+    }
+
     public void use(){
         Player player = Game.getInstance().getPlayer();
         player.heal((int) (player.getMaxHealth()*healPercentage + player.getHealthPoints()));

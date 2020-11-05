@@ -7,4 +7,9 @@ public class Key implements Item {
     public void action() {
 
     }
+
+    @Override
+    public String name() {
+        return "Key";
+    }
 }

@@ -33,4 +33,9 @@ public class StrengthPotion implements Item {
 
         player.addStrength(strBonus);
     }
+
+    @Override
+    public String name() {
+        return "Potion of Strength";
+    }
 }

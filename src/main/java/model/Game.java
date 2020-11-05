@@ -207,4 +207,12 @@ public class Game implements Runnable {
 
         reloadRoom();
     }
+
+    public void showNotification(String message) {
+        showNotification(message, App.DEFAULT_NOTIFICATION_DURATION);
+    }
+
+    public void showNotification(String message, int duration) {
+        MainGUI.getInstance().showNotification(message, duration);
+    }
 }
