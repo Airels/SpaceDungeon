@@ -15,6 +15,7 @@ public class JavaFXController {
                 case Q: case A: case LEFT:  player.move(Direction.LEFT);  break;
                 case S:         case DOWN:  player.move(Direction.DOWN);  break;
                 case D:         case RIGHT: player.move(Direction.RIGHT); break;
+                case E: player.action(); break;
             }
         };
     }
