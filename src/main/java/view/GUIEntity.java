@@ -31,7 +31,7 @@ class GUIEntity implements GUIObject {
     }
      */
 
-    public GUIEntity(Entity entity, Color color) {
+    GUIEntity(Entity entity, Color color) {
         this.entity = entity;
         this.img = null;
 
