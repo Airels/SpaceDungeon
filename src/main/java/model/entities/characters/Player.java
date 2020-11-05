@@ -97,8 +97,7 @@ public class Player extends Character {
 
             if (hasKey) {
                 Direction doorToOpen = Room.directionFromNearestDoor(this);
-                room.removeDoorWay(doorToOpen);
-                game.reloadRoom();
+                game.openDoor(doorToOpen);
             }
         }
     }
@@ -141,7 +140,7 @@ public class Player extends Character {
             Direction directionFromNearestWay = Room.directionFromNearestWay(this);
 
             if (ways.contains(directionFromNearestWay) && !doorWays.contains(directionFromNearestWay))
-                game.nextRoom(directionFromNearestWay);
+                game.loadNextRoom(directionFromNearestWay);
         }
     }
 }

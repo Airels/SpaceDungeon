@@ -71,7 +71,11 @@ public class Game implements Runnable {
         }
     }
 
-    public void nextRoom(Direction direction) {
+    public Room getActualRoom() {
+        return actualRoom;
+    }
+
+    public Room getNextRoom(Direction direction) {
         int x = (int) actualRoom.getCoords().getX();
         int y = (int) actualRoom.getCoords().getY();
         Room newRoom;
@@ -80,31 +84,50 @@ public class Game implements Runnable {
             switch (direction) {
                 case UP:
                     newRoom = rooms[x][y-1];
-                    player.moveToDoor(Direction.DOWN);
                     break;
                 case RIGHT:
                     newRoom = rooms[x+1][y];
-                    player.moveToDoor(Direction.LEFT);
                     break;
                 case DOWN:
                     newRoom = rooms[x][y+1];
-                    player.moveToDoor(Direction.UP);
                     break;
                 case LEFT:
                     newRoom = rooms[x-1][y];
-                    player.moveToDoor(Direction.RIGHT);
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + direction);
+                    throw new IllegalArgumentException("Unexpected value: " + direction);
             }
 
-            loadRoom(newRoom);
+            return newRoom;
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.print("Index Out Of Bounds: Did you assigned coordinates correctly ? ");
             System.err.println("Actual coords: " + x + ", " + y + " (might be wrong, check your generator)");
             e.printStackTrace();
             System.exit(1);
         }
+
+        return null;
+    }
+
+    public void loadNextRoom(Direction direction) {
+        switch (direction) {
+            case UP:
+                player.moveToDoor(Direction.DOWN);
+                break;
+            case RIGHT:
+                player.moveToDoor(Direction.LEFT);
+                break;
+            case DOWN:
+                player.moveToDoor(Direction.UP);
+                break;
+            case LEFT:
+                player.moveToDoor(Direction.RIGHT);
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected value: " + direction);
+        }
+
+        loadRoom(getNextRoom(direction));
     }
 
     public static Game getInstance() {
@@ -174,7 +197,12 @@ public class Game implements Runnable {
         System.exit(0);
     }
 
-    public Room getActualRoom() {
-        return actualRoom;
+    public void openDoor(Direction direction) {
+        Room nextRoom = getNextRoom(direction);
+
+        actualRoom.removeDoorWay(direction);
+        nextRoom.removeDoorWay(direction.reverse());
+
+        reloadRoom();
     }
 }
