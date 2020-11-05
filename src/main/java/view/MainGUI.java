@@ -21,13 +21,12 @@ public class MainGUI {
     private final Group root;
     private GUIRoom actualRoom;
     private final List<GUIEntity> guiEntities;
-    private boolean canUpdate;
+    private GUINotification notification;
 
     public MainGUI(Group root) {
         mainGUI = this;
         guiEntities = new ArrayList<>();
         this.root = root;
-        canUpdate = true;
     }
 
     public static MainGUI getInstance() {
@@ -39,6 +38,13 @@ public class MainGUI {
 
         for (GUIEntity entity : guiEntities)
             entity.render();
+
+        if (notification != null) {
+            notification.render();
+
+            if (notification.expired())
+                removeNotification();
+        }
     }
 
     // Never called to add player
@@ -122,5 +128,20 @@ public class MainGUI {
         addEntity(Game.getInstance().getPlayer());
 
         actualRoom = guiRoom;
+    }
+
+    public void createNotification(String message) {
+        createNotification(message, App.DEFAULT_NOTIFICATION_DURATION);
+    }
+
+    public void createNotification(String message, int duration) {
+        GUINotification notification = new GUINotification(message, duration);
+        this.notification = notification;
+        Platform.runLater(() -> root.getChildren().add(notification.getFxModel()));
+    }
+
+    void removeNotification() {
+        GUINotification notification = this.notification;
+        Platform.runLater(() -> root.getChildren().remove(notification.getFxModel()));
     }
 }

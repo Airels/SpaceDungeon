@@ -38,6 +38,12 @@ public class App extends Application {
 
     public static final int DEFAULT_ENTITY_SIZE = 10;
 
+    public static final int DEFAULT_NOTIFICATION_DURATION = 500,
+        NOTIFICATION_MARGIN_WITH_PLAYER = 30,
+        NOTIFICATION_FONT_SIZE = 15;
+    public static final String NOTIFICATION_FONT_FAMILY = "verdana";
+
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Space Dungeon");
