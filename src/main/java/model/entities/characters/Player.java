@@ -98,6 +98,8 @@ public class Player extends Character {
             if (hasKey) {
                 Direction doorToOpen = Room.directionFromNearestDoor(this);
                 game.openDoor(doorToOpen);
+            } else {
+                game.showNotification("You must get a key to open this door !");
             }
         }
     }
