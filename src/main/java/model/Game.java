@@ -37,7 +37,7 @@ public class Game implements Runnable {
 
         loadRoom(rooms[(int) spawnRoom.getX()][(int) spawnRoom.getY()]);
 
-        MainGUI.getInstance().createNotification("Find the exit!\nOr you will die!\nBecause you are noob", 3000);
+        MainGUI.getInstance().showNotification("Find the exit!\nOr you will die!\nBecause you are noob", 3000);
 
         loop();
     }

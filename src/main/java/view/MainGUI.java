@@ -130,11 +130,11 @@ public class MainGUI {
         actualRoom = guiRoom;
     }
 
-    public void createNotification(String message) {
-        createNotification(message, App.DEFAULT_NOTIFICATION_DURATION);
+    public void showNotification(String message) {
+        showNotification(message, App.DEFAULT_NOTIFICATION_DURATION);
     }
 
-    public void createNotification(String message, int duration) {
+    public void showNotification(String message, int duration) {
         GUINotification notification = new GUINotification(message, duration);
         this.notification = notification;
         Platform.runLater(() -> root.getChildren().add(notification.getFxModel()));
