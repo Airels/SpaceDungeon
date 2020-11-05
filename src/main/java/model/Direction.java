@@ -24,4 +24,23 @@ public enum Direction {
     public double getY() {
         return coordinates.getY();
     }
+
+    public Direction reverse() {
+        switch (this) {
+            case UP:
+                return DOWN;
+            case DOWN:
+                return UP;
+            case LEFT:
+                return RIGHT;
+            case RIGHT:
+                return LEFT;
+            default:
+                throw new IllegalStateException("Unknown direction " + this.toString());
+        }
+    }
+
+    public static Direction reverse(Direction direction) {
+        return direction.reverse();
+    }
 }
