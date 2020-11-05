@@ -206,6 +206,8 @@ public class Game implements Runnable {
         nextRoom.removeDoorWay(direction.reverse());
 
         reloadRoom();
+
+        showNotification("You opened a door!");
     }
 
     public void showNotification(String message) {
