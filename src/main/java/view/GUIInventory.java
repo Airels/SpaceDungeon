@@ -11,11 +11,6 @@ public class GUIInventory implements GUIObject {
     }
 
     @Override
-    public Node getFxModel() {
-        return null;
-    }
-
-    @Override
     public List<Node> getFxModels() {
         return null;
     }

@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface GUIObject {
     void render();
-    Node getFxModel();
     List<Node> getFxModels();
 }

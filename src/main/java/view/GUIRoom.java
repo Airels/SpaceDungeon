@@ -107,11 +107,6 @@ public class GUIRoom implements GUIObject {
     }
 
     @Override
-    public Node getFxModel() {
-        throw new UnsupportedOperationException("There is multiple fx nodes, call getFxModels() instead");
-    }
-
-    @Override
     public List<Node> getFxModels() {
         return rectangles;
     }

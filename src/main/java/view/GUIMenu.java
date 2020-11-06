@@ -11,11 +11,6 @@ public class GUIMenu implements GUIObject {
     }
 
     @Override
-    public Node getFxModel() {
-        return null;
-    }
-
-    @Override
     public List<Node> getFxModels() {
         return null;
     }

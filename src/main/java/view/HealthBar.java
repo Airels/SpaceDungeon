@@ -32,11 +32,6 @@ public class HealthBar implements GUIObject {
     }
 
     @Override
-    public Node getFxModel() {
-        return healthBar;
-    }
-
-    @Override
     public List<Node> getFxModels() {
         return Collections.singletonList(healthBar);
     }

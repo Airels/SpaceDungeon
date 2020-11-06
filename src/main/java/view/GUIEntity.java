@@ -28,16 +28,16 @@ class GUIEntity implements GUIObject {
             healthBar = new HealthBar((Character) entity);
     }
 
-    public Node getFxModel() {
-        return shape;
-    }
-
     @Override
     public List<Node> getFxModels() {
         if (healthBar == null)
             return new ArrayList<>(Collections.singletonList(shape));
 
-        return new ArrayList<>(Arrays.asList(shape, healthBar.getFxModel()));
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(shape);
+        nodes.addAll(healthBar.getFxModels());
+
+        return nodes;
     }
 
     protected Entity getEntity() {
