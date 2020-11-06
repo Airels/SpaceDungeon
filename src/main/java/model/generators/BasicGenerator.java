@@ -15,26 +15,28 @@ import java.util.Set;
 
 public class BasicGenerator implements DungeonGenerator {
 
+    private static final int MINIMUM_NEEDED_SIMPLE_ROOM = 1;
+
     private int nbOfRooms;
     private int nbOfMonsterRooms;
     private final int nbOfBossRoom = 1;
     private List<Room> simpleRooms = new ArrayList<>();
 
-    public BasicGenerator(int minNbOfRooms, int maxNbOfRooms, int minNbOfMonsterRooms){
-        if(minNbOfMonsterRooms + nbOfBossRoom >= maxNbOfRooms)
+    public BasicGenerator(int minNbOfSimpleRoom, int maxNbOfRooms, int minNbOfMonsterRooms){
+        int minNeededSimpleRoom = MINIMUM_NEEDED_SIMPLE_ROOM;
+
+        if(minNbOfMonsterRooms + nbOfBossRoom + minNeededSimpleRoom >= maxNbOfRooms)
             throw new IllegalArgumentException();
 
         this.nbOfMonsterRooms = (int) (minNbOfMonsterRooms + Math.random()*3);
-        if(nbOfMonsterRooms + nbOfBossRoom >= maxNbOfRooms )
+        if(nbOfMonsterRooms + nbOfBossRoom + minNeededSimpleRoom >= maxNbOfRooms )
             this.nbOfMonsterRooms = minNbOfMonsterRooms;
 
-        int minNeededRoom = 1;
+        if(minNbOfSimpleRoom - nbOfBossRoom - nbOfMonsterRooms + minNeededSimpleRoom > 0)
+            minNeededSimpleRoom = minNbOfSimpleRoom - nbOfBossRoom - nbOfMonsterRooms;
 
-        if(minNbOfRooms - nbOfBossRoom - nbOfMonsterRooms > 0)
-            minNeededRoom = minNbOfRooms - nbOfBossRoom - nbOfMonsterRooms;
-
-        int maxAddedRoom = maxNbOfRooms - (minNeededRoom + nbOfMonsterRooms + nbOfBossRoom);
-        this.nbOfRooms = (int) (minNeededRoom + nbOfMonsterRooms + nbOfBossRoom + Math.random()*(maxAddedRoom+1));
+        int maxAddedRoom = maxNbOfRooms - (minNeededSimpleRoom + nbOfMonsterRooms + nbOfBossRoom);
+        this.nbOfRooms = (int) (minNeededSimpleRoom + nbOfMonsterRooms + nbOfBossRoom + Math.random()*(maxAddedRoom+1));
     }
 
     @Override
@@ -55,21 +57,28 @@ public class BasicGenerator implements DungeonGenerator {
         int nbOfSimpleRoomRemaining = nbOfRooms - nbOfMonsterRooms - nbOfBossRoom;
 
 
-        for (int i = 0; i < nbOfRooms ; i++) {
+        for (int i = 0; i < nbOfRooms-1 ; i++) {
             Set<Direction> ways = currentRoom.getOpenedWays();
             for (Direction way : ways) {
                 int roomType = (int) (Math.random() * 2); // result 0 or 1 -> 0: SimpleRoom / 1: MonsterRoom
 
                 if (way == Direction.DOWN && rooms[currentX][currentY + 1] == null) {
-                    if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
+                    if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX][currentY + 1] =
                                 new SimpleRoom(new Coordinates(currentX, currentY + 1),Direction.UP);
                         simpleRooms.add(rooms[currentX][currentY+1]);
-                    } else {
+
+                        nbOfSimpleRoomRemaining--;
+                        currentY++;
+                    } else if (roomType == 1 && nbOfMonsterRoomRemaining > 0) {
                         rooms[currentX][currentY + 1] =
                                 new MonsterRoom(new Coordinates(currentX, currentY + 1),Direction.UP);
+
+                        nbOfMonsterRoomRemaining--;
+                        currentY++;
+                    } else {
+                        currentRoom.removeDoorWay(Direction.DOWN);
                     }
-                    currentY += 1;
                 }
 
                 if (way == Direction.UP && rooms[currentX][currentY - 1] == null) {
@@ -77,10 +86,15 @@ public class BasicGenerator implements DungeonGenerator {
                         rooms[currentX][currentY - 1] =
                                 new SimpleRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
                         simpleRooms.add(rooms[currentX][currentY-1]);
+
+                        nbOfSimpleRoomRemaining--;
                     } else {
                         rooms[currentX][currentY - 1] =
                                 new MonsterRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
+
+                        nbOfMonsterRoomRemaining--;
                     }
+
                     currentY -= 1;
                 }
 
@@ -89,10 +103,15 @@ public class BasicGenerator implements DungeonGenerator {
                         rooms[currentX + 1][currentY] =
                                 new SimpleRoom(new Coordinates(currentX + 1, currentY),Direction.LEFT);
                         simpleRooms.add(rooms[currentX+1][currentY]);
+
+                        nbOfSimpleRoomRemaining--;
                     } else {
                         rooms[currentX + 1][currentY] =
                                 new MonsterRoom(new Coordinates(currentX + 1, currentY),Direction.LEFT);
+
+                        nbOfMonsterRoomRemaining--;
                     }
+
                     currentX += 1;
                 }
 
@@ -101,22 +120,29 @@ public class BasicGenerator implements DungeonGenerator {
                         rooms[currentX - 1][currentY] =
                                 new SimpleRoom(new Coordinates(currentX - 1, currentY),Direction.RIGHT);
                         simpleRooms.add(rooms[currentX-1][currentY]);
+
+                        nbOfSimpleRoomRemaining--;
                     } else {
                         rooms[currentX - 1][currentY] =
                                 new MonsterRoom(new Coordinates(currentX - 1, currentY),Direction.RIGHT);
+
+                        nbOfMonsterRoomRemaining--;
                     }
+
                     currentX -= 1;
                 }
             }
+
+
             currentRoom = rooms[currentX][currentY];
             if(currentRoom.getOpenedWays().size() == 1){
-                for (int j = 0; j < (int) (Math.random()*3) ; j++) {
-
+                for (int j = 0; j < (int) (Math.random()*4) ; j++) {
                     Direction wayToOpen = possibleWays[(int) (Math.random() * 4)];
                     currentRoom.addOpenedWay(wayToOpen);
                 }   // pas ouvrir chemin si presque fini de generer les salles.
             }
         }
+
         return rooms;
     }
 
