@@ -140,11 +140,21 @@ public class BasicGenerator implements DungeonGenerator {
 
 
             currentRoom = rooms[currentX][currentY];
-            if(currentRoom.getOpenedWays().size() == 1){
-                for (int j = 0; j < (int) (Math.random()*4) ; j++) {
-                    Direction wayToOpen = possibleWays[(int) (Math.random() * 4)];
-                    currentRoom.addOpenedWay(wayToOpen);
-                }   // pas ouvrir chemin si presque fini de generer les salles.
+            if (nbOfSimpleRoomRemaining + nbOfMonsterRoomRemaining < nbOfRooms - nbOfBossRoom) {
+                if (currentRoom.getOpenedWays().size() < 4) {
+                    for (int j = 0; j < (int) (Math.random()*4) ; j++) {
+                        Direction wayToOpen = possibleWays[(int) (Math.random() * 4)];
+                        currentRoom.addOpenedWay(wayToOpen);
+                    }
+                } else {
+                    int random =(int) (Math.random()*4);
+                    switch (random) {
+                        case 0: currentX++; break;
+                        case 1: currentX--; break;
+                        case 2: currentY++; break;
+                        case 3: currentY--; break;
+                    }
+                }
             }
         }
 
