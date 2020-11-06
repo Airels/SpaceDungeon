@@ -34,7 +34,7 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        DungeonGenerator generator = new BasicGenerator(10, 20, 5);
+        DungeonGenerator generator = new BasicGenerator(3, 5, 1);
         rooms = generator.generate();
 
         loadRoom(generator.getSpawnRoom());
@@ -192,6 +192,8 @@ public class Game implements Runnable {
 
     private void loadRoom(Room room) {
         try {
+            System.out.println(room.getCoords());
+
             actualRoom = room;
             MainGUI.getInstance().loadRoom(room);
 
