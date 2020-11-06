@@ -14,9 +14,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class TestGenerator implements DungeonGenerator {
+    private Room[][] rooms;
+
     @Override
     public Room[][] generate() {
-        Room[][] rooms = new Room[2][2];
+        rooms = new Room[2][2];
 
         rooms[0][0] = new SimpleRoom(new Coordinates(0, 0), Direction.RIGHT, Direction.DOWN);
         rooms[0][1] = new MonsterRoom(new Coordinates(0, 1), Direction.UP);
@@ -37,7 +39,7 @@ public class TestGenerator implements DungeonGenerator {
     }
 
     @Override
-    public Coordinates getSpawnRoom() {
-        return new Coordinates(0, 0);
+    public Room getSpawnRoom() {
+        return rooms[0][0];
     }
 }

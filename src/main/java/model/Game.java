@@ -34,9 +34,8 @@ public class Game implements Runnable {
     public void run() {
         DungeonGenerator generator = new BasicGenerator(10,30,5);
         rooms = generator.generate();
-        Coordinates spawnRoom = generator.getSpawnRoom();
 
-        loadRoom(rooms[(int) spawnRoom.getX()][(int) spawnRoom.getY()]);
+        loadRoom(generator.getSpawnRoom());
 
         MainGUI.getInstance().showNotification("Find the exit!\nOr you will die!\nBecause you are noob", 3000);
 
