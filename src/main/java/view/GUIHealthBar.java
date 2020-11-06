@@ -10,11 +10,11 @@ import model.entities.characters.Character;
 import java.util.Collections;
 import java.util.List;
 
-public class HealthBar implements GUIObject {
+public class GUIHealthBar implements GUIObject {
     private Character character;
     private ProgressBar healthBar;
 
-    HealthBar(Character character) {
+    GUIHealthBar(Character character) {
         this.character = character;
         healthBar = new ProgressBar();
 

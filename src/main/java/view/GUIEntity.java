@@ -14,7 +14,7 @@ class GUIEntity implements GUIObject {
     private Entity entity;
     private Image img;
     private Circle shape;
-    private HealthBar healthBar;
+    private GUIHealthBar GUIHealthBar;
 
     GUIEntity(Entity entity, Color color) {
         this.entity = entity;
@@ -25,17 +25,17 @@ class GUIEntity implements GUIObject {
         shape = new Circle(coords.getX(), coords.getY(), entity.getSize(), color);
 
         if (entity instanceof Character)
-            healthBar = new HealthBar((Character) entity);
+            GUIHealthBar = new GUIHealthBar((Character) entity);
     }
 
     @Override
     public List<Node> getFxModels() {
-        if (healthBar == null)
+        if (GUIHealthBar == null)
             return new ArrayList<>(Collections.singletonList(shape));
 
         List<Node> nodes = new ArrayList<>();
         nodes.add(shape);
-        nodes.addAll(healthBar.getFxModels());
+        nodes.addAll(GUIHealthBar.getFxModels());
 
         return nodes;
     }
@@ -51,7 +51,7 @@ class GUIEntity implements GUIObject {
         shape.setCenterX(coords.getX());
         shape.setCenterY(coords.getY());
 
-        if (healthBar != null) healthBar.render();
+        if (GUIHealthBar != null) GUIHealthBar.render();
 
         // TODO : Effet de fluidité à corriger plus tard
         /*
