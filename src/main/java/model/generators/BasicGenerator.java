@@ -82,20 +82,22 @@ public class BasicGenerator implements DungeonGenerator {
                 }
 
                 if (way == Direction.UP && rooms[currentX][currentY - 1] == null) {
-                    if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
+                    if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX][currentY - 1] =
                                 new SimpleRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
                         simpleRooms.add(rooms[currentX][currentY-1]);
 
                         nbOfSimpleRoomRemaining--;
-                    } else {
+                        currentY--;
+                    } else if (roomType == 1 && nbOfMonsterRoomRemaining > 0) {
                         rooms[currentX][currentY - 1] =
                                 new MonsterRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
 
                         nbOfMonsterRoomRemaining--;
+                        currentY--;
+                    } else {
+                        currentRoom.removeDoorWay(Direction.UP);
                     }
-
-                    currentY -= 1;
                 }
 
                 if (way == Direction.RIGHT && rooms[currentX + 1][currentY] == null) {
