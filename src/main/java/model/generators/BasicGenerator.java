@@ -22,7 +22,7 @@ public class BasicGenerator implements DungeonGenerator {
     private final int nbOfBossRoom = 1;
     private List<Room> simpleRooms = new ArrayList<>();
 
-    public BasicGenerator(int minNbOfSimpleRoom, int maxNbOfRooms, int minNbOfMonsterRooms){
+    public BasicGenerator(int minNbOfRooms, int maxNbOfRooms, int minNbOfMonsterRooms){
         int minNeededSimpleRoom = MINIMUM_NEEDED_SIMPLE_ROOM;
 
         if(minNbOfMonsterRooms + nbOfBossRoom + minNeededSimpleRoom >= maxNbOfRooms)
@@ -32,8 +32,8 @@ public class BasicGenerator implements DungeonGenerator {
         if(nbOfMonsterRooms + nbOfBossRoom + minNeededSimpleRoom >= maxNbOfRooms )
             this.nbOfMonsterRooms = minNbOfMonsterRooms;
 
-        if(minNbOfSimpleRoom - nbOfBossRoom - nbOfMonsterRooms + minNeededSimpleRoom > 0)
-            minNeededSimpleRoom = minNbOfSimpleRoom - nbOfBossRoom - nbOfMonsterRooms;
+        if(minNbOfRooms - nbOfBossRoom - nbOfMonsterRooms + minNeededSimpleRoom > 0)
+            minNeededSimpleRoom = minNbOfRooms - nbOfBossRoom - nbOfMonsterRooms;
 
         int maxAddedRoom = maxNbOfRooms - (minNeededSimpleRoom + nbOfMonsterRooms + nbOfBossRoom);
         this.nbOfRooms = (int) (minNeededSimpleRoom + nbOfMonsterRooms + nbOfBossRoom + Math.random()*(maxAddedRoom+1));
@@ -42,8 +42,8 @@ public class BasicGenerator implements DungeonGenerator {
     @Override
     public Room[][] generate() {
         Room[][] rooms = new Room[nbOfRooms*3][nbOfRooms*3];
-        int bossRoomX = (int)(nbOfRooms + Math.random()*nbOfRooms);
-        int bossRoomY = (int)(nbOfRooms + Math.random()*nbOfRooms);
+        int bossRoomX = nbOfRooms + nbOfRooms/2;
+        int bossRoomY = nbOfRooms + nbOfRooms/2;
         Monster boss = new Monster(MonsterType.ALIEN);
         Direction[] possibleWays = {Direction.DOWN,Direction.LEFT,Direction.RIGHT,Direction.UP};
         Direction bossOpenedWay = possibleWays[(int) (Math.random()*4)];
@@ -62,7 +62,7 @@ public class BasicGenerator implements DungeonGenerator {
             for (Direction way : ways) {
                 int roomType = (int) (Math.random() * 2); // result 0 or 1 -> 0: SimpleRoom / 1: MonsterRoom
 
-                if (way == Direction.DOWN && rooms[currentX][currentY + 1] == null) {
+                if (way.equals(Direction.DOWN) && rooms[currentX][currentY + 1] == null) {
                     if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX][currentY + 1] =
                                 new SimpleRoom(new Coordinates(currentX, currentY + 1),Direction.UP);
@@ -81,24 +81,26 @@ public class BasicGenerator implements DungeonGenerator {
                     }
                 }
 
-                if (way == Direction.UP && rooms[currentX][currentY - 1] == null) {
-                    if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
+                if (way.equals(Direction.UP) && rooms[currentX][currentY - 1] == null) {
+                    if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX][currentY - 1] =
                                 new SimpleRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
                         simpleRooms.add(rooms[currentX][currentY-1]);
 
                         nbOfSimpleRoomRemaining--;
-                    } else {
+                        currentY--;
+                    } else if (roomType == 1 && nbOfMonsterRoomRemaining > 0) {
                         rooms[currentX][currentY - 1] =
                                 new MonsterRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
 
                         nbOfMonsterRoomRemaining--;
+                        currentY--;
+                    } else {
+                        currentRoom.removeDoorWay(Direction.UP);
                     }
-
-                    currentY -= 1;
                 }
 
-                if (way == Direction.RIGHT && rooms[currentX + 1][currentY] == null) {
+                if (way.equals(Direction.RIGHT) && rooms[currentX + 1][currentY] == null) {
                     if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX + 1][currentY] =
                                 new SimpleRoom(new Coordinates(currentX + 1, currentY), Direction.LEFT);
@@ -117,7 +119,7 @@ public class BasicGenerator implements DungeonGenerator {
                     }
                 }
 
-                if (way == Direction.LEFT && rooms[currentX - 1][currentY] == null) {
+                if (way.equals(Direction.LEFT) && rooms[currentX - 1][currentY] == null) {
                     if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX - 1][currentY] =
                                 new SimpleRoom(new Coordinates(currentX - 1, currentY), Direction.RIGHT);
@@ -135,19 +137,18 @@ public class BasicGenerator implements DungeonGenerator {
                         currentRoom.removeDoorWay(Direction.LEFT);
                     }
                 }
-
             }
 
 
             currentRoom = rooms[currentX][currentY];
             if (nbOfSimpleRoomRemaining + nbOfMonsterRoomRemaining < nbOfRooms - nbOfBossRoom) {
-                if (currentRoom.getOpenedWays().size() < 4) {
+                if (currentRoom.getOpenedWays().size() < 2) {
                     for (int j = 0; j < (int) (Math.random()*4) ; j++) {
                         Direction wayToOpen = possibleWays[(int) (Math.random() * 4)];
                         currentRoom.addOpenedWay(wayToOpen);
                     }
                 } else {
-                    int random =(int) (Math.random()*4);
+                    int random = (int) (Math.random()*4);
                     switch (random) {
                         case 0: currentX++; break;
                         case 1: currentX--; break;
@@ -164,24 +165,38 @@ public class BasicGenerator implements DungeonGenerator {
 
                 if (currentRoom == null) continue;
 
-                Room targetRoom = null;
+                Room targetRoom;
 
                 for (Direction way : currentRoom.getOpenedWays()) {
                     switch (way) {
-                        case UP: targetRoom = rooms[x][y - 1]; break;
-                        case DOWN: targetRoom = rooms[x][y + 1]; break;
-                        case LEFT: targetRoom = rooms[x - 1][y]; break;
+                        case UP:    targetRoom = rooms[x][y - 1]; break;
+                        case DOWN:  targetRoom = rooms[x][y + 1]; break;
+                        case LEFT:  targetRoom = rooms[x - 1][y]; break;
                         case RIGHT: targetRoom = rooms[x + 1][y]; break;
+                        default:    targetRoom = null;
                     }
 
                     if (targetRoom == null) {
                         currentRoom.removeDoorWay(way);
                     } else if (!targetRoom.getOpenedWays().contains(way)) {
-                        targetRoom.addOpenedWay(way);
+                        targetRoom.addOpenedWay(way.reverse());
                     }
                 }
             }
         }
+
+        for (int y = 0; y < rooms.length; y++) {
+            for (int x = 0; x < rooms.length; x++) {
+                System.out.print("[" + ((rooms[x][y] == null) ? 0 : 1) + "]");
+            }
+
+            System.out.println();
+        }
+
+
+        // TODO : A supprimer quand le débug sera terminé
+        Room bossRoom = rooms[bossRoomX][bossRoomY];
+        // bossRoom.getOpenedWays().clear();
 
         return rooms;
     }

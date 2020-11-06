@@ -33,11 +33,6 @@ public class GUINotification implements GUIObject {
     }
 
     @Override
-    public Node getFxModel() {
-        return text;
-    }
-
-    @Override
     public List<Node> getFxModels() {
         return Collections.singletonList(text);
     }

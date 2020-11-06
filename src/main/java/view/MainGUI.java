@@ -139,13 +139,13 @@ public class MainGUI {
 
         GUINotification notification = new GUINotification(message, duration);
         this.notification = notification;
-        Platform.runLater(() -> root.getChildren().add(notification.getFxModel()));
+        Platform.runLater(() -> root.getChildren().addAll(notification.getFxModels()));
     }
 
     void removeNotification() {
         GUINotification notification = this.notification;
 
         if (notification != null)
-            Platform.runLater(() -> root.getChildren().remove(notification.getFxModel()));
+            Platform.runLater(() -> root.getChildren().removeAll(notification.getFxModels()));
     }
 }

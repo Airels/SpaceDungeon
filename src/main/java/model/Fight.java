@@ -1,6 +1,7 @@
 package model;
 
 import model.entities.characters.Character;
+import model.entities.characters.Player;
 
 public class Fight {
     private final Character attacker;
@@ -12,6 +13,8 @@ public class Fight {
     }
 
     public void doAttack() {
+        if (target.getCoords().getDistance(attacker.getCoords()) > attacker.getActionRange()) return;
+
         target.doDamages(attacker.getStrength());
 
         double distanceX = target.getCoords().getX() - attacker.getCoords().getX();
