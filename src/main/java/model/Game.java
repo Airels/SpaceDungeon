@@ -1,10 +1,12 @@
 package model;
 
 import controller.App;
+import exceptions.RoomNotGeneratedException;
 import model.entities.Entity;
 import model.entities.characters.Character;
 import model.entities.characters.Player;
 import model.entities.characters.monsters.Monster;
+import model.generators.BasicGenerator;
 import model.generators.DungeonGenerator;
 import model.generators.TestGenerator;
 import model.rooms.Room;
@@ -31,7 +33,7 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        DungeonGenerator generator = new TestGenerator();
+        DungeonGenerator generator = new BasicGenerator(10, 20, 5);
         rooms = generator.generate();
 
         loadRoom(generator.getSpawnRoom());
@@ -188,8 +190,12 @@ public class Game implements Runnable {
     }
 
     private void loadRoom(Room room) {
-        actualRoom = room;
-        MainGUI.getInstance().loadRoom(room);
+        try {
+            actualRoom = room;
+            MainGUI.getInstance().loadRoom(room);
+        } catch (NullPointerException e) {
+            throw new RoomNotGeneratedException("The room you try to load doesn't exist!");
+        }
     }
 
     public void gameOver() {
