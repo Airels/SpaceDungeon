@@ -44,6 +44,11 @@ public class MonsterRoom implements Room {
     }
 
     @Override
+    public void loadedEvent() {
+
+    }
+
+    @Override
     public List<Entity> getEntities() {
         return entities;
     }

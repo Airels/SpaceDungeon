@@ -14,6 +14,8 @@ public interface Room {
 
     Coordinates getCoords();
 
+    void loadedEvent();
+
     List<Entity> getEntities();
 
     Set<Direction> getOpenedWays();

@@ -40,7 +40,7 @@ public class Game implements Runnable {
 
         loadRoom(generator.getSpawnRoom());
 
-        MainGUI.getInstance().showNotification("Find the exit!\nOr you will die!\nBecause you are noob", 3000);
+        MainGUI.getInstance().showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
 
         loop();
     }
@@ -196,14 +196,21 @@ public class Game implements Runnable {
 
         actualRoom = room;
         MainGUI.getInstance().loadRoom(room);
-
-        if (actualRoom instanceof BossRoom)
-            MainGUI.getInstance().showNotification("Defeat the Boss!");
+        room.loadedEvent();
     }
 
     public void gameOver() {
         // TODO : A implémenter
         System.out.println("GAME OVER");
+
+        MainGUI.getInstance().showNotification("YOU DIED\nGAME OVER", 5000);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.exit(0);
     }
 
