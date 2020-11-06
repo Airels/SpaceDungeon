@@ -99,37 +99,41 @@ public class BasicGenerator implements DungeonGenerator {
                 }
 
                 if (way == Direction.RIGHT && rooms[currentX + 1][currentY] == null) {
-                    if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
+                    if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX + 1][currentY] =
-                                new SimpleRoom(new Coordinates(currentX + 1, currentY),Direction.LEFT);
-                        simpleRooms.add(rooms[currentX+1][currentY]);
+                                new SimpleRoom(new Coordinates(currentX + 1, currentY), Direction.LEFT);
+                        simpleRooms.add(rooms[currentX + 1][currentY]);
 
                         nbOfSimpleRoomRemaining--;
-                    } else {
+                        currentX--;
+                    } else if (roomType == 1 && nbOfMonsterRoomRemaining > 0) {
                         rooms[currentX + 1][currentY] =
-                                new MonsterRoom(new Coordinates(currentX + 1, currentY),Direction.LEFT);
+                                new MonsterRoom(new Coordinates(currentX + 1, currentY), Direction.LEFT);
 
                         nbOfMonsterRoomRemaining--;
+                        currentX--;
+                    } else {
+                        currentRoom.removeDoorWay(Direction.RIGHT);
                     }
-
-                    currentX += 1;
                 }
 
                 if (way == Direction.LEFT && rooms[currentX - 1][currentY] == null) {
-                    if (nbOfSimpleRoomRemaining != 0 && (roomType == 0 || nbOfMonsterRoomRemaining == 0)) {
+                    if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX - 1][currentY] =
-                                new SimpleRoom(new Coordinates(currentX - 1, currentY),Direction.RIGHT);
-                        simpleRooms.add(rooms[currentX-1][currentY]);
+                                new SimpleRoom(new Coordinates(currentX - 1, currentY), Direction.RIGHT);
+                        simpleRooms.add(rooms[currentX - 1][currentY]);
 
                         nbOfSimpleRoomRemaining--;
-                    } else {
+                        currentX--;
+                    } else if (roomType == 1 && nbOfMonsterRoomRemaining > 0) {
                         rooms[currentX - 1][currentY] =
-                                new MonsterRoom(new Coordinates(currentX - 1, currentY),Direction.RIGHT);
+                                new MonsterRoom(new Coordinates(currentX - 1, currentY), Direction.RIGHT);
 
                         nbOfMonsterRoomRemaining--;
+                        currentX--;
+                    } else {
+                        currentRoom.removeDoorWay(Direction.LEFT);
                     }
-
-                    currentX -= 1;
                 }
             }
 
