@@ -9,6 +9,7 @@ import model.entities.characters.monsters.Monster;
 import model.generators.BasicGenerator;
 import model.generators.DungeonGenerator;
 import model.generators.TestGenerator;
+import model.rooms.BossRoom;
 import model.rooms.Room;
 import view.MainGUI;
 
@@ -193,6 +194,9 @@ public class Game implements Runnable {
         try {
             actualRoom = room;
             MainGUI.getInstance().loadRoom(room);
+
+            if (actualRoom instanceof BossRoom)
+                MainGUI.getInstance().showNotification("Defeat the Boss!");
         } catch (NullPointerException e) {
             throw new RoomNotGeneratedException("The room you try to load doesn't exist!");
         }
