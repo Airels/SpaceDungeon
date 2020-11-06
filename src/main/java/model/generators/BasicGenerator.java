@@ -135,6 +135,7 @@ public class BasicGenerator implements DungeonGenerator {
                         currentRoom.removeDoorWay(Direction.LEFT);
                     }
                 }
+
             }
 
 
