@@ -62,7 +62,7 @@ public class BasicGenerator implements DungeonGenerator {
             for (Direction way : ways) {
                 int roomType = (int) (Math.random() * 2); // result 0 or 1 -> 0: SimpleRoom / 1: MonsterRoom
 
-                if (way == Direction.DOWN && rooms[currentX][currentY + 1] == null) {
+                if (way.equals(Direction.DOWN) && rooms[currentX][currentY + 1] == null) {
                     if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX][currentY + 1] =
                                 new SimpleRoom(new Coordinates(currentX, currentY + 1),Direction.UP);
@@ -81,7 +81,7 @@ public class BasicGenerator implements DungeonGenerator {
                     }
                 }
 
-                if (way == Direction.UP && rooms[currentX][currentY - 1] == null) {
+                if (way.equals(Direction.UP) && rooms[currentX][currentY - 1] == null) {
                     if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX][currentY - 1] =
                                 new SimpleRoom(new Coordinates(currentX, currentY - 1),Direction.DOWN);
@@ -100,7 +100,7 @@ public class BasicGenerator implements DungeonGenerator {
                     }
                 }
 
-                if (way == Direction.RIGHT && rooms[currentX + 1][currentY] == null) {
+                if (way.equals(Direction.RIGHT) && rooms[currentX + 1][currentY] == null) {
                     if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX + 1][currentY] =
                                 new SimpleRoom(new Coordinates(currentX + 1, currentY), Direction.LEFT);
@@ -119,7 +119,7 @@ public class BasicGenerator implements DungeonGenerator {
                     }
                 }
 
-                if (way == Direction.LEFT && rooms[currentX - 1][currentY] == null) {
+                if (way.equals(Direction.LEFT) && rooms[currentX - 1][currentY] == null) {
                     if (roomType == 0 && nbOfSimpleRoomRemaining > 0) {
                         rooms[currentX - 1][currentY] =
                                 new SimpleRoom(new Coordinates(currentX - 1, currentY), Direction.RIGHT);
