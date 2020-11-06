@@ -107,13 +107,13 @@ public class BasicGenerator implements DungeonGenerator {
                         simpleRooms.add(rooms[currentX + 1][currentY]);
 
                         nbOfSimpleRoomRemaining--;
-                        currentX--;
+                        currentX++;
                     } else if (roomType == 1 && nbOfMonsterRoomRemaining > 0) {
                         rooms[currentX + 1][currentY] =
                                 new MonsterRoom(new Coordinates(currentX + 1, currentY), Direction.LEFT);
 
                         nbOfMonsterRoomRemaining--;
-                        currentX--;
+                        currentX++;
                     } else {
                         currentRoom.removeDoorWay(Direction.RIGHT);
                     }
