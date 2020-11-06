@@ -43,6 +43,10 @@ public class Monster extends Character {
         this.color = color;
     }
 
+    public static Monster newInstance(MonsterType monsterType) {
+        return new Monster(monsterType);
+    }
+
     @Override
     public void action() {
 

@@ -72,4 +72,8 @@ public enum MonsterType {
 
         return MonsterType.values()[value];
     }
+
+    public static Monster newInstance(MonsterType monsterType) {
+        return new Monster(monsterType);
+    }
 }
