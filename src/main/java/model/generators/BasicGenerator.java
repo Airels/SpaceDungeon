@@ -163,9 +163,8 @@ public class BasicGenerator implements DungeonGenerator {
     }
 
     @Override
-    public Coordinates getSpawnRoom() {
-        Room spawnRoom = simpleRooms.get((int)(Math.random()*simpleRooms.size()));
-        return spawnRoom.getCoords();
+    public Room getSpawnRoom() {
+        return simpleRooms.get((int)(Math.random()*simpleRooms.size()));
     }
 
 
