@@ -192,17 +192,13 @@ public class Game implements Runnable {
     }
 
     private void loadRoom(Room room) {
-        try {
-            System.out.println(room.getCoords());
+        if (room == null) throw new RoomNotGeneratedException("The room you try to load don't exist");
 
-            actualRoom = room;
-            MainGUI.getInstance().loadRoom(room);
+        actualRoom = room;
+        MainGUI.getInstance().loadRoom(room);
 
-            if (actualRoom instanceof BossRoom)
-                MainGUI.getInstance().showNotification("Defeat the Boss!");
-        } catch (NullPointerException e) {
-            throw new RoomNotGeneratedException("The room you try to load doesn't exist!");
-        }
+        if (actualRoom instanceof BossRoom)
+            MainGUI.getInstance().showNotification("Defeat the Boss!");
     }
 
     public void gameOver() {

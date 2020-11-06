@@ -16,7 +16,7 @@ public class MonsterBuilder implements Builder<Monster> {
             strength = 10,
             actionRange = (int) size;
 
-    private Coordinates coords;
+    private Coordinates coords = new Coordinates(100, 100);
     private String name;
 
     public MonsterBuilder(String name) {
@@ -31,7 +31,6 @@ public class MonsterBuilder implements Builder<Monster> {
 
     public MonsterBuilder setCoords(Coordinates coords) {
         this.coords = coords;
-
         return this;
     }
 
@@ -91,9 +90,6 @@ public class MonsterBuilder implements Builder<Monster> {
 
     @Override
     public Monster build() {
-        if (coords == null)
-            coords = new Coordinates(100, 100);
-
         return new Monster(coords, name, healPoints, strength, speed, monsterAI, size, color);
     }
 
