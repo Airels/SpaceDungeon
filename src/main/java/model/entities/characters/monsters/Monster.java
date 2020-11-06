@@ -52,10 +52,8 @@ public class Monster extends Character {
     public void attack() {
         Player player = Game.getInstance().getPlayer();
 
-        if (player.getCoords().getDistance(this.coords) <= actionRange) {
-            Fight fight = new Fight(this, player);
-            fight.doAttack();
-        }
+        Fight fight = new Fight(this, player);
+        fight.doAttack();
     }
 
     @Override
