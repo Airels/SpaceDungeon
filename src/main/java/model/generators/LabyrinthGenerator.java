@@ -168,13 +168,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
 
     @Override
     public Room getSpawnRoom() {
-        Room room;
-
-        do {
-            room = simpleRooms.get((int) (Math.random()*simpleRooms.size()));
-        } while (room.getOpenedWays().size() == 0);
-
-        return room;
+        return simpleRooms.get((int) (Math.random()*simpleRooms.size()));
     }
 
 
@@ -184,6 +178,35 @@ public class LabyrinthGenerator implements DungeonGenerator {
 
         public static RoomType getRandomRoomType() {
             return (Math.random()*2 < 1) ? SIMPLE_ROOM : MONSTER_ROOM;
+        }
+    }
+
+    class SetOfRooms {
+        private Set<Room> rooms;
+
+        SetOfRooms(Room room) {
+            rooms = new HashSet<>(Collections.singleton(room));
+        }
+
+        public boolean contains(Room room) {
+            return rooms.contains(room);
+        }
+
+        public Room randomRoom() {
+            Iterator<Room> it = rooms.iterator();
+            int index = (int) (Math.random()*rooms.size());
+
+            for (int i = 0; i < index; i++) {
+                if (i == index) return it.next();
+
+                it.next();
+            }
+
+            return null;
+        }
+
+        public void merge(SetOfRooms set) {
+            rooms.addAll(set.rooms);
         }
     }
 }
