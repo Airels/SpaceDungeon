@@ -62,9 +62,9 @@ public class LabyrinthGenerator implements DungeonGenerator {
             for (int y = 0; y < nbOfRooms; y++) {
 
                 nbOfRoomsRemaining = nbOfSimpleRoomsRemaining + nbOfMonsterRoomsRemaining;
-                int roomType =(int) (Math.random()*2); // 0 :simpleRoom  1:MonsterRoom
+                RoomType roomType = RoomType.getRandomRoomType();
 
-                if (roomType == 0 && rooms[x][y] == null && nbOfRoomsRemaining != 0){
+                if (roomType == RoomType.SIMPLE_ROOM && rooms[x][y] == null && nbOfRoomsRemaining != 0){
                     if(nbOfSimpleRoomsRemaining != 0){
                         rooms[x][y] = new SimpleRoom(new Coordinates(x,y));
                         nbOfSimpleRoomsRemaining--;
@@ -74,7 +74,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
                         nbOfMonsterRoomsRemaining--;
                     }
 
-                } else if (roomType == 1 && rooms[x][y] == null && nbOfRoomsRemaining != 0){
+                } else if (roomType == RoomType.MONSTER_ROOM && rooms[x][y] == null && nbOfRoomsRemaining != 0){
                     if(nbOfMonsterRoomsRemaining != 0){
                         rooms[x][y] = new MonsterRoom(new Coordinates(x,y));
                         nbOfMonsterRoomsRemaining--;
@@ -182,8 +182,8 @@ public class LabyrinthGenerator implements DungeonGenerator {
         SIMPLE_ROOM,
         MONSTER_ROOM;
 
-        public static RoomType getRandomRoom() {
-            return SIMPLE_ROOM;
+        public static RoomType getRandomRoomType() {
+            return (Math.random()*2 < 1) ? SIMPLE_ROOM : MONSTER_ROOM;
         }
     }
 }
