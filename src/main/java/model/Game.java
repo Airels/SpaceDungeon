@@ -5,6 +5,7 @@ import model.entities.Entity;
 import model.entities.characters.Character;
 import model.entities.characters.Player;
 import model.entities.characters.monsters.Monster;
+import model.generators.BasicGenerator;
 import model.generators.DungeonGenerator;
 import model.generators.TestGenerator;
 import model.rooms.Room;
@@ -31,7 +32,7 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        DungeonGenerator generator = new TestGenerator();
+        DungeonGenerator generator = new BasicGenerator(10,30,5);
         rooms = generator.generate();
         Coordinates spawnRoom = generator.getSpawnRoom();
 
