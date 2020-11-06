@@ -42,8 +42,8 @@ public class BasicGenerator implements DungeonGenerator {
     @Override
     public Room[][] generate() {
         Room[][] rooms = new Room[nbOfRooms*3][nbOfRooms*3];
-        int bossRoomX = nbOfRooms/2;
-        int bossRoomY = nbOfRooms/2;
+        int bossRoomX = nbOfRooms + nbOfRooms/2;
+        int bossRoomY = nbOfRooms + nbOfRooms/2;
         Monster boss = new Monster(MonsterType.ALIEN);
         Direction[] possibleWays = {Direction.DOWN,Direction.LEFT,Direction.RIGHT,Direction.UP};
         Direction bossOpenedWay = possibleWays[(int) (Math.random()*4)];
@@ -163,18 +163,17 @@ public class BasicGenerator implements DungeonGenerator {
             for (int y = 0; y < rooms.length; y++) {
                 currentRoom = rooms[x][y];
 
-                System.out.print("[" + ((currentRoom == null) ? 0 : 1) + "]");
-
                 if (currentRoom == null) continue;
 
-                Room targetRoom = null;
+                Room targetRoom;
 
                 for (Direction way : currentRoom.getOpenedWays()) {
                     switch (way) {
-                        case UP: targetRoom = rooms[x][y - 1]; break;
-                        case DOWN: targetRoom = rooms[x][y + 1]; break;
-                        case LEFT: targetRoom = rooms[x - 1][y]; break;
+                        case UP:    targetRoom = rooms[x][y - 1]; break;
+                        case DOWN:  targetRoom = rooms[x][y + 1]; break;
+                        case LEFT:  targetRoom = rooms[x - 1][y]; break;
                         case RIGHT: targetRoom = rooms[x + 1][y]; break;
+                        default:    targetRoom = null;
                     }
 
                     if (targetRoom == null) {
@@ -183,6 +182,12 @@ public class BasicGenerator implements DungeonGenerator {
                         targetRoom.addOpenedWay(way.reverse());
                     }
                 }
+            }
+        }
+
+        for (int y = 0; y < rooms.length; y++) {
+            for (int x = 0; x < rooms.length; x++) {
+                System.out.print("[" + ((rooms[x][y] == null) ? 0 : 1) + "]");
             }
 
             System.out.println();
