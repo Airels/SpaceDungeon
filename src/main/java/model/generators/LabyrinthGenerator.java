@@ -56,7 +56,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
 
         int bossX = (int) (Math.random()*nbOfRooms);
         int bossY = (int) (Math.random()*nbOfRooms);
-        rooms[bossX][bossY] = new BossRoom(new Coordinates(bossX,bossY), Monster.newInstance(MonsterType.ALIEN));
+        rooms[bossX][bossY] = new BossRoom(new Coordinates(bossX,bossY), new Monster(MonsterType.ALIEN));
 
         for (int x = 0; x < nbOfRooms; x++) {
             for (int y = 0; y < nbOfRooms; y++) {
