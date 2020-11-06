@@ -158,6 +158,31 @@ public class BasicGenerator implements DungeonGenerator {
             }
         }
 
+        for (int x = 0; x < rooms.length; x++) {
+            for (int y = 0; y < rooms.length; y++) {
+                currentRoom = rooms[x][y];
+
+                if (currentRoom == null) continue;
+
+                Room targetRoom = null;
+
+                for (Direction way : currentRoom.getOpenedWays()) {
+                    switch (way) {
+                        case UP: targetRoom = rooms[x][y - 1]; break;
+                        case DOWN: targetRoom = rooms[x][y + 1]; break;
+                        case LEFT: targetRoom = rooms[x - 1][y]; break;
+                        case RIGHT: targetRoom = rooms[x + 1][y]; break;
+                    }
+
+                    if (targetRoom == null) {
+                        currentRoom.removeDoorWay(way);
+                    } else if (!targetRoom.getOpenedWays().contains(way)) {
+                        targetRoom.addOpenedWay(way);
+                    }
+                }
+            }
+        }
+
         return rooms;
     }
 
