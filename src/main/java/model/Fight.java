@@ -1,7 +1,6 @@
 package model;
 
 import model.entities.characters.Character;
-import model.entities.characters.Player;
 
 public class Fight {
     private final Character attacker;

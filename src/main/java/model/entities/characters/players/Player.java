@@ -1,4 +1,4 @@
-package model.entities.characters;
+package model.entities.characters.players;
 
 import controller.App;
 import javafx.scene.paint.Color;
@@ -8,7 +8,9 @@ import model.Game;
 import model.Direction;
 import model.entities.Chest;
 import model.entities.Entity;
+import model.entities.characters.Character;
 import model.entities.characters.monsters.Monster;
+import model.entities.characters.monsters.MonsterBuilder;
 import model.items.Item;
 import model.items.Key;
 import model.rooms.Room;
@@ -19,12 +21,8 @@ import java.util.Set;
 
 public class Player extends Character {
 
-    public Player(PlayerType playerType) {
-        this(playerType.healthPoints, playerType.strength, playerType.actionRange, playerType.speed, playerType.size, playerType.color);
-    }
-
-    public Player(int healthPoints, int strength, int actionRange, double speed, double size, Color color){
-        this.name = "Player";
+    public Player(String name, int healthPoints, int strength, int actionRange, double speed, double size, Color color){
+        this.name = name;
         this.healthPoints = healthPoints;
         this.maxHealth = healthPoints;
         this.strength = strength;
@@ -34,6 +32,22 @@ public class Player extends Character {
         this.coords = new Coordinates(App.WIDTH/2, App.HEIGHT/2);
         this.size = size;
         this.color = color;
+    }
+
+    public Player(PlayerBuilder builder) {
+        this(
+                builder.getName(),
+                builder.getHealthPoints(),
+                builder.getStrength(),
+                builder.getActionRange(),
+                builder.getSpeed(),
+                builder.getSize(),
+                builder.getColor()
+        );
+    }
+
+    public Player(PlayerType playerType) {
+        this(playerType.getBuilder());
     }
 
     public void pickupItem() {

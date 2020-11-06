@@ -1,12 +1,11 @@
 package model.entities.characters.monsters;
 
 import javafx.scene.paint.Color;
-import javafx.util.Builder;
 import model.Coordinates;
 import model.Fight;
 import model.Game;
 import model.entities.characters.Character;
-import model.entities.characters.Player;
+import model.entities.characters.players.Player;
 import model.entities.characters.ai.AI;
 
 public class Monster extends Character {

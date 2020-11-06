@@ -5,6 +5,7 @@ import model.Direction;
 import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
+import model.entities.characters.monsters.MonsterType;
 
 import java.util.*;
 

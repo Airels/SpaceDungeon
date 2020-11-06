@@ -4,7 +4,6 @@ import model.Coordinates;
 import model.Direction;
 import model.entities.Chest;
 import model.entities.Entity;
-import model.entities.characters.Player;
 
 import java.util.*;
 

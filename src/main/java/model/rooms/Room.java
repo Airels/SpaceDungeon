@@ -5,7 +5,7 @@ import model.Coordinates;
 import model.Direction;
 import model.Game;
 import model.entities.Entity;
-import model.entities.characters.Player;
+import model.entities.characters.players.Player;
 
 import java.util.List;
 import java.util.Set;

@@ -8,10 +8,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Game;
-import model.entities.characters.Player;
-import model.entities.characters.PlayerType;
-import model.generators.DungeonGenerator;
-import model.generators.TestGenerator;
+import model.entities.characters.players.Player;
+import model.entities.characters.players.PlayerType;
 import view.MainGUI;
 
 public class App extends Application {

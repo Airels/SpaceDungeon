@@ -9,12 +9,12 @@ import model.entities.characters.ai.SimpleMonsterAI;
 public class MonsterBuilder implements Builder<Monster> {
     private Color color = Color.RED;
     private AI monsterAI = new SimpleMonsterAI();
-    private double speed = 1;
+    private double speed = 1,
+        size = 20;
     private int healPoints = 100,
             maxHealth = 100,
             strength = 10,
-            size = 20,
-            actionRange = size;
+            actionRange = (int) size;
 
     private Coordinates coords;
     private String name;
@@ -71,7 +71,7 @@ public class MonsterBuilder implements Builder<Monster> {
         return this;
     }
 
-    public MonsterBuilder setSize(int size) {
+    public MonsterBuilder setSize(double size) {
         this.size = size;
 
         return this;
@@ -121,7 +121,7 @@ public class MonsterBuilder implements Builder<Monster> {
         return strength;
     }
 
-    public int getSize() {
+    public double getSize() {
         return size;
     }
 

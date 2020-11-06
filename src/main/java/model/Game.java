@@ -4,11 +4,10 @@ import controller.App;
 import exceptions.RoomNotGeneratedException;
 import model.entities.Entity;
 import model.entities.characters.Character;
-import model.entities.characters.Player;
+import model.entities.characters.players.Player;
 import model.entities.characters.monsters.Monster;
-import model.generators.BasicGenerator;
 import model.generators.DungeonGenerator;
-import model.generators.TestGenerator;
+import model.generators.LabyrinthGenerator;
 import model.rooms.BossRoom;
 import model.rooms.Room;
 import view.MainGUI;
@@ -34,7 +33,9 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        DungeonGenerator generator = new BasicGenerator(3, 5, 1);
+        // DungeonGenerator generator = new BasicGenerator(3, 5, 1);
+        DungeonGenerator generator = new LabyrinthGenerator(9, 2);
+        // DungeonGenerator generator = new TestGenerator();
         rooms = generator.generate();
 
         loadRoom(generator.getSpawnRoom());
