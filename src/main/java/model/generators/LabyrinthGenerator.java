@@ -157,11 +157,24 @@ public class LabyrinthGenerator implements DungeonGenerator {
                     break;
             }
         }
+
+        for (int b = 0; b < nbOfRooms; b++) {
+            for (int a = 0; a < nbOfRooms; a++) {
+                System.out.print("[" + testTable[a][b] + "]");
+            }
+            System.out.println();
+        }
     }
 
     @Override
     public Room getSpawnRoom() {
-        return simpleRooms.get((int) (Math.random()*simpleRooms.size()));
+        Room room;
+
+        do {
+            room = simpleRooms.get((int) (Math.random()*simpleRooms.size()));
+        } while (room.getOpenedWays().size() == 0);
+
+        return room;
     }
 
 
