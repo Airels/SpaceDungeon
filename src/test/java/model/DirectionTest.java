@@ -1,3 +1,5 @@
+package model;
+
 import model.Direction;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
