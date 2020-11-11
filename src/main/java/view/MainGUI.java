@@ -143,6 +143,8 @@ public class MainGUI {
     }
 
     public void showNotification(String message, int duration) {
+        removeNotification();
+
         GUINotification notification = new GUINotification(message, duration);
         this.notification = notification;
         Platform.runLater(() -> {
