@@ -25,6 +25,11 @@ public enum MonsterType {
             .setStrength(50)
             .setSize(20)
             .setColor(Color.BLACK), 0.15),
+    THE_BOSS(new MonsterBuilder("Sett")
+            .setHealPoints(300)
+            .setStrength(70)
+            .setSize(25)
+            .setColor(Color.PURPLE), 0),
 
     SWARM(new MonsterBuilder("Swarm")
             .setHealPoints(69)
