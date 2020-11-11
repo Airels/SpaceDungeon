@@ -1,5 +1,6 @@
 package model.entities.characters.monsters;
 
+import controller.App;
 import javafx.scene.paint.Color;
 import javafx.util.Builder;
 import model.Coordinates;
@@ -16,7 +17,7 @@ public class MonsterBuilder implements Builder<Monster> {
             strength = 10,
             actionRange = (int) size;
 
-    private Coordinates coords = new Coordinates(100, 100);
+    private Coordinates coords = new Coordinates(100 + Math.random() * (App.WIDTH-100), 100 + Math.random() * (App.HEIGHT-100));
     private String name;
 
     public MonsterBuilder(String name) {
