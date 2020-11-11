@@ -68,6 +68,8 @@ public abstract class Character extends Entity {
 
     public void heal(int heal) {
         this.healthPoints += heal;
+        if (healthPoints>maxHealth)
+            healthPoints = maxHealth;
     }
 
     public void doDamages(int damages) {
