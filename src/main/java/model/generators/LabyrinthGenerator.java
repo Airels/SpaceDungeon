@@ -97,96 +97,6 @@ public class LabyrinthGenerator implements DungeonGenerator {
             }
         }
     }
-/*
-    public void generateOpenedWays(Room[][] rooms){
-        int x;
-        int y;
-        int randomWay;
-        int countWay = 0;
-        boolean eachRoomGotWay = true;
-        boolean visitedRoomTable[][] = new boolean[nbOfRooms][nbOfRooms];
-
-        for (int i = 0; i < nbOfRooms * nbOfRooms; i++) {
-            x = (int)(Math.random()*nbOfRooms);
-            y = (int)(Math.random()*nbOfRooms);
-            randomWay = (int)(Math.random()*4);
-
-            switch (randomWay) {
-                case 0:
-                    Direction directionDown = Direction.DOWN;
-                    if (rooms[x][y].getOpenedWays().contains(directionDown)){
-                        i--;
-                        break;
-                    }
-                    if (y + 1 >= nbOfRooms) {
-                        i--;
-                    } else {
-                        rooms[x][y].addOpenedWay(directionDown);
-                        rooms[x][y + 1].addOpenedWay(directionDown.reverse());
-
-                        visitedRoomTable[x][y] = true;
-                        visitedRoomTable[x][y+1] = true;
-                    }
-                    break;
-                case 1:
-                    Direction directionUp = Direction.UP;
-                    if (rooms[x][y].getOpenedWays().contains(directionUp)){
-                        i--;
-                        break;
-                    }
-                    if (y - 1 < 0) {
-                        i--;
-                    } else {
-                        rooms[x][y].addOpenedWay(directionUp);
-                        rooms[x][y - 1].addOpenedWay(directionUp.reverse());
-
-                        visitedRoomTable[x][y] = true;
-                        visitedRoomTable[x][y-1] = true;
-                    }
-                    break;
-                case 2:
-                    Direction directionRight = Direction.RIGHT;
-                    if (rooms[x][y].getOpenedWays().contains(directionRight)){
-                        i--;
-                        break;
-                    }
-                    if (x + 1 >= nbOfRooms) {
-                        i--;
-                    } else {
-                        rooms[x][y].addOpenedWay(directionRight);
-                        rooms[x + 1][y].addOpenedWay(directionRight.reverse());
-
-                        visitedRoomTable[x][y] = true;
-                        visitedRoomTable[x + 1][y] = true;
-                    }
-                    break;
-                case 3:
-                    Direction directionLeft = Direction.LEFT;
-                    if(rooms[x][y].getOpenedWays().contains(directionLeft)){
-                        i--;
-                        break;
-                    }
-                    if (x - 1 < 0) {
-                        i--;
-                    } else {
-                        rooms[x][y].addOpenedWay(directionLeft);
-                        rooms[x - 1][y].addOpenedWay(directionLeft.reverse());
-
-                        visitedRoomTable[x][y] = true;
-                        visitedRoomTable[x - 1][y] = true;
-                    }
-                    break;
-            }
-        }
-        for (int i = 0; i <nbOfRooms; i++) {
-            for (int j = 0; j < nbOfRooms; j++) {
-                System.out.print("[" + visitedRoomTable[i][j] + "]");
-
-            }
-            System.out.println();
-        }
-    }
-*/
 
     private void generateOpenedWays(Room[][] rooms) {
 
@@ -218,6 +128,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
         if(!(x - 1 < 0 )){
             closeRooms.add(rooms[x-1][y]);
         }
+        Collections.shuffle(closeRooms); // pour éviter que les salles soit toujours générer dans le meme sens
 
         for (Room room:closeRooms) {
             int currentX = (int) room.getCoords().getX();
