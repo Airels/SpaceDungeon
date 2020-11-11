@@ -3,8 +3,8 @@ package model.items;
 
 import javafx.scene.paint.Color;
 import model.Game;
+import model.entities.characters.Inventory;
 import model.entities.characters.players.Player;
-
 
 public class Syringe implements Item {
 
@@ -31,7 +31,11 @@ public class Syringe implements Item {
 
     @Override
     public void action() {
-
+        use();
+        Game game = Game.getInstance();
+        Player player = game.getPlayer();
+        Inventory inventory = player.getInventory();
+        inventory.removeItem(this);
     }
 
     @Override
