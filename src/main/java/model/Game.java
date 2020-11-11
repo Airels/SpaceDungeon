@@ -34,7 +34,7 @@ public class Game implements Runnable {
     @Override
     public void run() {
         // DungeonGenerator generator = new BasicGenerator(3, 5, 1);
-        DungeonGenerator generator = new LabyrinthGenerator(9, 5, 3);
+        DungeonGenerator generator = new LabyrinthGenerator(25, 5, 3);
         // DungeonGenerator generator = new TestGenerator();
         rooms = generator.generate();
 

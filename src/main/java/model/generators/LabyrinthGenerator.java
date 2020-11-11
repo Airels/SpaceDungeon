@@ -3,7 +3,6 @@ package model.generators;
 import model.Coordinates;
 import model.Direction;
 import model.entities.Chest;
-import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterType;
 import model.items.Item;
@@ -20,23 +19,27 @@ import static java.lang.Math.*;
 
 public class LabyrinthGenerator implements DungeonGenerator {
 
-    private final int MINIMUM_NEEDED_SIMPLEROOM = 1;
     private static final int NB_OF_BOSS_ROOMS = 1;
-    private static final MonsterType BOSS_MONSTER = MonsterType.ALIEN;
+    private static final MonsterType BOSS_MONSTER = MonsterType.THE_BOSS;
+
 
     private int nbOfRooms;
     private int nbOfMonsterRooms;
     private int nbOfSimpleRooms;
     private List<Room> simpleRooms;
     private int nbOfChests;
-    public LabyrinthGenerator(int nbOfRooms, int nbOfMonsterRooms, int nbOfChests){
+    private boolean[][] visitedRooms;
+
+    public LabyrinthGenerator(int nbOfRooms, int nbOfMonsterRooms, int nbOfChests) {
         this.nbOfChests = nbOfChests;
         this.nbOfRooms = ((int) Math.sqrt(nbOfRooms));
+        visitedRooms = new boolean[this.nbOfRooms][this.nbOfRooms];
 
-        if(nbOfMonsterRooms + NB_OF_BOSS_ROOMS + MINIMUM_NEEDED_SIMPLEROOM > nbOfRooms )
+        int MINIMUM_NEEDED_SIMPLEROOM = 1;
+        if (nbOfMonsterRooms + NB_OF_BOSS_ROOMS + MINIMUM_NEEDED_SIMPLEROOM > nbOfRooms)
             throw new IllegalArgumentException(
                     "Your number of rooms must be higher than "
-                    + (nbOfMonsterRooms + NB_OF_BOSS_ROOMS + MINIMUM_NEEDED_SIMPLEROOM)
+                            + (nbOfMonsterRooms + NB_OF_BOSS_ROOMS + MINIMUM_NEEDED_SIMPLEROOM)
             );
 
         this.nbOfMonsterRooms = nbOfMonsterRooms;
@@ -56,14 +59,14 @@ public class LabyrinthGenerator implements DungeonGenerator {
         return rooms;
     }
 
-    public void generateRoomsTypes(Room[][] rooms) {
+    private void generateRoomsTypes(Room[][] rooms) {
         int nbOfSimpleRoomsRemaining = nbOfSimpleRooms;
         int nbOfMonsterRoomsRemaining = nbOfMonsterRooms;
         int nbOfRoomsRemaining;
 
-        int bossX = (int) (Math.random()*nbOfRooms);
-        int bossY = (int) (Math.random()*nbOfRooms);
-        rooms[bossX][bossY] = new BossRoom(new Coordinates(bossX,bossY), new Monster(MonsterType.THE_BOSS));
+        int bossX = (int) (Math.random() * nbOfRooms);
+        int bossY = (int) (Math.random() * nbOfRooms);
+        rooms[bossX][bossY] = new BossRoom(new Coordinates(bossX, bossY),new Monster(BOSS_MONSTER));
 
         for (int x = 0; x < nbOfRooms; x++) {
             for (int y = 0; y < nbOfRooms; y++) {
@@ -71,22 +74,22 @@ public class LabyrinthGenerator implements DungeonGenerator {
                 nbOfRoomsRemaining = nbOfSimpleRoomsRemaining + nbOfMonsterRoomsRemaining;
                 RoomType roomType = RoomType.getRandomRoomType();
 
-                if (roomType == RoomType.SIMPLE_ROOM && rooms[x][y] == null && nbOfRoomsRemaining != 0){
-                    if(nbOfSimpleRoomsRemaining != 0){
-                        rooms[x][y] = new SimpleRoom(new Coordinates(x,y));
+                if (roomType == RoomType.SIMPLE_ROOM && rooms[x][y] == null && nbOfRoomsRemaining != 0) {
+                    if (nbOfSimpleRoomsRemaining != 0) {
+                        rooms[x][y] = new SimpleRoom(new Coordinates(x, y));
                         nbOfSimpleRoomsRemaining--;
                         simpleRooms.add(rooms[x][y]);
-                    }else{
-                        rooms[x][y] = new MonsterRoom(new Coordinates(x,y));
+                    } else {
+                        rooms[x][y] = new MonsterRoom(new Coordinates(x, y));
                         nbOfMonsterRoomsRemaining--;
                     }
 
-                } else if (roomType == RoomType.MONSTER_ROOM && rooms[x][y] == null && nbOfRoomsRemaining != 0){
-                    if(nbOfMonsterRoomsRemaining != 0){
-                        rooms[x][y] = new MonsterRoom(new Coordinates(x,y));
+                } else if (roomType == RoomType.MONSTER_ROOM && rooms[x][y] == null && nbOfRoomsRemaining != 0) {
+                    if (nbOfMonsterRoomsRemaining != 0) {
+                        rooms[x][y] = new MonsterRoom(new Coordinates(x, y));
                         nbOfMonsterRoomsRemaining--;
-                    }else{
-                        rooms[x][y] = new SimpleRoom(new Coordinates(x,y));
+                    } else {
+                        rooms[x][y] = new SimpleRoom(new Coordinates(x, y));
                         nbOfSimpleRoomsRemaining--;
                         simpleRooms.add(rooms[x][y]);
                     }
@@ -94,7 +97,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
             }
         }
     }
-
+/*
     public void generateOpenedWays(Room[][] rooms){
         int x;
         int y;
@@ -183,8 +186,74 @@ public class LabyrinthGenerator implements DungeonGenerator {
             System.out.println();
         }
     }
+*/
 
-    public void generateChest(Room[][] rooms){
+    private void generateOpenedWays(Room[][] rooms) {
+
+        int x = (int) (random() * nbOfRooms);
+        int y = (int) (random() * nbOfRooms);
+
+        generateOpenedWaysRec(rooms,x,y);
+
+        for (int i = 0; i <nbOfRooms; i++) {
+            for (int j = 0; j < nbOfRooms; j++) {
+                System.out.print("[" + visitedRooms[i][j] + "]");
+            }
+            System.out.println();
+        }
+    }
+
+    private void generateOpenedWaysRec(Room[][] rooms, int x, int y) {
+        visitedRooms[x][y] = true;
+        List<Room> closeRooms = new ArrayList<>();
+        if(!(y + 1 >= nbOfRooms)){
+            closeRooms.add(rooms[x][y+1]);
+        }
+        if(!(y - 1 < 0 )){
+            closeRooms.add(rooms[x][y-1]);
+        }
+        if(!(x + 1 >= nbOfRooms)){
+            closeRooms.add(rooms[x+1][y]);
+        }
+        if(!(x - 1 < 0 )){
+            closeRooms.add(rooms[x-1][y]);
+        }
+
+        for (Room room:closeRooms) {
+            int currentX = (int) room.getCoords().getX();
+            int currentY = (int) room.getCoords().getY();
+            if(!visitedRooms[currentX][currentY]){
+
+                if(currentX == x - 1 && currentY == y){
+                    rooms[x][y].addOpenedWay(Direction.LEFT);
+                    rooms[x-1][y].addOpenedWay(Direction.LEFT.reverse());
+                    generateOpenedWaysRec(rooms,currentX,currentY);
+
+                }else if(currentX == x + 1 && currentY == y){
+                    rooms[x][y].addOpenedWay(Direction.RIGHT);
+                    rooms[x+1][y].addOpenedWay(Direction.RIGHT.reverse());
+                    generateOpenedWaysRec(rooms,currentX,currentY);
+
+                }else if(currentX == x && currentY == y - 1){
+                    rooms[x][y].addOpenedWay(Direction.UP);
+                    rooms[x][y-1].addOpenedWay(Direction.UP.reverse());
+                    generateOpenedWaysRec(rooms,currentX,currentY);
+                }else if(currentX == x && currentY == y + 1){
+                    rooms[x][y].addOpenedWay(Direction.DOWN);
+                    rooms[x][y+1].addOpenedWay(Direction.DOWN.reverse());
+                    generateOpenedWaysRec(rooms,currentX,currentY);
+                }
+
+            }
+
+        }
+    }
+
+
+
+
+
+    private void generateChest(Room[][] rooms){
         if (nbOfChests > nbOfRooms*nbOfRooms){
             throw new IllegalArgumentException();
         }
