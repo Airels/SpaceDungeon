@@ -67,4 +67,8 @@ public class App extends Application {
 
         new Thread(game).start();
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

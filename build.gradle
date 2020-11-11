@@ -33,6 +33,16 @@ dependencies {
 
 mainClassName = "controller.App"
 
+task compileJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'controller.Main'
+    }
+    baseName = 'Space Dungeon'
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
 
 test {
     useJUnitPlatform()
