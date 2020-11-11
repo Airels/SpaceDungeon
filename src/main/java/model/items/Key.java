@@ -4,7 +4,7 @@ public class Key implements Item {
     private boolean finalKey;
 
     @Override
-    public void action() {
+    public void use() {
 
     }
 
