@@ -2,6 +2,7 @@ package model.items;
 
 import javafx.scene.paint.Color;
 import model.Game;
+import model.entities.characters.Inventory;
 import model.entities.characters.players.Player;
 
 public class StrengthPotion implements Item {
@@ -30,8 +31,10 @@ public class StrengthPotion implements Item {
     public void action() {
         Game game = Game.getInstance();
         Player player = game.getPlayer();
-
         player.addStrength(strBonus);
+        System.out.println(player.getStrength());
+        Inventory inventory = player.getInventory();
+        inventory.removeItem(this);
     }
 
     @Override
