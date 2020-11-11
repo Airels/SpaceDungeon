@@ -2,8 +2,13 @@ package model.generators;
 
 import model.Coordinates;
 import model.Direction;
+import model.entities.Chest;
+import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterType;
+import model.items.Item;
+import model.items.StrengthPotion;
+import model.items.Syringe;
 import model.rooms.BossRoom;
 import model.rooms.MonsterRoom;
 import model.rooms.Room;
@@ -23,8 +28,9 @@ public class LabyrinthGenerator implements DungeonGenerator {
     private int nbOfMonsterRooms;
     private int nbOfSimpleRooms;
     private List<Room> simpleRooms;
-
-    public LabyrinthGenerator(int nbOfRooms, int nbOfMonsterRooms){
+    private int nbOfChests;
+    public LabyrinthGenerator(int nbOfRooms, int nbOfMonsterRooms, int nbOfChests){
+        this.nbOfChests = nbOfChests;
         this.nbOfRooms = ((int) Math.sqrt(nbOfRooms));
 
         if(nbOfMonsterRooms + NB_OF_BOSS_ROOMS + MINIMUM_NEEDED_SIMPLEROOM > nbOfRooms )
@@ -45,6 +51,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
 
         generateRoomsTypes(rooms);
         generateOpenedWays(rooms);
+        generateChest(rooms);
 
         return rooms;
     }
@@ -56,7 +63,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
 
         int bossX = (int) (Math.random()*nbOfRooms);
         int bossY = (int) (Math.random()*nbOfRooms);
-        rooms[bossX][bossY] = new BossRoom(new Coordinates(bossX,bossY), new Monster(MonsterType.ALIEN));
+        rooms[bossX][bossY] = new BossRoom(new Coordinates(bossX,bossY), new Monster(MonsterType.THE_BOSS));
 
         for (int x = 0; x < nbOfRooms; x++) {
             for (int y = 0; y < nbOfRooms; y++) {
@@ -94,6 +101,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
         int randomWay;
         int countWay = 0;
         boolean eachRoomGotWay = true;
+        boolean visitedRoomTable[][] = new boolean[nbOfRooms][nbOfRooms];
 
         for (int i = 0; i < nbOfRooms * nbOfRooms; i++) {
             x = (int)(Math.random()*nbOfRooms);
@@ -112,6 +120,9 @@ public class LabyrinthGenerator implements DungeonGenerator {
                     } else {
                         rooms[x][y].addOpenedWay(directionDown);
                         rooms[x][y + 1].addOpenedWay(directionDown.reverse());
+
+                        visitedRoomTable[x][y] = true;
+                        visitedRoomTable[x][y+1] = true;
                     }
                     break;
                 case 1:
@@ -125,6 +136,9 @@ public class LabyrinthGenerator implements DungeonGenerator {
                     } else {
                         rooms[x][y].addOpenedWay(directionUp);
                         rooms[x][y - 1].addOpenedWay(directionUp.reverse());
+
+                        visitedRoomTable[x][y] = true;
+                        visitedRoomTable[x][y-1] = true;
                     }
                     break;
                 case 2:
@@ -139,6 +153,8 @@ public class LabyrinthGenerator implements DungeonGenerator {
                         rooms[x][y].addOpenedWay(directionRight);
                         rooms[x + 1][y].addOpenedWay(directionRight.reverse());
 
+                        visitedRoomTable[x][y] = true;
+                        visitedRoomTable[x + 1][y] = true;
                     }
                     break;
                 case 3:
@@ -152,19 +168,53 @@ public class LabyrinthGenerator implements DungeonGenerator {
                     } else {
                         rooms[x][y].addOpenedWay(directionLeft);
                         rooms[x - 1][y].addOpenedWay(directionLeft.reverse());
+
+                        visitedRoomTable[x][y] = true;
+                        visitedRoomTable[x - 1][y] = true;
                     }
                     break;
             }
         }
-        for (Room[] lines: rooms) {
-            for (Room room: lines) {
-                countWay += room.getOpenedWays().size();
-                if (room.getOpenedWays().size() == 0)
-                    eachRoomGotWay = false;
+        for (int i = 0; i <nbOfRooms; i++) {
+            for (int j = 0; j < nbOfRooms; j++) {
+                System.out.print("[" + visitedRoomTable[i][j] + "]");
+
             }
+            System.out.println();
         }
-        System.out.println(countWay);
-        System.out.println(eachRoomGotWay);
+    }
+
+    public void generateChest(Room[][] rooms){
+        if (nbOfChests > nbOfRooms*nbOfRooms){
+            throw new IllegalArgumentException();
+        }
+        int itemType;
+        Item item;
+        int x;
+        int y;
+        List<Room> roomVisited = new ArrayList<>();
+        for (int i = 0; i < nbOfChests ; i++) {
+
+            x = (int) (Math.random()*nbOfRooms);
+            y = (int) (Math.random()*nbOfRooms);
+
+            Room currentRoom  = rooms[x][y];
+
+            if(!roomVisited.contains(currentRoom)){
+                roomVisited.add(currentRoom);
+            }else{
+                i--;
+                continue;
+            }
+            itemType = (int) (Math.random()*2);
+            if (itemType == 1){
+                item = new Syringe();
+            }else{
+                item = new StrengthPotion();
+            }
+
+            currentRoom.getEntities().add(new Chest(item));
+        }
     }
 
     @Override
