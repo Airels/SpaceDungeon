@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class Character extends Entity {
     protected int healthPoints, maxHealth, strength;
     protected double speed, actionRange;
-    protected List<Item> inventory;
+    protected Inventory inventory;
     protected Color color;
 
     public abstract void action();
@@ -45,7 +45,7 @@ public abstract class Character extends Entity {
         }
     }
 
-    public List<Item> getInventory() {
+    public Inventory getInventory() {
         return inventory;
     }
 

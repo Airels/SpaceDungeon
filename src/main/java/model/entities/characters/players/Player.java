@@ -9,6 +9,7 @@ import model.Direction;
 import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.Character;
+import model.entities.characters.Inventory;
 import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterBuilder;
 import model.items.Item;
@@ -28,7 +29,7 @@ public class Player extends Character {
         this.strength = strength;
         this.actionRange = actionRange;
         this.speed = speed;
-        this.inventory = new ArrayList<>();
+        this.inventory = new Inventory();
         this.coords = new Coordinates(App.WIDTH/2, App.HEIGHT/2);
         this.size = size;
         this.color = color;
@@ -59,7 +60,7 @@ public class Player extends Character {
         for (Entity entity : closestEntities) {
             if (!(entity instanceof Item)) continue;
 
-            player.getInventory().add((Item) entity);
+            player.getInventory().addItem((Item) entity);
         }
     }
 
@@ -103,7 +104,7 @@ public class Player extends Character {
 
             for (Item item : inventory) {
                 if (item instanceof Key) {
-                    inventory.remove(item);
+                    inventory.removeItem(item);
                     hasKey = true;
                     break;
                 }

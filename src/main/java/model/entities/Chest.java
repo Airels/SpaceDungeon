@@ -33,7 +33,7 @@ public class Chest extends Entity {
         Game game = Game.getInstance();
         Player player = game.getPlayer();
 
-        player.getInventory().addAll(items);
+        player.getInventory().addAll(items, true);
 
         game.deleteEntity(this);
         game.reloadRoom();
