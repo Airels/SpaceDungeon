@@ -96,6 +96,7 @@ public class Player extends Character {
             }
         }
 
+        /*
         // DOORS ACTION
         if (Room.isNearFromDoor(this)){
             Game game = Game.getInstance();
@@ -117,6 +118,7 @@ public class Player extends Character {
                 game.showNotification("You must get a key to open this door !");
             }
         }
+        */
     }
 
     @Override
