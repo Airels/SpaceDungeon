@@ -4,12 +4,10 @@ import controller.App;
 import exceptions.RoomNotGeneratedException;
 import model.entities.Entity;
 import model.entities.characters.Character;
-import model.entities.characters.Player;
+import model.entities.characters.players.Player;
 import model.entities.characters.monsters.Monster;
-import model.generators.BasicGenerator;
 import model.generators.DungeonGenerator;
 import model.generators.LabyrinthGenerator;
-import model.generators.TestGenerator;
 import model.rooms.BossRoom;
 import model.rooms.Room;
 import view.MainGUI;
@@ -35,12 +33,14 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        DungeonGenerator generator = new LabyrinthGenerator(9,3);
+        // DungeonGenerator generator = new BasicGenerator(3, 5, 1);
+        DungeonGenerator generator = new LabyrinthGenerator(9, 2);
+        // DungeonGenerator generator = new TestGenerator();
         rooms = generator.generate();
 
         loadRoom(generator.getSpawnRoom());
 
-        MainGUI.getInstance().showNotification("Find the exit!\nOr you will die!\nBecause you are noob", 3000);
+        MainGUI.getInstance().showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
 
         loop();
     }
@@ -192,22 +192,25 @@ public class Game implements Runnable {
     }
 
     private void loadRoom(Room room) {
-        try {
-            System.out.println(room.getCoords());
+        if (room == null) throw new RoomNotGeneratedException("The room you try to load don't exist");
 
-            actualRoom = room;
-            MainGUI.getInstance().loadRoom(room);
-
-            if (actualRoom instanceof BossRoom)
-                MainGUI.getInstance().showNotification("Defeat the Boss!");
-        } catch (NullPointerException e) {
-            throw new RoomNotGeneratedException("The room you try to load doesn't exist!");
-        }
+        actualRoom = room;
+        MainGUI.getInstance().loadRoom(room);
+        room.loadedEvent();
     }
 
     public void gameOver() {
         // TODO : A implémenter
         System.out.println("GAME OVER");
+
+        MainGUI.getInstance().showNotification("YOU DIED\nGAME OVER", 5000);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.exit(0);
     }
 

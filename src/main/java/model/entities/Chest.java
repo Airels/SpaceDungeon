@@ -3,9 +3,8 @@ package model.entities;
 import controller.App;
 import model.Coordinates;
 import model.Game;
-import model.entities.characters.Player;
+import model.entities.characters.players.Player;
 import model.items.Item;
-import view.MainGUI;
 
 import java.util.List;
 

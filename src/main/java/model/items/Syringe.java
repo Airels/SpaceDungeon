@@ -3,7 +3,7 @@ package model.items;
 
 import javafx.scene.paint.Color;
 import model.Game;
-import model.entities.characters.Player;
+import model.entities.characters.players.Player;
 
 
 public class Syringe implements Item {

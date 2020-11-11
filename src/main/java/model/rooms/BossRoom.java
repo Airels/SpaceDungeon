@@ -5,6 +5,8 @@ import model.Direction;
 import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
+import model.entities.characters.monsters.MonsterType;
+import view.MainGUI;
 
 import java.util.*;
 
@@ -36,6 +38,12 @@ public class BossRoom implements Room {
     @Override
     public Coordinates getCoords() {
         return coords;
+    }
+
+    @Override
+    public void loadedEvent() {
+        if (!entities.isEmpty())
+            MainGUI.getInstance().showNotification("Defeat the boss to win!");
     }
 
     @Override

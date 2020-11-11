@@ -4,7 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.Direction;
-import model.entities.characters.Player;
+import model.entities.characters.players.Player;
 
 public class JavaFXController {
 

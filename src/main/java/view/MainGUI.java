@@ -27,6 +27,8 @@ public class MainGUI {
         mainGUI = this;
         guiEntities = new ArrayList<>();
         this.root = root;
+
+        showNotification(""); // To initialize
     }
 
     public static MainGUI getInstance() {
@@ -121,7 +123,13 @@ public class MainGUI {
         Platform.runLater(() -> root.getChildren().clear());
         guiEntities.clear();
 
-        Platform.runLater(() -> root.getChildren().addAll(guiRoom.getFxModels()));
+        Platform.runLater(() ->  {
+            root.getChildren().addAll(guiRoom.getFxModels());
+
+            if (!notification.expired())
+                root.getChildren().addAll(notification.getFxModels());
+        });
+
         for (Entity entity : room.getEntities())
             addEntity(entity);
 

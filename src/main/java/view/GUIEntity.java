@@ -12,13 +12,11 @@ import java.util.*;
 
 class GUIEntity implements GUIObject {
     private Entity entity;
-    private Image img;
     private Circle shape;
     private GUIHealthBar GUIHealthBar;
 
     GUIEntity(Entity entity, Color color) {
         this.entity = entity;
-        this.img = null;
 
         Coordinates coords = entity.getCoords();
 

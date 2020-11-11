@@ -5,30 +5,11 @@ import model.Coordinates;
 import model.Fight;
 import model.Game;
 import model.entities.characters.Character;
-import model.entities.characters.Player;
+import model.entities.characters.players.Player;
 import model.entities.characters.ai.AI;
 
 public class Monster extends Character {
     private final AI monsterAI;
-
-    public Monster(MonsterType monsterType) {
-        this(monsterType.name, monsterType.healthPoints, monsterType.strength, monsterType.speed, monsterType.monsterAI, monsterType.size, monsterType.color);
-    }
-
-    public Monster(String name, int healthPoints, int strength, double speed, AI monsterAI, double size, Color color) {
-        // TODO : Coordonnées aléatoires (plutôt vers le centre)
-
-        this.coords = new Coordinates(100, 100);
-        this.name = name;
-        this.healthPoints = healthPoints;
-        this.maxHealth = healthPoints;
-        this.strength = strength;
-        this.speed = speed;
-        this.size = size;
-        this.actionRange = size;
-        this.monsterAI = monsterAI;
-        this.color = color;
-    }
 
     public Monster(Coordinates coords, String name, int healthPoints, int strength, double speed, AI monsterAI, double size, Color color) {
         this.coords = coords;
@@ -41,6 +22,27 @@ public class Monster extends Character {
         this.actionRange = size;
         this.monsterAI = monsterAI;
         this.color = color;
+    }
+
+    public Monster(MonsterBuilder builder) {
+        this(
+                builder.getCoords(),
+                builder.getName(),
+                builder.getHealPoints(),
+                builder.getStrength(),
+                builder.getSpeed(),
+                builder.getMonsterAI(),
+                builder.getSize(),
+                builder.getColor()
+        );
+    }
+
+    public Monster(MonsterType monsterType) {
+        this(monsterType.getBuilder());
+    }
+
+    public static Monster create(MonsterType monsterType) {
+        return monsterType.getBuilder().build();
     }
 
     @Override
