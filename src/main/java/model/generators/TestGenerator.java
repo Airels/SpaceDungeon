@@ -4,7 +4,6 @@ import controller.App;
 import model.Coordinates;
 import model.Direction;
 import model.entities.Chest;
-import model.items.Item;
 import model.items.Key;
 import model.rooms.MonsterRoom;
 import model.rooms.Room;
@@ -25,7 +24,7 @@ public class TestGenerator implements DungeonGenerator {
 
         Room room = new SimpleRoom(new Coordinates(1, 0), Direction.LEFT, Direction.DOWN);
         room.addDoorWay(Direction.DOWN);
-        Chest chest = new Chest(new ArrayList<>(Collections.singleton(new Key())));
+        Chest chest = new Chest(new Key());
         room.getEntities().add(chest);
         rooms[1][0] = room;
 

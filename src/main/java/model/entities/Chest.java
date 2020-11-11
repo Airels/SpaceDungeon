@@ -6,10 +6,15 @@ import model.Game;
 import model.entities.characters.players.Player;
 import model.items.Item;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Chest extends Entity {
     private List<Item> items;
+
+    public Chest(Item... items) {
+        this(Arrays.asList(items));
+    }
 
     public Chest(List<Item> items){
         // TODO : Coordonnées aléatoires à implémenter
