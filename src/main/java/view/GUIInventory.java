@@ -29,7 +29,7 @@ public class GUIInventory implements GUIObject {
         stringBuilder.append("- Inventory -\n");
 
         for (int i = 0; i < Inventory.CAPACITY; i++) {
-            stringBuilder.append(i).append(". ");
+            stringBuilder.append(i+1).append(". ");
 
             Item item = inventory.getItem(i);
             if (item != null)
