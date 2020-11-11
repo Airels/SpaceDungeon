@@ -89,81 +89,78 @@ public class LabyrinthGenerator implements DungeonGenerator {
     }
 
     public void generateOpenedWays(Room[][] rooms){
-        int[][] testTable = new int[nbOfRooms][nbOfRooms];
-        int id=0;
-        for (int x = 0; x < nbOfRooms; x++) {
-            for (int y = 0; y < nbOfRooms; y++) {
-                testTable[x][y] = id;
-                id++;
-            }
-        }
-
         int x;
         int y;
         int randomWay;
+        int countWay = 0;
 
-        for (int i = 0; i < nbOfRooms * nbOfRooms - 1; i++) {
+        for (int i = 0; i < nbOfRooms * nbOfRooms; i++) {
             x = (int)(Math.random()*nbOfRooms);
             y = (int)(Math.random()*nbOfRooms);
             randomWay = (int)(Math.random()*4);
+
             switch (randomWay) {
                 case 0:
                     Direction directionDown = Direction.DOWN;
+                    if (rooms[x][y].getOpenedWays().contains(directionDown)){
+                        i--;
+                        break;
+                    }
                     if (y + 1 >= nbOfRooms) {
                         i--;
                     } else {
                         rooms[x][y].addOpenedWay(directionDown);
                         rooms[x][y + 1].addOpenedWay(directionDown.reverse());
-
-                        testTable[x][y] = min(testTable[x][y],testTable[x][y+1]);
-                        testTable[x][y+1] = min(testTable[x][y],testTable[x][y+1]);
                     }
                     break;
                 case 1:
                     Direction directionUp = Direction.UP;
+                    if (rooms[x][y].getOpenedWays().contains(directionUp)){
+                        i--;
+                        break;
+                    }
                     if (y - 1 < 0) {
                         i--;
                     } else {
                         rooms[x][y].addOpenedWay(directionUp);
                         rooms[x][y - 1].addOpenedWay(directionUp.reverse());
-
-                        testTable[x][y] = min(testTable[x][y],testTable[x][y-1]);
-                        testTable[x][y-1] = min(testTable[x][y],testTable[x][y-1]);
                     }
                     break;
                 case 2:
                     Direction directionRight = Direction.RIGHT;
+                    if (rooms[x][y].getOpenedWays().contains(directionRight)){
+                        i--;
+                        break;
+                    }
                     if (x + 1 >= nbOfRooms) {
                         i--;
                     } else {
                         rooms[x][y].addOpenedWay(directionRight);
                         rooms[x + 1][y].addOpenedWay(directionRight.reverse());
 
-                        testTable[x +1][y] = min(testTable[x][y],testTable[x+1][y]);
-                        testTable[x][y] = min(testTable[x][y],testTable[x+1][y]);
                     }
                     break;
                 case 3:
                     Direction directionLeft = Direction.LEFT;
+                    if(rooms[x][y].getOpenedWays().contains(directionLeft)){
+                        i--;
+                        break;
+                    }
                     if (x - 1 < 0) {
                         i--;
                     } else {
                         rooms[x][y].addOpenedWay(directionLeft);
                         rooms[x - 1][y].addOpenedWay(directionLeft.reverse());
-
-                        testTable[x][y] = min(testTable[x][y],testTable[x-1][y]);
-                        testTable[x-1][y] = min(testTable[x][y],testTable[x-1][y]);
                     }
                     break;
             }
         }
-
-        for (int b = 0; b < nbOfRooms; b++) {
-            for (int a = 0; a < nbOfRooms; a++) {
-                System.out.print("[" + testTable[a][b] + "]");
+        for (Room[] lines: rooms) {
+            for (Room room: lines) {
+                countWay += room.getOpenedWays().size();
             }
-            System.out.println();
         }
+        System.out.println(countWay);
     }
 
     @Override
@@ -185,26 +182,5 @@ public class LabyrinthGenerator implements DungeonGenerator {
         public static RoomType getRandomRoomType() {
             return (Math.random()*2 < 1) ? SIMPLE_ROOM : MONSTER_ROOM;
         }
-    }
-
-    class TasdeSalles {
-        private Set<Room> rooms;
-
-        public TasdeSalles(Room room) {
-            rooms = new HashSet<>();
-            rooms.add(room);
-        }
-
-        public boolean contain(Room room) {
-            return rooms.contains(room);
-        }
-
-        public void salleAuPif(){
-                return random(room);
-        }
-        public void fusion(TasdeSalles tas){
-
-        }
-
     }
 }
