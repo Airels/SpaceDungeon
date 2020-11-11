@@ -17,7 +17,7 @@ public class MonsterBuilder implements Builder<Monster> {
             strength = 10,
             actionRange = (int) size;
 
-    private Coordinates coords = new Coordinates(100 + Math.random() * (App.WIDTH-100), 100 + Math.random() * (App.HEIGHT-100));
+    private Coordinates coords = new Coordinates(100 + Math.random() * (App.WIDTH-200), 100 + Math.random() * (App.HEIGHT-200));
     private String name;
 
     public MonsterBuilder(String name) {
