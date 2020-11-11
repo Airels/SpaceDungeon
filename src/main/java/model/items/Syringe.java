@@ -30,10 +30,9 @@ public class Syringe implements Item {
     }
 
     @Override
-    public void action() {
-        use();
-        Game game = Game.getInstance();
-        Player player = game.getPlayer();
+    public void use() {
+        Player player = Game.getInstance().getPlayer();
+        player.heal((int) (player.getMaxHealth()*healPercentage + player.getHealthPoints()));
         Inventory inventory = player.getInventory();
         inventory.removeItem(this);
     }
@@ -43,8 +42,4 @@ public class Syringe implements Item {
         return "Syringe";
     }
 
-    public void use(){
-        Player player = Game.getInstance().getPlayer();
-        player.heal((int) (player.getMaxHealth()*healPercentage + player.getHealthPoints()));
-    }
 }

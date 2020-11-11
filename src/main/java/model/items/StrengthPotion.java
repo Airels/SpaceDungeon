@@ -28,7 +28,7 @@ public class StrengthPotion implements Item {
     }
 
     @Override
-    public void action() {
+    public void use() {
         Game game = Game.getInstance();
         Player player = game.getPlayer();
         player.addStrength(strBonus);
