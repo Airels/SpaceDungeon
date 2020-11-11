@@ -93,6 +93,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
         int y;
         int randomWay;
         int countWay = 0;
+        boolean eachRoomGotWay = true;
 
         for (int i = 0; i < nbOfRooms * nbOfRooms; i++) {
             x = (int)(Math.random()*nbOfRooms);
@@ -158,9 +159,12 @@ public class LabyrinthGenerator implements DungeonGenerator {
         for (Room[] lines: rooms) {
             for (Room room: lines) {
                 countWay += room.getOpenedWays().size();
+                if (room.getOpenedWays().size() == 0)
+                    eachRoomGotWay = false;
             }
         }
         System.out.println(countWay);
+        System.out.println(eachRoomGotWay);
     }
 
     @Override
