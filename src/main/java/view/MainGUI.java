@@ -22,10 +22,12 @@ public class MainGUI {
     private GUIRoom actualRoom;
     private final List<GUIEntity> guiEntities;
     private GUINotification notification;
+    private GUIInventory inventory;
 
     public MainGUI(Group root) {
         mainGUI = this;
         guiEntities = new ArrayList<>();
+        inventory = new GUIInventory();
         this.root = root;
 
         showNotification(""); // To initialize
@@ -41,6 +43,8 @@ public class MainGUI {
         for (GUIEntity entity : guiEntities)
             entity.render();
 
+        inventory.render();
+
         if (notification != null) {
             notification.render();
 
@@ -48,34 +52,6 @@ public class MainGUI {
                 removeNotification();
         }
     }
-
-    // Never called to add player
-    /*
-    public void updateEntities(List<Entity> entities) {
-        Platform.runLater(() -> {
-            List<GUIEntity> entitiesToRemove = new ArrayList<>(guiEntities);
-
-            for (GUIEntity guiEntity : entitiesToRemove)
-                removeEntity(guiEntity);
-        });
-
-        guiEntities.clear();
-
-        for (Entity entity : entities)
-            addEntity(entity);
-    }
-
-     */
-
-    /*
-    private void addEntity(Entity entity, String imgPath) {
-        Platform.runLater(() -> {
-            GUIEntity guiEntity = new GUIEntity(entity, imgPath);
-            root.getChildren().add(guiEntity.getFxModel());
-            guiEntities.add(guiEntity);
-        });
-    }
-     */
 
     public void addEntity(Entity entity) {
         Color colorOfEntity = Color.BLACK;
@@ -125,6 +101,7 @@ public class MainGUI {
 
         Platform.runLater(() ->  {
             root.getChildren().addAll(guiRoom.getFxModels());
+            root.getChildren().addAll(inventory.getFxModels());
 
             if (!notification.expired())
                 root.getChildren().addAll(notification.getFxModels());
