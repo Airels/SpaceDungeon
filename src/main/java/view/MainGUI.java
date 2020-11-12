@@ -23,6 +23,7 @@ public class MainGUI {
     private final List<GUIEntity> guiEntities;
     private GUINotification notification;
     private final GUIInventory inventory;
+    private final GUIPauseMenu pauseMenu;
 
     public MainGUI(Group root) {
         mainGUI = this;
@@ -31,6 +32,9 @@ public class MainGUI {
         this.root = root;
 
         showNotification(""); // To initialize
+
+        pauseMenu = new GUIPauseMenu();
+        pauseMenu.render();
     }
 
     public static MainGUI getInstance() {
@@ -126,5 +130,12 @@ public class MainGUI {
 
         if (notification != null)
             Platform.runLater(() -> root.getChildren().removeAll(notification.getFxModels()));
+    }
+
+    public void togglePauseMenu(boolean isPaused) {
+        if (isPaused)
+            Platform.runLater(() -> root.getChildren().addAll(pauseMenu.getFxModels()));
+        else
+            Platform.runLater(() -> root.getChildren().removeAll(pauseMenu.getFxModels()));
     }
 }

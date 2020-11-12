@@ -238,10 +238,12 @@ public class Game extends Thread {
 
     public void pause() {
         isPaused = true;
+        MainGUI.getInstance().togglePauseMenu(true);
     }
 
     public void play() {
         isPaused = false;
+        MainGUI.getInstance().togglePauseMenu(false);
     }
 
     public boolean isPaused() {
