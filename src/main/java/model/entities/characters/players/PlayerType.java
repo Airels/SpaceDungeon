@@ -12,7 +12,7 @@ public enum PlayerType {
             .setColor(Color.LIGHTGREEN)
     );
 
-    private PlayerBuilder builder;
+    private final PlayerBuilder builder;
 
     PlayerType(PlayerBuilder builder) {
         this.builder = builder;

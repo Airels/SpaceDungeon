@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class GUIInventory implements GUIObject {
-    private Text text;
+    private final Text text;
 
     GUIInventory() {
         text = new Text("- Inventory -\n");

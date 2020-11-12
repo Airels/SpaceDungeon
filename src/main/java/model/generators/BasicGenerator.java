@@ -17,10 +17,10 @@ public class BasicGenerator implements DungeonGenerator {
 
     private static final int MINIMUM_NEEDED_SIMPLE_ROOM = 1;
 
-    private int nbOfRooms;
+    private final int nbOfRooms;
     private int nbOfMonsterRooms;
     private final int nbOfBossRoom = 1;
-    private List<Room> simpleRooms = new ArrayList<>();
+    private final List<Room> simpleRooms = new ArrayList<>();
 
     public BasicGenerator(int minNbOfRooms, int maxNbOfRooms, int minNbOfMonsterRooms){
         int minNeededSimpleRoom = MINIMUM_NEEDED_SIMPLE_ROOM;

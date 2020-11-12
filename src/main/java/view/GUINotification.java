@@ -10,9 +10,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class GUINotification implements GUIObject {
-    private Text text;
-    private int duration; // in milliseconds
-    private long creationTime;
+    private final Text text;
+    private final int duration; // in milliseconds
+    private final long creationTime;
 
     GUINotification(String message, int duration) {
         text = new Text(message);

@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class Inventory implements Iterable<Item> {
-    private List<Item> items;
+    private final List<Item> items;
     public final static int CAPACITY = 9;
 
     public Inventory() {

@@ -11,8 +11,8 @@ import model.entities.characters.Character;
 import java.util.*;
 
 class GUIEntity implements GUIObject {
-    private Entity entity;
-    private Circle shape;
+    private final Entity entity;
+    private final Circle shape;
     private GUIHealthBar GUIHealthBar;
 
     GUIEntity(Entity entity, Color color) {

@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class GUIHealthBar implements GUIObject {
-    private Character character;
-    private ProgressBar healthBar;
+    private final Character character;
+    private final ProgressBar healthBar;
 
     GUIHealthBar(Character character) {
         this.character = character;

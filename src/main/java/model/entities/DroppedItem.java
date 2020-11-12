@@ -5,7 +5,7 @@ import model.Coordinates;
 import model.items.Item;
 
 public class DroppedItem extends Entity {
-    private Item item;
+    private final Item item;
 
     public DroppedItem(Coordinates coords, Item itemDropped) {
         super(coords, itemDropped.name(), App.DEFAULT_ENTITY_SIZE, itemDropped.getColor());

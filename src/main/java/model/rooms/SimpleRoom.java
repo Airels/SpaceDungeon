@@ -8,10 +8,12 @@ import model.entities.Entity;
 import java.util.*;
 
 public class SimpleRoom implements Room {
-    private Set<Direction> openedWays, doorWays, finalWays;
-    private Coordinates coords;
-    private List<Chest> chests;
-    private List<Entity> entities;
+    private final Set<Direction> openedWays;
+    private final Set<Direction> doorWays;
+    private final Set<Direction> finalWays;
+    private final Coordinates coords;
+    private final List<Chest> chests;
+    private final List<Entity> entities;
 
     public SimpleRoom(Coordinates coords, List<Chest> chests, Direction... directionsOpened) {
         this.coords = coords;

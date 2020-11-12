@@ -23,12 +23,12 @@ public class LabyrinthGenerator implements DungeonGenerator {
     private static final MonsterType BOSS_MONSTER = MonsterType.THE_BOSS;
 
 
-    private int nbOfRooms;
-    private int nbOfMonsterRooms;
-    private int nbOfSimpleRooms;
-    private List<Room> simpleRooms;
-    private int nbOfChests;
-    private boolean[][] visitedRooms;
+    private final int nbOfRooms;
+    private final int nbOfMonsterRooms;
+    private final int nbOfSimpleRooms;
+    private final List<Room> simpleRooms;
+    private final int nbOfChests;
+    private final boolean[][] visitedRooms;
 
     public LabyrinthGenerator(int nbOfRooms, int nbOfMonsterRooms, int nbOfChests) {
         this.nbOfChests = nbOfChests;

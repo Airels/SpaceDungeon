@@ -6,9 +6,9 @@ import model.entities.characters.Inventory;
 import model.entities.characters.players.Player;
 
 public class StrengthPotion implements Item {
-    private int strBonus;
-    private int value;
-    private Color color;
+    private final int strBonus;
+    private final int value;
+    private final Color color;
 
     public StrengthPotion() {
         this.value = (int) (Math.random() * (101));

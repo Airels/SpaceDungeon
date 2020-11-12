@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Chest extends Entity {
-    private List<Item> items;
+    private final List<Item> items;
 
     public Chest(Item... items) {
         this(Arrays.asList(items));

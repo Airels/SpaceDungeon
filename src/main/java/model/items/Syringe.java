@@ -8,9 +8,9 @@ import model.entities.characters.players.Player;
 
 public class Syringe implements Item {
 
-    private double healPercentage;
-    private int value;
-    private Color color;
+    private final double healPercentage;
+    private final int value;
+    private final Color color;
 
     public Syringe(){
         this.value = (int)(Math.random()*(101));
