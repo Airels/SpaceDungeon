@@ -19,12 +19,10 @@ public class MonsterRoom implements Room {
     private final Set<Direction> doorWays;
     private final Set<Direction> finalWays;
     private final Coordinates coords;
-    private final List<Chest> chests;
     private final List<Entity> entities;
 
-    public MonsterRoom(Coordinates coords, List<Chest> chests, Direction... directionsOpened) {
+    public MonsterRoom(Coordinates coords, Direction... directionsOpened) {
         this.coords = coords;
-        this.chests = (chests == null) ? new ArrayList<>() : chests;
         this.entities = new ArrayList<>();
 
         openedWays = new HashSet<>(); openedWays.addAll(Arrays.asList(directionsOpened));
@@ -32,10 +30,6 @@ public class MonsterRoom implements Room {
         finalWays = new HashSet<>();
 
         generate();
-    }
-
-    public MonsterRoom(Coordinates coords, Direction... directionsOpened) {
-        this(coords, new ArrayList<>(), directionsOpened);
     }
 
     @Override
