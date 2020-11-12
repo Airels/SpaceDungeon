@@ -12,6 +12,8 @@ public abstract class Character extends Entity {
     protected double speed, actionRange;
     protected final Inventory inventory;
 
+    private Direction lastDirection;
+
     public Character(Coordinates coords, String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color) {
         super(coords, name, size, color);
         this.healthPoints = healthPoints;
@@ -51,6 +53,12 @@ public abstract class Character extends Entity {
             coords.setX(newX);
             coords.setY(newY);
         }
+
+        lastDirection = direction;
+    }
+
+    public Direction lastDirection() {
+        return lastDirection;
     }
 
     public Inventory getInventory() {

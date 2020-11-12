@@ -46,7 +46,8 @@ public class Game extends Thread {
         while (true) {
             if (!isPaused) {
                 // IA
-                for (Entity entity : actualRoom.getEntities()) {
+                List<Entity> entities = actualRoom.getEntities();
+                for (Entity entity : entities) {
                     if (!(entity instanceof Monster)) continue;
 
                     Monster monster = (Monster) entity;
