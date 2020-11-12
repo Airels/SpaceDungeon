@@ -2,17 +2,25 @@ package model.entities.characters;
 
 import controller.App;
 import javafx.scene.paint.Color;
+import model.Coordinates;
 import model.Direction;
 import model.entities.Entity;
-import model.items.Item;
-
-import java.util.List;
 
 public abstract class Character extends Entity {
-    protected int healthPoints, maxHealth, strength;
+    protected int healthPoints, strength;
+    protected final int maxHealth;
     protected double speed, actionRange;
-    protected Inventory inventory;
-    protected Color color;
+    protected final Inventory inventory;
+
+    public Character(Coordinates coords, String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color) {
+        super(coords, name, size, color);
+        this.healthPoints = healthPoints;
+        this.maxHealth = healthPoints;
+        this.strength = strength;
+        this.actionRange = actionRange;
+        this.speed = speed;
+        this.inventory = new Inventory();
+    }
 
     public abstract void action();
     public abstract void attack();
@@ -61,13 +69,13 @@ public abstract class Character extends Entity {
         return maxHealth;
     }
 
-    public int addStrength(int value){
-        strength = strength + value;
-        return strength;
+    public void addStrength(int value){
+        strength += value;
     }
 
     public void heal(int heal) {
         this.healthPoints += heal;
+
         if (healthPoints>maxHealth)
             healthPoints = maxHealth;
     }
@@ -86,9 +94,5 @@ public abstract class Character extends Entity {
         this.move(direction);
         this.move(direction);
         this.move(direction);
-    }
-
-    public Color getColor() {
-        return color;
     }
 }
