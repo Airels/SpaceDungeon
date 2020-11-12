@@ -23,6 +23,7 @@ public class Game extends Thread {
     private Room actualRoom;
     private long lastProcessedAI;
     private boolean canProcessAI;
+    private boolean isPaused = false;
 
     public Game(Player player) {
         game = this;
@@ -47,29 +48,34 @@ public class Game extends Thread {
 
     private void loop() {
         while (true) {
-            // IA
-            if (System.currentTimeMillis() - lastProcessedAI > App.MONSTER_AI_LATENCY_MS) {
-                lastProcessedAI = System.currentTimeMillis();
-                canProcessAI = true;
-            }
-
-            for (Entity entity : actualRoom.getEntities()) {
-                if (!(entity instanceof Monster)) continue;
-
-                if (canProcessAI) {
-                    Monster monster = (Monster) entity;
-                    monster.getMonsterAI().process(monster);
+            if (!isPaused) {
+                // IA
+                if (System.currentTimeMillis() - lastProcessedAI > App.MONSTER_AI_LATENCY_MS) {
+                    lastProcessedAI = System.currentTimeMillis();
+                    canProcessAI = true;
                 }
+
+                for (Entity entity : actualRoom.getEntities()) {
+                    if (!(entity instanceof Monster)) continue;
+
+                    if (canProcessAI) {
+                        Monster monster = (Monster) entity;
+                        monster.getMonsterAI().process(monster);
+                    }
+                }
+
+                if (canProcessAI) canProcessAI = false;
+
+
+                MainGUI.getInstance().render();
             }
-
-            if (canProcessAI) canProcessAI = false;
-
-
-            MainGUI.getInstance().render();
 
             try {
                 Thread.sleep(1000 / App.FPS);
-            } catch (InterruptedException ignored) { }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
         }
     }
 
@@ -228,5 +234,17 @@ public class Game extends Thread {
 
     public void showNotification(String message, int duration) {
         MainGUI.getInstance().showNotification(message, duration);
+    }
+
+    public void pause() {
+        isPaused = true;
+    }
+
+    public void play() {
+        isPaused = false;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
     }
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.Direction;
@@ -12,9 +13,19 @@ public class JavaFXController {
 
     public static EventHandler<? super KeyEvent> getKeyEventHandler(Player player) {
         return (EventHandler<KeyEvent>) event -> {
+            Game game = Game.getInstance();
             Item item;
 
+            if (game.isPaused()) {
+                if (event.getCode().equals(KeyCode.ESCAPE))
+                    game.play();
+
+                return;
+            }
+
             switch (event.getCode()) {
+                case ESCAPE: game.pause(); break;
+
                 case Z: case W: case UP:    player.move(Direction.UP);    break;
                 case Q: case A: case LEFT:  player.move(Direction.LEFT);  break;
                 case S:         case DOWN:  player.move(Direction.DOWN);  break;
