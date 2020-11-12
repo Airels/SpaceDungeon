@@ -104,13 +104,6 @@ public class LabyrinthGenerator implements DungeonGenerator {
         int y = (int) (random() * nbOfRooms);
 
         generateOpenedWaysRec(rooms,x,y);
-
-        for (int i = 0; i <nbOfRooms; i++) {
-            for (int j = 0; j < nbOfRooms; j++) {
-                System.out.print("[" + visitedRooms[i][j] + "]");
-            }
-            System.out.println();
-        }
     }
 
     private void generateOpenedWaysRec(Room[][] rooms, int x, int y) {
