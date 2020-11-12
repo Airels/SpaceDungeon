@@ -27,8 +27,12 @@ public class MainGUI {
 
     public MainGUI(Group root) {
         mainGUI = this;
+
         guiEntities = new ArrayList<>();
+
         inventory = new GUIInventory();
+        inventory.render();
+
         this.root = root;
 
         showNotification(""); // To initialize
