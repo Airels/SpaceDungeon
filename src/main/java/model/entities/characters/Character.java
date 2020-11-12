@@ -36,11 +36,11 @@ public abstract class Character extends Entity {
         switch (direction) {
             case UP:
             case DOWN:
-                newY = coords.getY() + (direction.getY()/speed);
+                newY = coords.getY() + (direction.getY() * speed);
                 break;
             case LEFT:
             case RIGHT:
-                newX = coords.getX() + (direction.getX()/speed);
+                newX = coords.getX() + (direction.getX() * speed);
                 break;
             default:
                 throw new IllegalArgumentException("Movement not recognized");

@@ -6,7 +6,7 @@ import model.Game;
 import model.entities.characters.Character;
 
 public class BossMonsterAI implements AI {
-    public static final int BOSS_MONSTER_AI_LATENCY_MS = 150;
+    public static final int BOSS_MONSTER_AI_LATENCY_MS = 75;
 
     private long lastProcessedAI;
     private boolean canProcessAI;

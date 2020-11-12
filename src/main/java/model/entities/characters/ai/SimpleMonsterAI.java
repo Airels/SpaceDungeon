@@ -7,7 +7,7 @@ import model.entities.characters.Character;
 import model.Direction;
 
 public class SimpleMonsterAI implements AI {
-    public static final int SIMPLE_MONSTER_AI_LATENCY_MS = 250;
+    public static final int SIMPLE_MONSTER_AI_LATENCY_MS = 125;
 
     private long lastProcessedAI;
     private boolean canProcessAI;

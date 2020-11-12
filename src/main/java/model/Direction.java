@@ -1,11 +1,13 @@
 package model;
 
+import controller.App;
+
 public enum Direction {
 
-    UP(0, -20),
-    DOWN(0, 20),
-    RIGHT(20, 0),
-    LEFT(-20, 0);
+    UP(0, -App.MOVE_STEP_SIZE),
+    DOWN(0, App.MOVE_STEP_SIZE),
+    RIGHT(App.MOVE_STEP_SIZE, 0),
+    LEFT(-App.MOVE_STEP_SIZE, 0);
 
     private final Coordinates coordinates;
 

@@ -45,19 +45,21 @@ public class MainGUI {
     }
 
     public void render() {
-        List<GUIEntity> guiEntities = new ArrayList<>(this.guiEntities); // Avoid concurrent modification exception
+        Platform.runLater(() -> {
+            List<GUIEntity> guiEntities = new ArrayList<>(this.guiEntities); // Avoid concurrent modification exception
 
-        for (GUIEntity entity : guiEntities)
-            entity.render();
+            for (GUIEntity entity : guiEntities)
+                entity.render();
 
-        inventory.render();
+            inventory.render();
 
-        if (notification != null) {
-            notification.render();
+            if (notification != null) {
+                notification.render();
 
-            if (notification.expired())
-                removeNotification();
-        }
+                if (notification.expired())
+                    removeNotification();
+            }
+        });
     }
 
     public void addEntity(Entity entity) {

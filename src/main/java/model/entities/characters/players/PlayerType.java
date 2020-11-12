@@ -10,7 +10,18 @@ public enum PlayerType {
             .setHealthPoints(1_000_000)
             .setStrength(1_000_000)
             .setColor(Color.LIGHTGREEN)
-    );
+    ),
+
+    HARD(new PlayerBuilder("Tarik")
+            .setHealthPoints(50)
+            .setStrength(10)
+            .setSpeed(0.5)
+            .setColor(Color.HOTPINK)),
+
+    IMPOSSIBLE(new PlayerBuilder("Tom")
+            .setHealthPoints(1)
+            .setStrength(0)
+            .setSpeed(2));
 
     private final PlayerBuilder builder;
 
