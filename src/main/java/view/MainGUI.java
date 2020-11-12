@@ -22,7 +22,7 @@ public class MainGUI {
     private GUIRoom actualRoom;
     private final List<GUIEntity> guiEntities;
     private GUINotification notification;
-    private GUIInventory inventory;
+    private final GUIInventory inventory;
 
     public MainGUI(Group root) {
         mainGUI = this;
@@ -54,19 +54,8 @@ public class MainGUI {
     }
 
     public void addEntity(Entity entity) {
-        Color colorOfEntity = Color.BLACK;
-
-        if (entity instanceof Character)
-            colorOfEntity = ((Character) entity).getColor();
-        else if (entity instanceof Chest)
-            colorOfEntity = App.CHEST_COLOR;
-        else if (entity instanceof DroppedItem) {
-            Item item = ((DroppedItem) entity).getItem();
-            if (item instanceof Key)
-                colorOfEntity = App.KEYS_COLOR;
-        }
-
-        addEntity(entity, colorOfEntity);
+        Color colorOfEntity = entity.getColor();
+        addEntity(entity, entity.getColor());
     }
 
     private void addEntity(Entity entity, Color color) {

@@ -42,4 +42,8 @@ public class Syringe implements Item {
         return "Syringe";
     }
 
+    @Override
+    public Color getColor() {
+        return Color.DARKGREEN;
+    }
 }

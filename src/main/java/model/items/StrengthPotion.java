@@ -6,8 +6,6 @@ import model.entities.characters.Inventory;
 import model.entities.characters.players.Player;
 
 public class StrengthPotion implements Item {
-
-
     private int strBonus;
     private int value;
     private Color color;
@@ -40,5 +38,10 @@ public class StrengthPotion implements Item {
     @Override
     public String name() {
         return "Potion of Strength";
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.DARKRED;
     }
 }

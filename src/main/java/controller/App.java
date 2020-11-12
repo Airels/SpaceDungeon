@@ -31,9 +31,6 @@ public class App extends Application {
 
     public static final int MONSTER_AI_LATENCY_MS = 250;
 
-    public static final Color CHEST_COLOR = Color.BROWN,
-            KEYS_COLOR = Color.GOLD;
-
     public static final int DEFAULT_ENTITY_SIZE = 10;
 
     public static final int DEFAULT_NOTIFICATION_DURATION = 5000,

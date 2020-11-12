@@ -1,5 +1,6 @@
 package model.items;
 
+import javafx.scene.paint.Color;
 import model.Direction;
 import model.Game;
 import model.entities.characters.Inventory;
@@ -26,5 +27,10 @@ public class Key implements Item {
     @Override
     public String name() {
         return "Key";
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.GOLD;
     }
 }
