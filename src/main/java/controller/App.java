@@ -51,7 +51,7 @@ public class App extends Application {
         primaryStage.show();
 
 
-        Player player = new Player(PlayerType.GOD_OF_HYPERDEATH);
+        Player player = new Player(PlayerType.NORMAL);
 
         Game game = new Game(player);
         MainGUI gui = new MainGUI(root);

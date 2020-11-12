@@ -11,4 +11,8 @@ public interface Item {
     default void removeFromInventory() {
         Game.getInstance().getPlayer().getInventory().removeItem(this);
     }
+
+    default void usedMessage() {
+        Game.getInstance().showNotification("You used " + this.name());
+    }
 }

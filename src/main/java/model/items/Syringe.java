@@ -35,6 +35,8 @@ public class Syringe implements Item {
         player.heal((int) (player.getMaxHealth()*healPercentage + player.getHealthPoints()));
         Inventory inventory = player.getInventory();
         inventory.removeItem(this);
+
+        usedMessage();
     }
 
     @Override

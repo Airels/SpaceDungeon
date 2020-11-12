@@ -43,7 +43,7 @@ public class Game extends Thread {
     }
 
     private void loop() {
-        while (true) {
+        while (!interrupted()) {
             if (!isPaused) {
                 // IA
                 List<Entity> entities = actualRoom.getEntities();

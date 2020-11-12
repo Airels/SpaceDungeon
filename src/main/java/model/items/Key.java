@@ -22,6 +22,8 @@ public class Key implements Item {
         } else {
             game.showNotification("Approach a door to use the key");
         }
+
+        usedMessage();
     }
 
     @Override

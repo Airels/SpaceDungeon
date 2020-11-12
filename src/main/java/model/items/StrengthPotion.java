@@ -30,9 +30,10 @@ public class StrengthPotion implements Item {
         Game game = Game.getInstance();
         Player player = game.getPlayer();
         player.addStrength(strBonus);
-        System.out.println(player.getStrength());
         Inventory inventory = player.getInventory();
         inventory.removeItem(this);
+
+        usedMessage();
     }
 
     @Override
