@@ -15,7 +15,7 @@ import view.MainGUI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game implements Runnable {
+public class Game extends Thread {
     private static Game game;
 
     private Room[][] rooms;
@@ -69,10 +69,7 @@ public class Game implements Runnable {
 
             try {
                 Thread.sleep(1000 / App.FPS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(-1);
-            }
+            } catch (InterruptedException ignored) { }
         }
     }
 

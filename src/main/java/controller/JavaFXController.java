@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.Direction;
+import model.Game;
 import model.entities.characters.players.Player;
 import model.items.Item;
 

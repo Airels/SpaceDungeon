@@ -62,7 +62,7 @@ public class App extends Application {
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(player));
         primaryStage.addEventHandler(MouseEvent.MOUSE_PRESSED, JavaFXController.getMousePressedEventHandler(player));
 
-        new Thread(game).start();
+        game.start();
     }
 
     public static void main(String[] args) {
