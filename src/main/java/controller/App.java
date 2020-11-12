@@ -29,8 +29,6 @@ public class App extends Application {
             DOOR_COLOR = Color.GOLD;
     public static final int WALL_SIZE = 20;
 
-    public static final int MONSTER_AI_LATENCY_MS = 250;
-
     public static final int DEFAULT_ENTITY_SIZE = 10;
 
     public static final int DEFAULT_NOTIFICATION_DURATION = 5000,

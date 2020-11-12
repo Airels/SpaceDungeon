@@ -21,15 +21,11 @@ public class Game extends Thread {
     private Room[][] rooms;
     private final Player player;
     private Room actualRoom;
-    private long lastProcessedAI;
-    private boolean canProcessAI;
     private boolean isPaused = false;
 
     public Game(Player player) {
         game = this;
         this.player = player;
-        lastProcessedAI = System.currentTimeMillis();
-        canProcessAI = false;
     }
 
     @Override
@@ -50,22 +46,12 @@ public class Game extends Thread {
         while (true) {
             if (!isPaused) {
                 // IA
-                if (System.currentTimeMillis() - lastProcessedAI > App.MONSTER_AI_LATENCY_MS) {
-                    lastProcessedAI = System.currentTimeMillis();
-                    canProcessAI = true;
-                }
-
                 for (Entity entity : actualRoom.getEntities()) {
                     if (!(entity instanceof Monster)) continue;
 
-                    if (canProcessAI) {
-                        Monster monster = (Monster) entity;
-                        monster.getMonsterAI().process(monster);
-                    }
+                    Monster monster = (Monster) entity;
+                    monster.getMonsterAI().process(monster);
                 }
-
-                if (canProcessAI) canProcessAI = false;
-
 
                 MainGUI.getInstance().render();
             }
