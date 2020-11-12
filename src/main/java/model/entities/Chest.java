@@ -1,6 +1,7 @@
 package model.entities;
 
 import controller.App;
+import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Game;
 import model.entities.characters.players.Player;
@@ -22,9 +23,9 @@ public class Chest extends Entity {
     }
 
     public Chest(Coordinates coords, List<Item> items) {
-        this.coords = coords;
+        super(coords, "Chest", App.DEFAULT_ENTITY_SIZE, Color.BROWN);
+
         this.items = items;
-        this.name = "Chest";
     }
 
     public void openChest(){

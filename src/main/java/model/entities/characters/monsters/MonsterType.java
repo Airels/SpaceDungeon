@@ -1,38 +1,36 @@
 package model.entities.characters.monsters;
 
 import javafx.scene.paint.Color;
-import model.entities.characters.ai.AI;
-import model.entities.characters.ai.SimpleMonsterAI;
 
 public enum MonsterType {
 
     BLOB(new MonsterBuilder("Blob")
-            .setHealPoints(50)
+            .setHealthPoints(50)
             .setStrength(5)
             .setSpeed(0.50)
             .setSize(10)
             .setColor(Color.CYAN), 0.50),
 
     CHIMERE(new MonsterBuilder("Chimere")
-            .setHealPoints(100)
+            .setHealthPoints(100)
             .setStrength(20)
             .setSpeed(0.75)
             .setSize(30)
             .setColor(Color.RED), 0.25),
 
     ALIEN(new MonsterBuilder("Alien")
-            .setHealPoints(200)
+            .setHealthPoints(200)
             .setStrength(50)
             .setSize(20)
             .setColor(Color.BLACK), 0.15),
     THE_BOSS(new MonsterBuilder("Sett")
-            .setHealPoints(300)
+            .setHealthPoints(300)
             .setStrength(70)
             .setSize(25)
             .setColor(Color.PURPLE), 0),
 
     SWARM(new MonsterBuilder("Swarm")
-            .setHealPoints(69)
+            .setHealthPoints(69)
             .setStrength(10)
             .setSpeed(0.75)
             .setSize(40)

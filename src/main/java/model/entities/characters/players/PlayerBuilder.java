@@ -20,7 +20,7 @@ public class PlayerBuilder implements Builder<Player> {
 
     @Override
     public Player build() {
-        return new Player(name, healthPoints, strength, actionRange, speed, size, color);
+        return new Player(name, size, healthPoints, strength, actionRange, speed, color);
     }
 
     public PlayerBuilder setHealthPoints(int healthPoints) {

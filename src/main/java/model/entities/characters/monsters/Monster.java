@@ -1,5 +1,6 @@
 package model.entities.characters.monsters;
 
+import controller.App;
 import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Fight;
@@ -11,29 +12,32 @@ import model.entities.characters.ai.AI;
 public class Monster extends Character {
     private final AI monsterAI;
 
-    public Monster(Coordinates coords, String name, int healthPoints, int strength, double speed, AI monsterAI, double size, Color color) {
-        this.coords = coords;
-        this.name = name;
-        this.healthPoints = healthPoints;
-        this.maxHealth = healthPoints;
-        this.strength = strength;
-        this.speed = speed;
-        this.size = size;
-        this.actionRange = size;
+    public Monster(Coordinates coords, String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color, AI monsterAI) {
+        super(
+                coords,
+                name,
+                size,
+                healthPoints,
+                strength,
+                actionRange,
+                speed,
+                color
+        );
+
         this.monsterAI = monsterAI;
-        this.color = color;
     }
 
     public Monster(MonsterBuilder builder) {
         this(
                 builder.getCoords(),
                 builder.getName(),
-                builder.getHealPoints(),
-                builder.getStrength(),
-                builder.getSpeed(),
-                builder.getMonsterAI(),
                 builder.getSize(),
-                builder.getColor()
+                builder.getHealthPoints(),
+                builder.getStrength(),
+                builder.getActionRange(),
+                builder.getSpeed(),
+                builder.getColor(),
+                builder.getMonsterAI()
         );
     }
 

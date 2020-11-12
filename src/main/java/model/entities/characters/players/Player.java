@@ -22,27 +22,27 @@ import java.util.Set;
 
 public class Player extends Character {
 
-    public Player(String name, int healthPoints, int strength, int actionRange, double speed, double size, Color color){
-        this.name = name;
-        this.healthPoints = healthPoints;
-        this.maxHealth = healthPoints;
-        this.strength = strength;
-        this.actionRange = actionRange;
-        this.speed = speed;
-        this.inventory = new Inventory();
-        this.coords = new Coordinates(App.WIDTH/2, App.HEIGHT/2);
-        this.size = size;
-        this.color = color;
+    public Player(String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color) {
+        super(
+                new Coordinates(App.WIDTH/2, App.HEIGHT/2),
+                name,
+                size,
+                healthPoints,
+                strength,
+                actionRange,
+                speed,
+                color
+        );
     }
 
     public Player(PlayerBuilder builder) {
         this(
                 builder.getName(),
+                builder.getSize(),
                 builder.getHealthPoints(),
                 builder.getStrength(),
                 builder.getActionRange(),
                 builder.getSpeed(),
-                builder.getSize(),
                 builder.getColor()
         );
     }

@@ -12,7 +12,7 @@ public class MonsterBuilder implements Builder<Monster> {
     private AI monsterAI = new SimpleMonsterAI();
     private double speed = 1,
         size = 20;
-    private int healPoints = 100,
+    private int healthPoints = 100,
             maxHealth = 100,
             strength = 10,
             actionRange = (int) size;
@@ -47,8 +47,8 @@ public class MonsterBuilder implements Builder<Monster> {
         return this;
     }
 
-    public MonsterBuilder setHealPoints(int healPoints) {
-        this.healPoints = healPoints;
+    public MonsterBuilder setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
 
         return this;
     }
@@ -91,7 +91,7 @@ public class MonsterBuilder implements Builder<Monster> {
 
     @Override
     public Monster build() {
-        return new Monster(coords, name, healPoints, strength, speed, monsterAI, size, color);
+        return new Monster(coords, name, size, healthPoints, strength, actionRange, speed, color, monsterAI);
     }
 
     public Color getColor() {
@@ -106,8 +106,8 @@ public class MonsterBuilder implements Builder<Monster> {
         return speed;
     }
 
-    public int getHealPoints() {
-        return healPoints;
+    public int getHealthPoints() {
+        return healthPoints;
     }
 
     public int getMaxHealth() {
