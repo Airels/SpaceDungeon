@@ -31,7 +31,8 @@ public enum MonsterType {
             .setStrength(70)
             .setSize(25)
             .setColor(Color.PURPLE)
-            .setMonsterAI(new BossMonsterAI()), 0),
+            .setMonsterAI(new BossMonsterAI())
+            .setBoss(true), 0),
 
     SWARM(new MonsterBuilder("Swarm")
             .setHealthPoints(69)

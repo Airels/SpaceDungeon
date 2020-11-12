@@ -34,7 +34,6 @@ public class MainGUI {
         showNotification(""); // To initialize
 
         pauseMenu = new GUIPauseMenu();
-        pauseMenu.render();
     }
 
     public static MainGUI getInstance() {
@@ -133,8 +132,10 @@ public class MainGUI {
     }
 
     public void togglePauseMenu(boolean isPaused) {
-        if (isPaused)
+        if (isPaused) {
+            pauseMenu.render();
             Platform.runLater(() -> root.getChildren().addAll(pauseMenu.getFxModels()));
+        }
         else
             Platform.runLater(() -> root.getChildren().removeAll(pauseMenu.getFxModels()));
     }

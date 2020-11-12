@@ -11,8 +11,9 @@ import model.entities.characters.ai.AI;
 
 public class Monster extends Character {
     private final AI monsterAI;
+    private final boolean isBoss;
 
-    public Monster(Coordinates coords, String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color, AI monsterAI) {
+    public Monster(Coordinates coords, String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color, AI monsterAI, boolean isBoss) {
         super(
                 coords,
                 name,
@@ -25,6 +26,7 @@ public class Monster extends Character {
         );
 
         this.monsterAI = monsterAI;
+        this.isBoss = isBoss;
     }
 
     public Monster(MonsterBuilder builder) {
@@ -37,7 +39,8 @@ public class Monster extends Character {
                 builder.getActionRange(),
                 builder.getSpeed(),
                 builder.getColor(),
-                builder.getMonsterAI()
+                builder.getMonsterAI(),
+                builder.isBoss()
         );
     }
 
@@ -69,7 +72,12 @@ public class Monster extends Character {
 
     @Override
     public void deathAction() {
-        Game.getInstance().deleteEntity(this);
+        Game game = Game.getInstance();
+        game.deleteEntity(this);
+
+        if (isBoss) {
+            game.showNotification("YOU WON! Now let's pay for a real game!");
+        }
     }
 
     @Override

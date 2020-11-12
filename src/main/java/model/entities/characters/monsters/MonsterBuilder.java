@@ -8,6 +8,7 @@ import model.entities.characters.ai.AI;
 import model.entities.characters.ai.SimpleMonsterAI;
 
 public class MonsterBuilder implements Builder<Monster> {
+    private boolean isBoss = false;
     private Color color = Color.RED;
     private AI monsterAI = new SimpleMonsterAI();
     private double speed = 1,
@@ -89,9 +90,15 @@ public class MonsterBuilder implements Builder<Monster> {
         return this;
     }
 
+    public MonsterBuilder setBoss(boolean isBoss) {
+        this.isBoss = isBoss;
+
+        return this;
+    }
+
     @Override
     public Monster build() {
-        return new Monster(coords, name, size, healthPoints, strength, actionRange, speed, color, monsterAI);
+        return new Monster(coords, name, size, healthPoints, strength, actionRange, speed, color, monsterAI, isBoss);
     }
 
     public Color getColor() {
@@ -132,5 +139,9 @@ public class MonsterBuilder implements Builder<Monster> {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isBoss() {
+        return isBoss;
     }
 }

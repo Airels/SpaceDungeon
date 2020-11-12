@@ -158,8 +158,10 @@ public class Player extends Character {
             Set<Direction> doorWays = game.getActualRoom().getDoorWays();
             Direction directionFromNearestWay = Room.directionFromNearestWay(this);
 
-            if (ways.contains(directionFromNearestWay) && !doorWays.contains(directionFromNearestWay))
-                game.loadNextRoom(directionFromNearestWay);
+            if (ways.contains(directionFromNearestWay) && !doorWays.contains(directionFromNearestWay)) {
+                if (this.lastDirection() == directionFromNearestWay)
+                    game.loadNextRoom(directionFromNearestWay);
+            }
         }
     }
 }

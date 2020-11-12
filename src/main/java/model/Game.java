@@ -39,6 +39,8 @@ public class Game extends Thread {
 
         MainGUI.getInstance().showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
 
+        game.pause();
+
         loop();
     }
 
@@ -134,6 +136,8 @@ public class Game extends Thread {
     }
 
     public List<Entity> closestEntities(Character character) {
+        if (actualRoom == null) return new ArrayList<>();
+
         List<Entity> closestEntities = new ArrayList<>();
 
         double charRange = character.getActionRange();
@@ -150,6 +154,8 @@ public class Game extends Thread {
     }
 
     public List<Monster> closestMonsters() {
+        if (actualRoom == null) return new ArrayList<>();
+
         List<Monster> closestEntities = new ArrayList<>();
 
         double charRange = player.getActionRange();

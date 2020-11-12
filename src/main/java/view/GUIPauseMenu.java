@@ -3,26 +3,38 @@ package view;
 import controller.App;
 import javafx.scene.Node;
 import javafx.scene.text.*;
+import model.Coordinates;
+import model.Game;
+import model.entities.characters.players.Player;
+import model.rooms.Room;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class GUIPauseMenu implements GUIObject {
-    private final Text text;
+    private final Text textControls, textStats;
 
     GUIPauseMenu() {
-        text = new Text("- Inventory -\n");
-        text.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
-        text.setTextAlignment(TextAlignment.LEFT);
-        text.setX(30);
-        text.setY(App.HEIGHT-180);
+        textControls = new Text("GAME PAUSED\n");
+        textControls.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
+        textControls.setTextAlignment(TextAlignment.LEFT);
+        textControls.setX(30);
+        textControls.setY(App.HEIGHT-180);
+
+        textStats = new Text("- Statistics -\n");
+        textStats.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
+        textStats.setTextAlignment(TextAlignment.RIGHT);
+        textStats.setX(App.WIDTH-140);
+        textStats.setY(App.HEIGHT-180);
     }
 
     @Override
     public void render() {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builderControls = new StringBuilder();
 
-        builder.append("GAME PAUSED").append('\n')
+        builderControls.append("GAME PAUSED").append('\n')
                 .append("To resume game, press ESCAPE").append('\n')
                 .append('\n').append('\n')
                 .append("- CONTROLS").append('\n')
@@ -31,11 +43,25 @@ public class GUIPauseMenu implements GUIObject {
                 .append("Attack: LEFT CLICK").append('\n')
                 .append("Use items: 1-9 DIGITS");
 
-        text.setText(builder.toString());
+        textControls.setText(builderControls.toString());
+
+
+        Player player = Game.getInstance().getPlayer();
+        Coordinates actualRoomCoords = Game.getInstance().getActualRoom().getCoords();
+        StringBuilder builderStats = new StringBuilder();
+
+        builderStats.append("- Statistics -").append('\n')
+                .append("HP: ").append(player.getHealthPoints()).append('\n')
+                .append("Strength: ").append(player.getStrength()).append('\n')
+                .append("Room: ").append('(')
+                .append((int) actualRoomCoords.getX()).append(',')
+                .append((int) actualRoomCoords.getY()).append(')');
+
+        textStats.setText(builderStats.toString());
     }
 
     @Override
     public List<Node> getFxModels() {
-        return Collections.singletonList(text);
+        return new ArrayList<>(Arrays.asList(textControls, textStats));
     }
 }
