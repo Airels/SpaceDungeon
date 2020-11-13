@@ -2,7 +2,7 @@ package sounds.sound.entity.character;
 
 import sounds.Sound;
 
-public enum Monster implements Sound {
+public enum SMonster implements Sound {
     TAKE_HIT,
     DIE;
 

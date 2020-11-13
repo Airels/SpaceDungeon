@@ -1,9 +1,9 @@
-package sounds.sound.entity;
+package sounds.sound;
 
 import sounds.Sound;
 
-public enum Chest implements Sound {
-    OPEN;
+public enum SRoom implements Sound {
+    OPEN_DOOR;
 
     @Override
     public String getPath() {

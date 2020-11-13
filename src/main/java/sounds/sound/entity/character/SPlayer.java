@@ -2,7 +2,7 @@ package sounds.sound.entity.character;
 
 import sounds.Sound;
 
-public enum Player implements Sound {
+public enum SPlayer implements Sound {
     TAKE_HIT,
     DIE;
 

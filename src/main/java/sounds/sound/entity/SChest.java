@@ -1,9 +1,9 @@
-package sounds.sound;
+package sounds.sound.entity;
 
 import sounds.Sound;
 
-public enum Game implements Sound {
-    ;
+public enum SChest implements Sound {
+    OPEN;
 
     @Override
     public String getPath() {
