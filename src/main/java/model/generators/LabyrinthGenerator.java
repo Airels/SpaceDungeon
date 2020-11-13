@@ -8,10 +8,7 @@ import model.entities.characters.monsters.MonsterType;
 import model.items.Item;
 import model.items.StrengthPotion;
 import model.items.Syringe;
-import model.rooms.BossRoom;
-import model.rooms.MonsterRoom;
-import model.rooms.Room;
-import model.rooms.SimpleRoom;
+import model.rooms.*;
 
 import java.util.*;
 
@@ -199,15 +196,5 @@ public class LabyrinthGenerator implements DungeonGenerator {
         } while (room.getOpenedWays().size() == 0);
 
         return room;
-    }
-
-
-    enum RoomType {
-        SIMPLE_ROOM,
-        MONSTER_ROOM;
-
-        public static RoomType getRandomRoomType() {
-            return (Math.random()*2 < 1) ? SIMPLE_ROOM : MONSTER_ROOM;
-        }
     }
 }
