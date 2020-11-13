@@ -19,7 +19,7 @@ public class TrappedChest extends Entity{
 
     public void action(){
         Game game = Game.getInstance();
-        game.getActualRoom().getEntities().add(new Monster(monster));
+        game.roomManager().actualRoom().getEntities().add(new Monster(monster));
     }
 
 }

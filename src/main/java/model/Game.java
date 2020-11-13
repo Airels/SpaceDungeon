@@ -16,10 +16,8 @@ import java.util.List;
 
 public class Game extends Thread {
     private static Game game;
-
-    private Room[][] rooms;
+    private RoomManager roomManager;
     private final Player player;
-    private Room actualRoom;
     private boolean isPaused = false;
 
     public Game(Player player) {
@@ -29,14 +27,11 @@ public class Game extends Thread {
 
     @Override
     public void run() {
-        // DungeonGenerator generator = new BasicGenerator(3, 5, 1);
-        DungeonGenerator generator = new LabyrinthGenerator(25, 5, 3);
         // DungeonGenerator generator = new TestGenerator();
-        rooms = generator.generate();
+        DungeonGenerator generator = new LabyrinthGenerator(25, 5, 3);
+        roomManager = new RoomManager(generator);
 
-        loadRoom(generator.getSpawnRoom());
-
-        GraphicEngine.getInstance().showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
+        showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
 
         game.pause();
 
@@ -47,7 +42,7 @@ public class Game extends Thread {
         while (!interrupted()) {
             if (!isPaused) {
                 // IA
-                List<Entity> entities = actualRoom.getEntities();
+                List<Entity> entities = roomManager.actualRoom().getEntities();
                 for (Entity entity : entities) {
                     if (!(entity instanceof Monster)) continue;
 
@@ -67,65 +62,6 @@ public class Game extends Thread {
         }
     }
 
-    public Room getActualRoom() {
-        return actualRoom;
-    }
-
-    public Room getNextRoom(Direction direction) {
-        int x = (int) actualRoom.getCoords().getX();
-        int y = (int) actualRoom.getCoords().getY();
-        Room newRoom;
-
-        try {
-            switch (direction) {
-                case UP:
-                    newRoom = rooms[x][y-1];
-                    break;
-                case RIGHT:
-                    newRoom = rooms[x+1][y];
-                    break;
-                case DOWN:
-                    newRoom = rooms[x][y+1];
-                    break;
-                case LEFT:
-                    newRoom = rooms[x-1][y];
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + direction);
-            }
-
-            return newRoom;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.print("Index Out Of Bounds: Did you assigned coordinates correctly ? ");
-            System.err.println("Actual coords: " + x + ", " + y + " (might be wrong, check your generator)");
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        return null;
-    }
-
-    public void loadNextRoom(Direction direction) {
-        switch (direction) {
-            case UP:
-                player.moveToDoor(Direction.DOWN);
-                break;
-            case RIGHT:
-                player.moveToDoor(Direction.LEFT);
-                break;
-            case DOWN:
-                player.moveToDoor(Direction.UP);
-                break;
-            case LEFT:
-                player.moveToDoor(Direction.RIGHT);
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected value: " + direction);
-        }
-
-        loadRoom(getNextRoom(direction));
-    }
-
     public static Game getInstance() {
         return game;
     }
@@ -135,14 +71,14 @@ public class Game extends Thread {
     }
 
     public List<Entity> closestEntities(Character character) {
-        if (actualRoom == null) return new ArrayList<>();
+        if (roomManager.actualRoom() == null) return new ArrayList<>();
 
         List<Entity> closestEntities = new ArrayList<>();
 
         double charRange = character.getActionRange();
         Coordinates charCoords = character.getCoords();
 
-        for (Entity entity : actualRoom.getEntities()) {
+        for (Entity entity : roomManager.actualRoom().getEntities()) {
             if (entity.equals(character)) continue;
 
             if (charCoords.getDistance(entity.getCoords()) <= charRange)
@@ -153,14 +89,14 @@ public class Game extends Thread {
     }
 
     public List<Monster> closestMonsters() {
-        if (actualRoom == null) return new ArrayList<>();
+        if (roomManager.actualRoom() == null) return new ArrayList<>();
 
         List<Monster> closestEntities = new ArrayList<>();
 
         double charRange = player.getActionRange();
         Coordinates charCoords = player.getCoords();
 
-        for (Entity entity : actualRoom.getEntities()) {
+        for (Entity entity : roomManager.actualRoom().getEntities()) {
             if (!(entity instanceof Monster)) continue;
 
             if (charCoords.getDistance(entity.getCoords()) <= charRange)
@@ -171,7 +107,7 @@ public class Game extends Thread {
     }
 
     public void addEntity(Entity entity) {
-        actualRoom.getEntities().add(entity);
+        roomManager.actualRoom().getEntities().add(entity);
         GraphicEngine.getInstance().addEntity(entity);
     }
 
@@ -179,19 +115,7 @@ public class Game extends Thread {
         System.out.println("Entity " + entity + " fainted");
 
         GraphicEngine.getInstance().removeEntity(entity);
-        actualRoom.getEntities().remove(entity);
-    }
-
-    public void reloadRoom() {
-        loadRoom(actualRoom);
-    }
-
-    private void loadRoom(Room room) {
-        if (room == null) throw new RoomNotGeneratedException("The room you try to load don't exist");
-
-        actualRoom = room;
-        GraphicEngine.getInstance().loadRoom(room);
-        room.loadedEvent();
+        roomManager.actualRoom().getEntities().remove(entity);
     }
 
     public void gameOver() {
@@ -207,17 +131,6 @@ public class Game extends Thread {
         }
 
         System.exit(0);
-    }
-
-    public void openDoor(Direction direction) {
-        Room nextRoom = getNextRoom(direction);
-
-        actualRoom.removeDoorWay(direction);
-        nextRoom.removeDoorWay(direction.reverse());
-
-        reloadRoom();
-
-        showNotification("You opened a door!");
     }
 
     public void showNotification(String message) {
@@ -240,5 +153,9 @@ public class Game extends Thread {
 
     public boolean isPaused() {
         return isPaused;
+    }
+
+    public RoomManager roomManager() {
+        return roomManager;
     }
 }

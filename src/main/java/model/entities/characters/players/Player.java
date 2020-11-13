@@ -154,13 +154,13 @@ public class Player extends Character {
         // CHANGEMENT DE SALLE
         if (Room.isNearFromWay(this)){
             Game game = Game.getInstance();
-            Set<Direction> ways = game.getActualRoom().getOpenedWays();
-            Set<Direction> doorWays = game.getActualRoom().getDoorWays();
+            Set<Direction> ways = game.roomManager().actualRoom().getOpenedWays();
+            Set<Direction> doorWays = game.roomManager().actualRoom().getDoorWays();
             Direction directionFromNearestWay = Room.directionFromNearestWay(this);
 
             if (ways.contains(directionFromNearestWay) && !doorWays.contains(directionFromNearestWay)) {
                 if (this.lastDirection() == directionFromNearestWay)
-                    game.loadNextRoom(directionFromNearestWay);
+                    game.roomManager().loadNextRoom(directionFromNearestWay);
             }
         }
     }

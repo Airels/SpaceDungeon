@@ -37,7 +37,7 @@ public class Chest extends Entity {
         player.getInventory().addAll(items, true);
 
         game.deleteEntity(this);
-        game.reloadRoom();
+        game.roomManager().reloadRoom();
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You opened a chest, you got :");

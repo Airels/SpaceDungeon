@@ -57,7 +57,7 @@ public interface Room {
 
     static Direction directionFromNearestDoor(Player player) {
         Coordinates coords = player.getCoords();
-        Set<Direction> waysClosedByDoor = Game.getInstance().getActualRoom().getDoorWays();
+        Set<Direction> waysClosedByDoor = Game.getInstance().roomManager().actualRoom().getDoorWays();
 
         for (Direction wayClosedByDoor : waysClosedByDoor) {
             switch (wayClosedByDoor) {
@@ -99,5 +99,9 @@ public interface Room {
 
     static Coordinates getRightWayCoordinates() {
         return new Coordinates(App.WIDTH-App.WALL_SIZE, App.HEIGHT/2);
+    }
+
+    static void openDoor(Direction direction) {
+        Game.getInstance().roomManager().openDoor(direction);
     }
 }

@@ -17,7 +17,7 @@ public class Key implements Item {
 
         if (Room.isNearFromDoor(player)){
             Direction doorToOpen = Room.directionFromNearestDoor(player);
-            game.openDoor(doorToOpen);
+            game.roomManager().openDoor(doorToOpen);
             removeFromInventory();
         } else {
             game.showNotification("Approach a door to use the key");

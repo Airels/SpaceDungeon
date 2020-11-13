@@ -45,7 +45,7 @@ public class GPauseMenu implements GObject {
 
 
         Player player = Game.getInstance().getPlayer();
-        Coordinates actualRoomCoords = Game.getInstance().getActualRoom().getCoords();
+        Coordinates actualRoomCoords = Game.getInstance().roomManager().actualRoom().getCoords();
         StringBuilder builderStats = new StringBuilder();
 
         builderStats.append("- Statistics -").append('\n')
