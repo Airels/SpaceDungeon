@@ -8,9 +8,8 @@ import model.entities.characters.players.Player;
 import model.entities.characters.monsters.Monster;
 import model.generators.DungeonGenerator;
 import model.generators.LabyrinthGenerator;
-import model.rooms.BossRoom;
 import model.rooms.Room;
-import view.MainGUI;
+import view.GraphicEngine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +36,7 @@ public class Game extends Thread {
 
         loadRoom(generator.getSpawnRoom());
 
-        MainGUI.getInstance().showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
+        GraphicEngine.getInstance().showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
 
         game.pause();
 
@@ -56,7 +55,7 @@ public class Game extends Thread {
                     monster.getMonsterAI().process(monster);
                 }
 
-                MainGUI.getInstance().render();
+                GraphicEngine.getInstance().render();
             }
 
             try {
@@ -173,13 +172,13 @@ public class Game extends Thread {
 
     public void addEntity(Entity entity) {
         actualRoom.getEntities().add(entity);
-        MainGUI.getInstance().addEntity(entity);
+        GraphicEngine.getInstance().addEntity(entity);
     }
 
     public void deleteEntity(Entity entity) {
         System.out.println("Entity " + entity + " fainted");
 
-        MainGUI.getInstance().removeEntity(entity);
+        GraphicEngine.getInstance().removeEntity(entity);
         actualRoom.getEntities().remove(entity);
     }
 
@@ -191,7 +190,7 @@ public class Game extends Thread {
         if (room == null) throw new RoomNotGeneratedException("The room you try to load don't exist");
 
         actualRoom = room;
-        MainGUI.getInstance().loadRoom(room);
+        GraphicEngine.getInstance().loadRoom(room);
         room.loadedEvent();
     }
 
@@ -199,7 +198,7 @@ public class Game extends Thread {
         // TODO : A implémenter
         System.out.println("GAME OVER");
 
-        MainGUI.getInstance().showNotification("YOU DIED\nGAME OVER", 5000);
+        GraphicEngine.getInstance().showNotification("YOU DIED\nGAME OVER", 5000);
 
         try {
             Thread.sleep(5000);
@@ -226,17 +225,17 @@ public class Game extends Thread {
     }
 
     public void showNotification(String message, int duration) {
-        MainGUI.getInstance().showNotification(message, duration);
+        GraphicEngine.getInstance().showNotification(message, duration);
     }
 
     public void pause() {
         isPaused = true;
-        MainGUI.getInstance().togglePauseMenu(true);
+        GraphicEngine.getInstance().togglePauseMenu(true);
     }
 
     public void play() {
         isPaused = false;
-        MainGUI.getInstance().togglePauseMenu(false);
+        GraphicEngine.getInstance().togglePauseMenu(false);
     }
 
     public boolean isPaused() {

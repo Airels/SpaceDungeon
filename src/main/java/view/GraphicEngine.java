@@ -5,50 +5,45 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import model.Game;
-import model.entities.Chest;
-import model.entities.DroppedItem;
 import model.entities.Entity;
-import model.entities.characters.Character;
-import model.items.Item;
-import model.items.Key;
 import model.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainGUI {
-    private static MainGUI mainGUI;
+public class GraphicEngine {
+    private static GraphicEngine graphicEngine;
     private final Group root;
-    private GUIRoom actualRoom;
-    private final List<GUIEntity> guiEntities;
-    private GUINotification notification;
-    private final GUIInventory inventory;
-    private final GUIPauseMenu pauseMenu;
+    private GRoom actualRoom;
+    private final List<GEntity> guiEntities;
+    private GNotification notification;
+    private final GInventory inventory;
+    private final GPauseMenu pauseMenu;
 
-    public MainGUI(Group root) {
-        mainGUI = this;
+    public GraphicEngine(Group root) {
+        graphicEngine = this;
 
         guiEntities = new ArrayList<>();
 
-        inventory = new GUIInventory();
+        inventory = new GInventory();
         inventory.render();
 
         this.root = root;
 
         showNotification(""); // To initialize
 
-        pauseMenu = new GUIPauseMenu();
+        pauseMenu = new GPauseMenu();
     }
 
-    public static MainGUI getInstance() {
-        return mainGUI;
+    public static GraphicEngine getInstance() {
+        return graphicEngine;
     }
 
     public void render() {
         Platform.runLater(() -> {
-            List<GUIEntity> guiEntities = new ArrayList<>(this.guiEntities); // Avoid concurrent modification exception
+            List<GEntity> guiEntities = new ArrayList<>(this.guiEntities); // Avoid concurrent modification exception
 
-            for (GUIEntity entity : guiEntities)
+            for (GEntity entity : guiEntities)
                 entity.render();
 
             inventory.render();
@@ -68,30 +63,30 @@ public class MainGUI {
     }
 
     private void addEntity(Entity entity, Color color) {
-        GUIEntity guiEntity = new GUIEntity(entity, color);
-        guiEntities.add(guiEntity);
+        GEntity gEntity = new GEntity(entity, color);
+        guiEntities.add(gEntity);
 
-        Platform.runLater(() -> root.getChildren().addAll(guiEntity.getFxModels()));
+        Platform.runLater(() -> root.getChildren().addAll(gEntity.getFxModels()));
     }
 
     public void removeEntity(Entity entity) {
-        for (GUIEntity guiEntity : guiEntities) {
-            if (guiEntity.getEntity().equals(entity)) {
-                removeEntity(guiEntity);
+        for (GEntity gEntity : guiEntities) {
+            if (gEntity.getEntity().equals(entity)) {
+                removeEntity(gEntity);
                 return;
             }
         }
     }
 
-    private void removeEntity(GUIEntity guiEntity) {
-        if (guiEntities.contains(guiEntity)) {
-            guiEntities.remove(guiEntity);
-            Platform.runLater(() -> root.getChildren().removeAll(guiEntity.getFxModels()));
+    private void removeEntity(GEntity gEntity) {
+        if (guiEntities.contains(gEntity)) {
+            guiEntities.remove(gEntity);
+            Platform.runLater(() -> root.getChildren().removeAll(gEntity.getFxModels()));
         }
     }
 
     public void loadRoom(Room room) {
-        GUIRoom guiRoom = new GUIRoom(room);
+        GRoom guiRoom = new GRoom(room);
         guiRoom.render();
 
         Platform.runLater(() -> root.getChildren().clear());
@@ -120,7 +115,7 @@ public class MainGUI {
     public void showNotification(String message, int duration) {
         removeNotification();
 
-        GUINotification notification = new GUINotification(message, duration);
+        GNotification notification = new GNotification(message, duration);
         this.notification = notification;
         Platform.runLater(() -> {
             if (root.getChildren().containsAll(notification.getFxModels()))
@@ -131,7 +126,7 @@ public class MainGUI {
     }
 
     void removeNotification() {
-        GUINotification notification = this.notification;
+        GNotification notification = this.notification;
 
         if (notification != null)
             Platform.runLater(() -> root.getChildren().removeAll(notification.getFxModels()));

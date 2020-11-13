@@ -10,10 +10,10 @@ import model.items.Item;
 import java.util.Collections;
 import java.util.List;
 
-public class GUIInventory implements GUIObject {
+public class GInventory implements GObject {
     private final Text text;
 
-    GUIInventory() {
+    GInventory() {
         text = new Text("- Inventory -\n");
         text.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
         text.setTextAlignment(TextAlignment.LEFT);

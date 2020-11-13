@@ -4,7 +4,7 @@ import javafx.scene.Node;
 
 import java.util.List;
 
-public class GUIMenu implements GUIObject {
+public class GMenu implements GObject {
     @Override
     public void render() {
 

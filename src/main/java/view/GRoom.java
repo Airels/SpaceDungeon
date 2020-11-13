@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class GUIRoom implements GUIObject {
+public class GRoom implements GObject {
     private final Room room;
     private final List<Node> rectangles;
 
-    GUIRoom(Room room) {
+    GRoom(Room room) {
         this.room = room;
         rectangles = new ArrayList<>();
     }

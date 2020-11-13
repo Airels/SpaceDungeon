@@ -6,17 +6,15 @@ import javafx.scene.text.*;
 import model.Coordinates;
 import model.Game;
 import model.entities.characters.players.Player;
-import model.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class GUIPauseMenu implements GUIObject {
+public class GPauseMenu implements GObject {
     private final Text textControls, textStats;
 
-    GUIPauseMenu() {
+    GPauseMenu() {
         textControls = new Text("GAME PAUSED\n");
         textControls.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
         textControls.setTextAlignment(TextAlignment.LEFT);

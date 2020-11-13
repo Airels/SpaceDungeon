@@ -4,7 +4,7 @@ import javafx.scene.Node;
 
 import java.util.List;
 
-public interface GUIObject {
+public interface GObject {
     void render();
     List<Node> getFxModels();
 }

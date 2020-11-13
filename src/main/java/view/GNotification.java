@@ -9,12 +9,12 @@ import model.Game;
 import java.util.Collections;
 import java.util.List;
 
-public class GUINotification implements GUIObject {
+public class GNotification implements GObject {
     private final Text text;
     private final int duration; // in milliseconds
     private final long creationTime;
 
-    GUINotification(String message, int duration) {
+    GNotification(String message, int duration) {
         text = new Text(message);
         text.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
         text.setTextAlignment(TextAlignment.CENTER);

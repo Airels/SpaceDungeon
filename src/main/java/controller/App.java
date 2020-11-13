@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import model.Game;
 import model.entities.characters.players.Player;
 import model.entities.characters.players.PlayerType;
-import view.MainGUI;
+import view.GraphicEngine;
 
 public class App extends Application {
     public static final double
@@ -55,7 +55,7 @@ public class App extends Application {
         Player player = new Player(PlayerType.NORMAL);
 
         Game game = new Game(player);
-        MainGUI gui = new MainGUI(root);
+        GraphicEngine gui = new GraphicEngine(root);
 
         primaryStage.setOnCloseRequest(e -> System.exit(0));
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(player));
