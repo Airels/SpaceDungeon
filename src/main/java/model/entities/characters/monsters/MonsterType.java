@@ -26,6 +26,7 @@ public enum MonsterType {
             .setStrength(50)
             .setSize(20)
             .setColor(Color.BLACK), 0.15),
+
     THE_BOSS(new MonsterBuilder("Sett")
             .setHealthPoints(300)
             .setStrength(70)
@@ -40,6 +41,7 @@ public enum MonsterType {
             .setSpeed(0.75)
             .setSize(40)
             .setColor(Color.GREY), 0);
+
 
     private final MonsterBuilder builder;
     private final double spawnRate;
