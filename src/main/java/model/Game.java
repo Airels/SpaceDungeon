@@ -9,6 +9,7 @@ import model.entities.characters.monsters.Monster;
 import model.generators.DungeonGenerator;
 import model.generators.LabyrinthGenerator;
 import model.rooms.Room;
+import sounds.Sound;
 import view.GraphicEngine;
 
 import java.util.ArrayList;
