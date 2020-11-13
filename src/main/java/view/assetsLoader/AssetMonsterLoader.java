@@ -1,34 +1,12 @@
-package view;
+package view.assetsLoader;
 
 import exceptions.MissingAssetException;
 import javafx.scene.image.Image;
+import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterType;
 import model.entities.characters.players.PlayerType;
 
-public class AssetLoader {
-
-    public static Image loadPlayer(PlayerType playerType) throws MissingAssetException {
-        Image image;
-
-        switch (playerType) {
-            case NORMAL:
-                image = null;
-                break;
-            case HARD:
-                image = null;
-                break;
-            case IMPOSSIBLE:
-                image = null;
-                break;
-            case GOD_OF_HYPERDEATH:
-                image = null;
-                break;
-
-            default: throw new MissingAssetException();
-        }
-
-        return image;
-    }
+public class AssetMonsterLoader {
 
     public static Image loadMonster(MonsterType monsterType) throws MissingAssetException {
         Image image;
@@ -54,5 +32,14 @@ public class AssetLoader {
         }
 
         return image;
+    }
+
+    public static Image loadMonster(Monster monster) {
+        for (MonsterType type : MonsterType.values()) {
+            if (type.getBuilder().build().equals(monster))
+                return loadMonster(type);
+        }
+
+        throw new IllegalArgumentException("Monster absent from MonsterType list");
     }
 }
