@@ -1,4 +1,4 @@
-package view;
+package view.graphicalObjects;
 
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
@@ -9,12 +9,12 @@ import model.entities.characters.Character;
 
 import java.util.*;
 
-class GEntity implements GObject {
+public class GEntity implements GObject {
     private final Entity entity;
     private final Circle shape;
     private GHealthBar GHealthBar;
 
-    GEntity(Entity entity, Color color) {
+    public GEntity(Entity entity, Color color) {
         this.entity = entity;
 
         Coordinates coords = entity.getCoords();
@@ -37,7 +37,7 @@ class GEntity implements GObject {
         return nodes;
     }
 
-    protected Entity getEntity() {
+    public Entity getEntity() {
         return entity;
     }
 

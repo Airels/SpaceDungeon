@@ -1,4 +1,4 @@
-package view;
+package view.graphicalObjects;
 
 import controller.App;
 import javafx.scene.Node;
@@ -14,7 +14,7 @@ public class GRoom implements GObject {
     private final Room room;
     private final List<Node> rectangles;
 
-    GRoom(Room room) {
+    public GRoom(Room room) {
         this.room = room;
         rectangles = new ArrayList<>();
     }

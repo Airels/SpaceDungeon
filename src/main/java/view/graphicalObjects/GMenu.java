@@ -1,10 +1,11 @@
-package view;
+package view.graphicalObjects;
 
 import javafx.scene.Node;
 
 import java.util.List;
 
 public class GMenu implements GObject {
+
     @Override
     public void render() {
 

@@ -1,4 +1,4 @@
-package view;
+package view.graphicalObjects;
 
 import controller.App;
 import javafx.scene.Node;
@@ -14,7 +14,7 @@ import java.util.List;
 public class GPauseMenu implements GObject {
     private final Text textControls, textStats;
 
-    GPauseMenu() {
+    public GPauseMenu() {
         textControls = new Text("GAME PAUSED\n");
         textControls.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
         textControls.setTextAlignment(TextAlignment.LEFT);

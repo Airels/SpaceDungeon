@@ -1,4 +1,4 @@
-package view;
+package view.graphicalObjects;
 
 import controller.App;
 import javafx.scene.Node;
@@ -14,7 +14,7 @@ public class GNotification implements GObject {
     private final int duration; // in milliseconds
     private final long creationTime;
 
-    GNotification(String message, int duration) {
+    public GNotification(String message, int duration) {
         text = new Text(message);
         text.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
         text.setTextAlignment(TextAlignment.CENTER);

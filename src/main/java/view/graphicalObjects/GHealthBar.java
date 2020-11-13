@@ -1,4 +1,4 @@
-package view;
+package view.graphicalObjects;
 
 import controller.App;
 import javafx.scene.Node;
@@ -13,7 +13,7 @@ public class GHealthBar implements GObject {
     private final Character character;
     private final ProgressBar healthBar;
 
-    GHealthBar(Character character) {
+    public GHealthBar(Character character) {
         this.character = character;
         healthBar = new ProgressBar();
 

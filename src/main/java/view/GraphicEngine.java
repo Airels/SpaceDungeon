@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import model.Game;
 import model.entities.Entity;
 import model.rooms.Room;
+import view.graphicalObjects.*;
 
 import java.util.ArrayList;
 import java.util.List;

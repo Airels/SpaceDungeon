@@ -1,4 +1,4 @@
-package view;
+package view.graphicalObjects;
 
 import controller.App;
 import javafx.scene.Node;
@@ -13,7 +13,7 @@ import java.util.List;
 public class GInventory implements GObject {
     private final Text text;
 
-    GInventory() {
+    public GInventory() {
         text = new Text("- Inventory -\n");
         text.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
         text.setTextAlignment(TextAlignment.LEFT);
