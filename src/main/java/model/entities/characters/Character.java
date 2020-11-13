@@ -6,10 +6,12 @@ import model.Coordinates;
 import model.Direction;
 import model.entities.Entity;
 
+import java.util.Objects;
+
 public abstract class Character extends Entity {
     protected int healthPoints, strength;
     protected final int maxHealth;
-    protected double speed, actionRange;
+    protected final double speed, actionRange;
     protected final Inventory inventory;
 
     private Direction lastDirection;
@@ -102,5 +104,20 @@ public abstract class Character extends Entity {
         this.move(direction);
         this.move(direction);
         this.move(direction);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Character character = (Character) o;
+        return maxHealth == character.maxHealth &&
+                Double.compare(character.speed, speed) == 0 &&
+                Double.compare(character.actionRange, actionRange) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(maxHealth, speed, actionRange);
     }
 }
