@@ -35,8 +35,6 @@ public class SoundPlayer {
 
         soundPlayer.start();
 
-        stop(sound);
-
         playingAudio.put(sound, soundPlayer);
     }
 
