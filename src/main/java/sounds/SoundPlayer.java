@@ -8,7 +8,15 @@ import java.util.Map;
 public class SoundPlayer {
     private final static Map<Sound, Thread> playingAudio = new HashMap<>();
 
+    public static void infinitePlay(Sound sound) {
+        play(sound, true);
+    }
+
     public static void play(Sound sound) {
+        play(sound, false);
+    }
+
+    private static void play(Sound sound, boolean infiniteLoop) {
         Thread soundPlayer = new Thread(() -> {
             try {
                 Clip clip = AudioSystem.getClip();
@@ -18,6 +26,9 @@ public class SoundPlayer {
 
                 clip.open(is);
                 clip.start();
+
+                if (infiniteLoop)
+                    clip.loop(Clip.LOOP_CONTINUOUSLY);
 
                 while (!Thread.interrupted()) {
                     // BLOCK

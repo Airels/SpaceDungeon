@@ -35,7 +35,7 @@ public class Game extends Thread {
 
         game.pause();
 
-        SoundPlayer.play(SGame.MUSIC_1);
+        SoundPlayer.infinitePlay(SGame.MUSIC_1);
 
         loop();
     }
