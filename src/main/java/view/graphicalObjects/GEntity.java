@@ -12,7 +12,7 @@ import java.util.*;
 public class GEntity implements GObject {
     private final Entity entity;
     private final Circle shape;
-    private GHealthBar GHealthBar;
+    private GHealthBar gHealthBar;
 
     public GEntity(Entity entity, Color color) {
         this.entity = entity;
@@ -22,17 +22,17 @@ public class GEntity implements GObject {
         shape = new Circle(coords.getX(), coords.getY(), entity.getSize(), color);
 
         if (entity instanceof Character)
-            GHealthBar = new GHealthBar((Character) entity);
+            gHealthBar = new GHealthBar((Character) entity);
     }
 
     @Override
     public List<Node> getFxModels() {
-        if (GHealthBar == null)
+        if (gHealthBar == null)
             return new ArrayList<>(Collections.singletonList(shape));
 
         List<Node> nodes = new ArrayList<>();
         nodes.add(shape);
-        nodes.addAll(GHealthBar.getFxModels());
+        nodes.addAll(gHealthBar.getFxModels());
 
         return nodes;
     }
@@ -48,7 +48,7 @@ public class GEntity implements GObject {
         shape.setCenterX(coords.getX());
         shape.setCenterY(coords.getY());
 
-        if (GHealthBar != null) GHealthBar.render();
+        if (gHealthBar != null) gHealthBar.render();
 
         // TODO : Effet de fluidité à corriger plus tard
         /*
