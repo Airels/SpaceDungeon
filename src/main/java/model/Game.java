@@ -1,15 +1,14 @@
 package model;
 
 import controller.App;
-import exceptions.RoomNotGeneratedException;
 import model.entities.Entity;
 import model.entities.characters.Character;
 import model.entities.characters.players.Player;
 import model.entities.characters.monsters.Monster;
 import model.generators.DungeonGenerator;
 import model.generators.LabyrinthGenerator;
-import model.rooms.Room;
-import sounds.Sound;
+import sounds.*;
+import sounds.sound.SGame;
 import view.GraphicEngine;
 
 import java.util.ArrayList;
@@ -35,6 +34,8 @@ public class Game extends Thread {
         showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
 
         game.pause();
+
+        SoundPlayer.play(SGame.MUSIC_1);
 
         loop();
     }
