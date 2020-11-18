@@ -2,6 +2,7 @@ package view;
 
 import controller.App;
 import javafx.application.Platform;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import model.Game;
@@ -136,9 +137,17 @@ public class GraphicEngine {
     public void togglePauseMenu(boolean isPaused) {
         if (isPaused) {
             pauseMenu.render();
-            Platform.runLater(() -> root.getChildren().addAll(pauseMenu.getFxModels()));
+            Platform.runLater(() -> {
+                root.getChildren().addAll(pauseMenu.getFxModels());
+                root.getScene().setCursor(Cursor.DEFAULT);
+            });
+
         }
-        else
-            Platform.runLater(() -> root.getChildren().removeAll(pauseMenu.getFxModels()));
+        else {
+            Platform.runLater(() -> {
+                root.getChildren().removeAll(pauseMenu.getFxModels());
+                root.getScene().setCursor(Cursor.NONE);
+            });
+        }
     }
 }
