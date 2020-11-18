@@ -17,32 +17,7 @@ public class SoundPlayer {
     }
 
     private static void play(Sound sound, boolean infiniteLoop) {
-        Thread soundPlayer = new Thread(() -> {
-            try {
-                Clip clip = AudioSystem.getClip();
-                AudioInputStream is = AudioSystem.getAudioInputStream(
-                        SoundPlayer.class.getResourceAsStream(sound.getPath())
-                );
-
-                clip.open(is);
-                clip.start();
-
-                if (infiniteLoop)
-                    clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-                while (!Thread.interrupted()) {
-                    // BLOCK
-                }
-
-                clip.stop();
-            } catch (LineUnavailableException e) {
-                e.printStackTrace();
-            } catch (UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        Thread soundPlayer = new AudioClip(sound, infiniteLoop);
 
         soundPlayer.start();
 
