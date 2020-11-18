@@ -3,10 +3,16 @@ package sounds.sound.entity;
 import sounds.Sound;
 
 public enum SChest implements Sound {
-    OPEN;
+    OPEN("/sound/open_chest.wav");
+
+    private final String path;
+
+    SChest(String path) {
+        this.path = path;
+    }
 
     @Override
     public String getPath() {
-        return null;
+        return path;
     }
 }

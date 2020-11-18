@@ -2,13 +2,13 @@ package sounds.sound.entity.character;
 
 import sounds.Sound;
 
-public enum SMonster implements Sound {
-    TAKE_HIT("/sound/monster_hit.wav"),
-    DIE("/sound/monster_die.wav");
+public enum SBoss implements Sound {
+    ENCOUNTER("/sound/boss_encounter.wav"),
+    DIE("/sound/boss_defeated.wav");
 
     private final String path;
 
-    SMonster(String path) {
+    SBoss(String path) {
         this.path = path;
     }
 
