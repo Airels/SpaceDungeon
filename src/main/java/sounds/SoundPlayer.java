@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SoundPlayer {
-    private final static Map<Sound, Thread> playingAudio = new HashMap<>();
+    private final static Map<Sound, AudioClip> playingAudio = new HashMap<>();
 
     public static void infinitePlay(Sound sound) {
         play(sound, true);
@@ -17,7 +17,7 @@ public class SoundPlayer {
     }
 
     private static void play(Sound sound, boolean infiniteLoop) {
-        Thread soundPlayer = new AudioClip(sound, infiniteLoop);
+        AudioClip soundPlayer = new AudioClip(sound, infiniteLoop);
 
         soundPlayer.start();
 

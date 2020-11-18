@@ -4,21 +4,12 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 
 public class AudioClip extends Thread {
-    private Sound sound;
-    private boolean infiniteLoop;
     private Clip clip;
 
     protected AudioClip(Sound sound, boolean infiniteLoop) {
-        this.sound = sound;
-        this.infiniteLoop = infiniteLoop;
-    }
-
-    @Override
-    public void run() {
-        super.run();
-
         try {
-            clip = AudioSystem.getClip();
+            this.clip = AudioSystem.getClip();
+
             AudioInputStream is = AudioSystem.getAudioInputStream(
                     SoundPlayer.class.getResourceAsStream(sound.getPath())
             );
@@ -30,10 +21,9 @@ public class AudioClip extends Thread {
             float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
             gainControl.setValue(dB);
 
-            clip.start();
-
             if (infiniteLoop)
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
+
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         } catch (UnsupportedAudioFileException e) {
@@ -44,9 +34,15 @@ public class AudioClip extends Thread {
     }
 
     @Override
+    public void run() {
+        clip.start();
+    }
+
+    @Override
     public void interrupt() {
         super.interrupt();
 
+        clip.flush();
         clip.stop();
     }
 }
