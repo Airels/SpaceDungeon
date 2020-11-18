@@ -36,6 +36,7 @@ public class Chest extends Entity {
 
         player.getInventory().addAll(items, true);
 
+        game.addEntity(new OpenedChest(this.coords));
         game.deleteEntity(this);
         game.roomManager().reloadRoom();
 
