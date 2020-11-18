@@ -1,17 +1,23 @@
 package view.graphicalObjects;
 
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import model.Coordinates;
+import model.entities.Chest;
 import model.entities.Entity;
+import model.entities.OpenedChest;
 import model.entities.characters.Character;
+import view.assetsLoader.AssetEntityLoader;
 
 import java.util.*;
 
 public class GEntity implements GObject {
     private final Entity entity;
-    private final Circle shape;
+    private final Rectangle shape;
     private GHealthBar gHealthBar;
 
     public GEntity(Entity entity, Color color) {
@@ -19,7 +25,14 @@ public class GEntity implements GObject {
 
         Coordinates coords = entity.getCoords();
 
-        shape = new Circle(coords.getX(), coords.getY(), entity.getSize(), color);
+        // shape = new Circle(coords.getX(), coords.getY(), entity.getSize(), color);
+        shape = new Rectangle(coords.getX() - (entity.getSize()/2), coords.getY() - (entity.getSize()/2), entity.getSize(), entity.getSize());
+        shape.setFill(color);
+
+        if (entity instanceof Chest || entity instanceof OpenedChest) {
+            Image image = AssetEntityLoader.loadEntity(entity);
+            shape.setFill(new ImagePattern(image));
+        }
 
         if (entity instanceof Character)
             gHealthBar = new GHealthBar((Character) entity);
@@ -45,8 +58,8 @@ public class GEntity implements GObject {
     public void render() {
         Coordinates coords = entity.getCoords();
 
-        shape.setCenterX(coords.getX());
-        shape.setCenterY(coords.getY());
+        shape.setX(coords.getX() - (entity.getSize()/2));
+        shape.setY(coords.getY() - (entity.getSize()/2));
 
         if (gHealthBar != null) gHealthBar.render();
 

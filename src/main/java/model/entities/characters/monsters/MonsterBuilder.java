@@ -12,7 +12,7 @@ public class MonsterBuilder implements Builder<Monster> {
     private Color color = Color.RED;
     private AI monsterAI = new SimpleMonsterAI();
     private double speed = 1,
-        size = 20;
+        size = App.DEFAULT_ENTITY_SIZE;
     private int healthPoints = 100,
             maxHealth = 100,
             strength = 10,

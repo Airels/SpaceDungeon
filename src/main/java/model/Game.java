@@ -28,7 +28,7 @@ public class Game extends Thread {
     @Override
     public void run() {
         // DungeonGenerator generator = new TestGenerator();
-        DungeonGenerator generator = new LabyrinthGenerator(25, 5, 3);
+        DungeonGenerator generator = new LabyrinthGenerator(9, 2, 9);
         roomManager = new RoomManager(generator);
 
         showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);

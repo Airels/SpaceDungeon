@@ -1,5 +1,6 @@
 package model.entities.characters.players;
 
+import controller.App;
 import javafx.scene.paint.Color;
 import javafx.util.Builder;
 
@@ -8,7 +9,7 @@ public class PlayerBuilder implements Builder<Player> {
         strength = 20,
         actionRange = 40;
     private double speed = 1,
-        size = 20;
+        size = App.DEFAULT_ENTITY_SIZE;
     private Color color = Color.GREEN;
 
     private String name;
