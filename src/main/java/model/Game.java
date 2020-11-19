@@ -32,6 +32,7 @@ public class Game extends Thread {
         new MonsterObserver();
         new PlayerObserver();
         new RoomObserver();
+        new ItemObserver();
     }
 
     @Override

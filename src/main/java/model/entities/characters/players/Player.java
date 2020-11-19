@@ -136,8 +136,8 @@ public class Player extends Character {
 
     @Override
     public void deathAction() {
-        Game.getInstance().gameOver();
         Observable.notify(1, PlayerObserver.getInstance());
+        Game.getInstance().gameOver();
     }
 
     @Override

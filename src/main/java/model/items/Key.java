@@ -3,7 +3,6 @@ package model.items;
 import javafx.scene.paint.Color;
 import model.Direction;
 import model.Game;
-import model.entities.characters.Inventory;
 import model.entities.characters.players.Player;
 import model.rooms.Room;
 
@@ -23,7 +22,7 @@ public class Key implements Item {
             game.showNotification("Approach a door to use the key");
         }
 
-        usedMessage();
+        usedAction();
     }
 
     @Override

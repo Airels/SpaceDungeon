@@ -33,7 +33,7 @@ public class StrengthPotion implements Item {
         Inventory inventory = player.getInventory();
         inventory.removeItem(this);
 
-        usedMessage();
+        usedAction();
     }
 
     @Override

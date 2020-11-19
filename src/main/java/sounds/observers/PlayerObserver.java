@@ -2,6 +2,7 @@ package sounds.observers;
 
 import model.Observer;
 import sounds.SoundPlayer;
+import sounds.sound.SGame;
 import sounds.sound.entity.character.SPlayer;
 
 public class PlayerObserver implements Observer {
@@ -19,6 +20,7 @@ public class PlayerObserver implements Observer {
                 break;
             case 1:
                 SoundPlayer.play(SPlayer.DIE);
+                SoundPlayer.stop(SGame.MUSIC_1);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown argument " + arg);
