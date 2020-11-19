@@ -4,8 +4,9 @@ import controller.App;
 import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Game;
+import model.Observable;
 
-public abstract class Entity {
+public abstract class Entity extends Observable {
     protected final Coordinates coords;
     protected final String name;
     protected final double size;

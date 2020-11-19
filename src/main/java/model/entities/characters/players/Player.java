@@ -6,15 +6,11 @@ import model.*;
 import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.Character;
-import model.entities.characters.Inventory;
 import model.entities.characters.monsters.Monster;
-import model.entities.characters.monsters.MonsterBuilder;
 import model.items.Item;
-import model.items.Key;
 import model.rooms.Room;
 import sounds.observers.PlayerObserver;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +27,8 @@ public class Player extends Character {
                 speed,
                 color
         );
+
+        addObserver(PlayerObserver.getInstance());
     }
 
     public Player(PlayerBuilder builder) {
@@ -93,30 +91,6 @@ public class Player extends Character {
                 ((Chest) entity).openChest(); return;
             }
         }
-
-        /*
-        // DOORS ACTION
-        if (Room.isNearFromDoor(this)){
-            Game game = Game.getInstance();
-            Room room = game.getActualRoom();
-            boolean hasKey = false;
-
-            for (Item item : inventory) {
-                if (item instanceof Key) {
-                    inventory.removeItem(item);
-                    hasKey = true;
-                    break;
-                }
-            }
-
-            if (hasKey) {
-                Direction doorToOpen = Room.directionFromNearestDoor(this);
-                game.openDoor(doorToOpen);
-            } else {
-                game.showNotification("You must get a key to open this door !");
-            }
-        }
-        */
     }
 
     @Override
@@ -136,7 +110,7 @@ public class Player extends Character {
 
     @Override
     public void deathAction() {
-        Observable.notify(1, PlayerObserver.getInstance());
+        notify(1);
         Game.getInstance().gameOver();
     }
 

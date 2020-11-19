@@ -10,11 +10,11 @@ public abstract class Observable {
         observers = new ArrayList<>();
     }
 
-    public void add(Observer observer) {
+    public void addObserver(Observer observer) {
         observers.add(observer);
     }
 
-    public void remove(Observer observer) {
+    public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 

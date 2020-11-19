@@ -4,7 +4,6 @@ import controller.App;
 import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Game;
-import model.Observable;
 import model.entities.characters.players.Player;
 import model.items.Item;
 import sounds.observers.ChestObserver;
@@ -28,6 +27,7 @@ public class Chest extends Entity {
         super(coords, "Chest", App.DEFAULT_ENTITY_SIZE, Color.BROWN);
 
         this.items = items;
+        addObserver(ChestObserver.getInstance());
     }
 
     public void openChest() {
@@ -50,6 +50,6 @@ public class Chest extends Entity {
 
         game.showNotification(stringBuilder.toString());
 
-        Observable.notify(0, ChestObserver.getInstance());
+        notify(0);
     }
 }

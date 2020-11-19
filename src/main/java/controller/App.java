@@ -52,14 +52,13 @@ public class App extends Application {
         primaryStage.show();
 
 
-        Player player = new Player(PlayerType.NORMAL);
-
-        Game game = new Game(player);
+        Game game = new Game(PlayerType.NORMAL);
         GraphicEngine gui = new GraphicEngine(root);
 
+
         primaryStage.setOnCloseRequest(e -> System.exit(0));
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(player));
-        primaryStage.addEventHandler(MouseEvent.MOUSE_PRESSED, JavaFXController.getMousePressedEventHandler(player));
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(game.getPlayer()));
+        primaryStage.addEventHandler(MouseEvent.MOUSE_PRESSED, JavaFXController.getMousePressedEventHandler(game.getPlayer()));
 
         game.start();
     }

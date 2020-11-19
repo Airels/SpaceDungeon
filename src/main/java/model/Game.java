@@ -5,12 +5,10 @@ import model.entities.Entity;
 import model.entities.characters.Character;
 import model.entities.characters.players.Player;
 import model.entities.characters.monsters.Monster;
+import model.entities.characters.players.PlayerType;
 import model.generators.DungeonGenerator;
 import model.generators.LabyrinthGenerator;
-import sounds.*;
 import sounds.observers.*;
-import sounds.sound.SGame;
-import sounds.sound.entity.character.SPlayer;
 import view.GraphicEngine;
 
 import java.util.ArrayList;
@@ -22,10 +20,7 @@ public class Game extends Thread {
     private final Player player;
     private boolean isPaused = false;
 
-    public Game(Player player) {
-        game = this;
-        this.player = player;
-
+    public Game(PlayerType playerType) {
         // INIT OBSERVERS
         new GameObserver();
         new BossObserver();
@@ -34,6 +29,9 @@ public class Game extends Thread {
         new PlayerObserver();
         new RoomObserver();
         new ItemObserver();
+
+        game = this;
+        player = new Player(playerType);
     }
 
     @Override

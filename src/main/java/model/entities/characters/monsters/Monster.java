@@ -1,11 +1,9 @@
 package model.entities.characters.monsters;
 
-import controller.App;
 import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Fight;
 import model.Game;
-import model.Observable;
 import model.entities.characters.Character;
 import model.entities.characters.players.Player;
 import model.entities.characters.ai.AI;
@@ -30,6 +28,9 @@ public class Monster extends Character {
 
         this.monsterAI = monsterAI;
         this.isBoss = isBoss;
+
+        addObserver(MonsterObserver.getInstance());
+        if (isBoss) addObserver(BossObserver.getInstance());
     }
 
     public Monster(MonsterBuilder builder) {
@@ -78,12 +79,10 @@ public class Monster extends Character {
         Game game = Game.getInstance();
         game.deleteEntity(this);
 
-        if (isBoss) {
+        if (isBoss)
             game.showNotification("YOU WON! Now let's pay for a real game!");
-            Observable.notify(1, BossObserver.getInstance());
-        } else {
-            Observable.notify(1, MonsterObserver.getInstance());
-        }
+
+        notify(1);
     }
 
     @Override

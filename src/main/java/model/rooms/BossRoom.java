@@ -11,7 +11,7 @@ import view.GraphicEngine;
 
 import java.util.*;
 
-public class BossRoom implements Room {
+public class BossRoom extends Observable implements Room{
     private final Set<Direction> openedWays;
     private final Set<Direction> doorWays;
     private final Set<Direction> finalWays;
@@ -30,6 +30,8 @@ public class BossRoom implements Room {
         finalWays = new HashSet<>();
 
         generate();
+
+        addObserver(BossObserver.getInstance());
     }
 
     public BossRoom(Coordinates coords, Monster boss, Direction... directionsOpened) {
@@ -45,7 +47,7 @@ public class BossRoom implements Room {
     public void loadedEvent() {
         if (!entities.isEmpty()) {
             GraphicEngine.getInstance().showNotification("Defeat the boss to win!");
-            Observable.notify(0, BossObserver.getInstance());
+            notify(0);
         }
     }
 
