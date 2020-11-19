@@ -27,6 +27,7 @@ public class Game extends Thread {
         this.player = player;
 
         // INIT OBSERVERS
+        new GameObserver();
         new BossObserver();
         new ChestObserver();
         new MonsterObserver();
@@ -45,7 +46,7 @@ public class Game extends Thread {
 
         game.pause();
 
-        SoundPlayer.infinitePlay(SGame.MUSIC_1);
+        Observable.notify(0, GameObserver.getInstance());
 
         loop();
     }
@@ -156,11 +157,13 @@ public class Game extends Thread {
     public void pause() {
         isPaused = true;
         GraphicEngine.getInstance().togglePauseMenu(true);
+        Observable.notify(2, GameObserver.getInstance());
     }
 
     public void play() {
         isPaused = false;
         GraphicEngine.getInstance().togglePauseMenu(false);
+        Observable.notify(3, GameObserver.getInstance());
     }
 
     public boolean isPaused() {
