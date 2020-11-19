@@ -5,9 +5,12 @@ import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Fight;
 import model.Game;
+import model.Observable;
 import model.entities.characters.Character;
 import model.entities.characters.players.Player;
 import model.entities.characters.ai.AI;
+import sounds.observers.BossObserver;
+import sounds.observers.MonsterObserver;
 
 public class Monster extends Character {
     private final AI monsterAI;
@@ -77,6 +80,9 @@ public class Monster extends Character {
 
         if (isBoss) {
             game.showNotification("YOU WON! Now let's pay for a real game!");
+            Observable.notify(1, BossObserver.getInstance());
+        } else {
+            Observable.notify(1, MonsterObserver.getInstance());
         }
     }
 

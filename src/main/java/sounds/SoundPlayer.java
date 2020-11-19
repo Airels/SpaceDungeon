@@ -1,5 +1,7 @@
 package sounds;
 
+import exceptions.MissingSoundException;
+
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.util.HashMap;
@@ -17,6 +19,10 @@ public class SoundPlayer {
     }
 
     private static void play(Sound sound, boolean infiniteLoop) {
+        if (sound.getPath() == null) {
+            throw new MissingSoundException(sound.getPath());
+        }
+
         AudioClip soundPlayer = new AudioClip(sound, infiniteLoop);
 
         soundPlayer.start();

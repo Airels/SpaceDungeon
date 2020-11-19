@@ -2,10 +2,7 @@ package model.entities.characters.players;
 
 import controller.App;
 import javafx.scene.paint.Color;
-import model.Coordinates;
-import model.Fight;
-import model.Game;
-import model.Direction;
+import model.*;
 import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.Character;
@@ -15,6 +12,7 @@ import model.entities.characters.monsters.MonsterBuilder;
 import model.items.Item;
 import model.items.Key;
 import model.rooms.Room;
+import sounds.observers.PlayerObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +137,7 @@ public class Player extends Character {
     @Override
     public void deathAction() {
         Game.getInstance().gameOver();
+        Observable.notify(1, PlayerObserver.getInstance());
     }
 
     @Override

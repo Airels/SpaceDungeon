@@ -15,6 +15,6 @@ public enum SPlayer implements Sound {
 
     @Override
     public String getPath() {
-        return null;
+        return path;
     }
 }

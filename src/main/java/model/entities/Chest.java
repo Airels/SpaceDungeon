@@ -4,8 +4,10 @@ import controller.App;
 import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Game;
+import model.Observable;
 import model.entities.characters.players.Player;
 import model.items.Item;
+import sounds.observers.ChestObserver;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +30,7 @@ public class Chest extends Entity {
         this.items = items;
     }
 
-    public void openChest(){
+    public void openChest() {
         System.out.println("Chest picked up");
 
         Game game = Game.getInstance();
@@ -47,5 +49,7 @@ public class Chest extends Entity {
             stringBuilder.append("\n- ").append(item.name());
 
         game.showNotification(stringBuilder.toString());
+
+        Observable.notify(0, ChestObserver.getInstance());
     }
 }

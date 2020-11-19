@@ -4,7 +4,12 @@ import controller.App;
 import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Direction;
+import model.Observable;
+import model.Observer;
 import model.entities.Entity;
+import model.entities.characters.players.Player;
+import sounds.observers.MonsterObserver;
+import sounds.observers.PlayerObserver;
 
 import java.util.Objects;
 
@@ -92,6 +97,9 @@ public abstract class Character extends Entity {
 
     public void doDamages(int damages) {
         healthPoints -= damages;
+
+        Observer observer = (this instanceof Player) ? PlayerObserver.getInstance() : MonsterObserver.getInstance();
+        Observable.notify(0, observer);
 
         if (isDead()) deathAction();
     }

@@ -8,7 +8,9 @@ import model.entities.characters.monsters.Monster;
 import model.generators.DungeonGenerator;
 import model.generators.LabyrinthGenerator;
 import sounds.*;
+import sounds.observers.*;
 import sounds.sound.SGame;
+import sounds.sound.entity.character.SPlayer;
 import view.GraphicEngine;
 
 import java.util.ArrayList;
@@ -23,6 +25,13 @@ public class Game extends Thread {
     public Game(Player player) {
         game = this;
         this.player = player;
+
+        // INIT OBSERVERS
+        new BossObserver();
+        new ChestObserver();
+        new MonsterObserver();
+        new PlayerObserver();
+        new RoomObserver();
     }
 
     @Override

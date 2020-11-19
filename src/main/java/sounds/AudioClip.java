@@ -1,5 +1,7 @@
 package sounds;
 
+import exceptions.MissingSoundException;
+
 import javax.sound.sampled.*;
 import java.io.IOException;
 
@@ -24,6 +26,8 @@ public class AudioClip extends Thread {
             if (infiniteLoop)
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
 
+        } catch (NullPointerException e) {
+            throw new MissingSoundException(sound.getPath());
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         } catch (UnsupportedAudioFileException e) {

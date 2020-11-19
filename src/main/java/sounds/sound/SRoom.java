@@ -13,6 +13,6 @@ public enum SRoom implements Sound {
 
     @Override
     public String getPath() {
-        return null;
+        return path;
     }
 }

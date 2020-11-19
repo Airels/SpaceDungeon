@@ -2,9 +2,11 @@ package model.rooms;
 
 import model.Coordinates;
 import model.Direction;
+import model.Observable;
 import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
+import sounds.observers.BossObserver;
 import view.GraphicEngine;
 
 import java.util.*;
@@ -41,8 +43,10 @@ public class BossRoom implements Room {
 
     @Override
     public void loadedEvent() {
-        if (!entities.isEmpty())
+        if (!entities.isEmpty()) {
             GraphicEngine.getInstance().showNotification("Defeat the boss to win!");
+            Observable.notify(0, BossObserver.getInstance());
+        }
     }
 
     @Override

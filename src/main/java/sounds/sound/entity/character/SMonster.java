@@ -14,6 +14,6 @@ public enum SMonster implements Sound {
 
     @Override
     public String getPath() {
-        return null;
+        return path;
     }
 }
