@@ -4,6 +4,7 @@ import exceptions.MissingSoundException;
 import sounds.sound.SGame;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 
 public class AudioClip extends Thread {
@@ -14,7 +15,9 @@ public class AudioClip extends Thread {
             this.clip = AudioSystem.getClip();
 
             AudioInputStream is = AudioSystem.getAudioInputStream(
-                    getClass().getResourceAsStream(sound.getPath())
+                    new BufferedInputStream(
+                            getClass().getResourceAsStream(sound.getPath())
+                    )
             );
 
             clip.open(is);
