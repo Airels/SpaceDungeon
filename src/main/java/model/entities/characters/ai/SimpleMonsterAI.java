@@ -7,14 +7,15 @@ import model.entities.characters.Character;
 import model.Direction;
 
 public class SimpleMonsterAI implements AI {
-    public static final int SIMPLE_MONSTER_AI_LATENCY_MS = 125;
+    public static final int AI_LATENCY_MS = 125;
+    public static final int AI_LATENCY_ATTACK_MS = 1000;
 
-    private long lastProcessedAI;
-    private boolean canProcessAI;
+    private long lastProcessedAI, lastAttack;
+    private boolean canProcessAI, canAttack;
 
     @Override
     public void process(Character monster) {
-        if (System.currentTimeMillis() - lastProcessedAI > SIMPLE_MONSTER_AI_LATENCY_MS) {
+        if (System.currentTimeMillis() - lastProcessedAI > AI_LATENCY_MS) {
             lastProcessedAI = System.currentTimeMillis();
             canProcessAI = true;
         }
@@ -35,9 +36,18 @@ public class SimpleMonsterAI implements AI {
                     monster.move(Direction.DOWN);
             }
 
-            monster.attack();
+            canProcessAI = false;
         }
 
-        if (canProcessAI) canProcessAI = false;
+
+        if (System.currentTimeMillis() - lastAttack > AI_LATENCY_ATTACK_MS) {
+            lastAttack = System.currentTimeMillis();
+            canAttack = true;
+        }
+
+        if (canAttack)  {
+            monster.attack();
+            canAttack = false;
+        }
     }
 }

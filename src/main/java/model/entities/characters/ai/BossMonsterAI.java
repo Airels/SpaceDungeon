@@ -6,14 +6,15 @@ import model.Game;
 import model.entities.characters.Character;
 
 public class BossMonsterAI implements AI {
-    public static final int BOSS_MONSTER_AI_LATENCY_MS = 75;
+    public static final int AI_LATENCY_MS = 75;
+    public static final int AI_LATENCY_ATTACK_MS = 500;
 
-    private long lastProcessedAI;
-    private boolean canProcessAI;
+    private long lastProcessedAI, lastAttack;
+    private boolean canProcessAI, canAttack;
 
     @Override
     public void process(Character monster) {
-        if (System.currentTimeMillis() - lastProcessedAI > BOSS_MONSTER_AI_LATENCY_MS) {
+        if (System.currentTimeMillis() - lastProcessedAI > AI_LATENCY_MS) {
             lastProcessedAI = System.currentTimeMillis();
             canProcessAI = true;
         }
@@ -34,9 +35,18 @@ public class BossMonsterAI implements AI {
                     monster.move(Direction.DOWN);
             }
 
-            monster.attack();
+            canProcessAI = false;
         }
 
-        if (canProcessAI) canProcessAI = false;
+
+        if (System.currentTimeMillis() - lastAttack > AI_LATENCY_ATTACK_MS) {
+            lastAttack = System.currentTimeMillis();
+            canAttack = true;
+        }
+
+        if (canAttack)  {
+            monster.attack();
+            canAttack = false;
+        }
     }
 }
