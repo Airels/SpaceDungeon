@@ -12,7 +12,7 @@ import model.items.Item;
 
 public class AssetEntityLoader {
     public static Image loadEntity(Entity entity) {
-        if (entity instanceof Player) return AssetPlayerLoader.loadPlayer((Player) entity);
+        if (entity instanceof Player) return AssetPlayerLoader.loadPlayer((Player) entity, true);
 
         if (entity instanceof Monster) return AssetMonsterLoader.loadMonster((Monster) entity);
 

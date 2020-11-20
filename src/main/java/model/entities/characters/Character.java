@@ -24,6 +24,7 @@ public abstract class Character extends Entity {
         this.actionRange = size/2;
         this.speed = speed;
         this.inventory = new Inventory();
+        this.lastDirection = Direction.LEFT; // Default value to avoid null
     }
 
     public abstract void action();

@@ -148,6 +148,8 @@ public class Game extends Thread {
 
         GraphicEngine.getInstance().showNotification("YOU DIED\nGAME OVER", 5000);
 
+        GraphicEngine.getInstance().render();
+
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {

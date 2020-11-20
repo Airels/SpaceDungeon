@@ -83,12 +83,24 @@ public class GEntity implements GObject {
         shape.setLayoutX(coords.getX() - (entity.getSize()/2));
         shape.setLayoutY(coords.getY() - (entity.getSize()/2));
 
-        if (isCharacter && ((Character) entity).lastDirection() == Direction.RIGHT)
-            shape.setScaleX(-1);
-        else
-            shape.setScaleX(1);
+        if (isCharacter) {
+            Character chara = (Character) entity;
+
+            switch (chara.lastDirection()) {
+                case LEFT:
+                    shape.setScaleX(1);
+                    break;
+                case RIGHT:
+                    shape.setScaleX(-1);
+            }
+        }
 
         if (gHealthBar != null) gHealthBar.render();
+
+        if (entity instanceof Player && shape instanceof ImageView && ((Player) entity).isDead()) {
+            ImageView img = (ImageView) shape;
+            img.setImage(AssetPlayerLoader.loadPlayer((Player) entity, false));
+        }
 
         // TODO : Effet de fluidité à corriger plus tard
         /*
