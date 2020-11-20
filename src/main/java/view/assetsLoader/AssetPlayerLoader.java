@@ -8,6 +8,7 @@ import model.entities.characters.players.PlayerType;
 public class AssetPlayerLoader {
 
     public static Image loadPlayer(PlayerType playerType) {
+        /*
         Image image;
 
         switch (playerType) {
@@ -28,6 +29,9 @@ public class AssetPlayerLoader {
         }
 
         return image;
+        */
+
+        return new Image("/assets/player.gif");
     }
 
     public static Image loadPlayer(Player player) {

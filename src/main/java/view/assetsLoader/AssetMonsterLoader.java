@@ -14,10 +14,10 @@ public class AssetMonsterLoader {
 
         switch (monsterType) {
             case BLOB:
-                image = null;
+                image = new Image("/assets/blob.gif");
                 break;
             case ALIEN:
-                image = null;
+                image = new Image("/assets/alien.gif");
                 break;
             case CHIMERE:
                 image = new Image("/assets/chimere.gif");

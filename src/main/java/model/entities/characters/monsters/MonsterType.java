@@ -10,7 +10,7 @@ public enum MonsterType {
             .setHealthPoints(50)
             .setStrength(5)
             .setSpeed(0.50)
-            .setSize(15)
+            .setSize(50)
             .setColor(Color.CYAN)
             .setMonsterAI(new StupidMonsterAI()), 0.50),
 
@@ -24,7 +24,7 @@ public enum MonsterType {
     ALIEN(new MonsterBuilder("Alien")
             .setHealthPoints(200)
             .setStrength(50)
-            .setSize(30)
+            .setSize(130)
             .setColor(Color.BLACK), 0.15),
 
     THE_BOSS(new MonsterBuilder("Sett")

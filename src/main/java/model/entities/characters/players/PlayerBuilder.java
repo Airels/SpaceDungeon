@@ -8,7 +8,7 @@ public class PlayerBuilder implements Builder<Player> {
     private int healthPoints = 400,
         strength = 20;
     private double speed = 1,
-        size = App.DEFAULT_ENTITY_SIZE;
+        size = 100;
     private Color color = Color.GREEN;
 
     private String name;
