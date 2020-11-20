@@ -14,14 +14,13 @@ public class Monster extends Character {
     private final AI monsterAI;
     private final boolean isBoss;
 
-    public Monster(Coordinates coords, String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color, AI monsterAI, boolean isBoss) {
+    public Monster(Coordinates coords, String name, double size, int healthPoints, int strength, double speed, Color color, AI monsterAI, boolean isBoss) {
         super(
                 coords,
                 name,
                 size,
                 healthPoints,
                 strength,
-                actionRange,
                 speed,
                 color
         );
@@ -40,7 +39,6 @@ public class Monster extends Character {
                 builder.getSize(),
                 builder.getHealthPoints(),
                 builder.getStrength(),
-                builder.getActionRange(),
                 builder.getSpeed(),
                 builder.getColor(),
                 builder.getMonsterAI(),

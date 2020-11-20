@@ -15,8 +15,7 @@ public class MonsterBuilder implements Builder<Monster> {
         size = App.DEFAULT_ENTITY_SIZE;
     private int healthPoints = 100,
             maxHealth = 100,
-            strength = 10,
-            actionRange = (int) size;
+            strength = 10;
 
     private Coordinates coords = new Coordinates(100 + Math.random() * (App.WIDTH-200), 100 + Math.random() * (App.HEIGHT-200));
     private String name;
@@ -78,12 +77,6 @@ public class MonsterBuilder implements Builder<Monster> {
         return this;
     }
 
-    public MonsterBuilder setActionRange(int actionRange) {
-        this.actionRange = actionRange;
-
-        return this;
-    }
-
     public MonsterBuilder setName(String name) {
         this.name = name;
 
@@ -98,7 +91,7 @@ public class MonsterBuilder implements Builder<Monster> {
 
     @Override
     public Monster build() {
-        return new Monster(coords, name, size, healthPoints, strength, actionRange, speed, color, monsterAI, isBoss);
+        return new Monster(coords, name, size, healthPoints, strength, speed, color, monsterAI, isBoss);
     }
 
     public Color getColor() {
@@ -127,10 +120,6 @@ public class MonsterBuilder implements Builder<Monster> {
 
     public double getSize() {
         return size;
-    }
-
-    public int getActionRange() {
-        return actionRange;
     }
 
     public Coordinates getCoords() {

@@ -16,14 +16,13 @@ import java.util.Set;
 
 public class Player extends Character {
 
-    public Player(String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color) {
+    public Player(String name, double size, int healthPoints, int strength, double speed, Color color) {
         super(
                 new Coordinates(App.WIDTH/2, App.HEIGHT/2),
                 name,
                 size,
                 healthPoints,
                 strength,
-                actionRange,
                 speed,
                 color
         );
@@ -37,7 +36,6 @@ public class Player extends Character {
                 builder.getSize(),
                 builder.getHealthPoints(),
                 builder.getStrength(),
-                builder.getActionRange(),
                 builder.getSpeed(),
                 builder.getColor()
         );

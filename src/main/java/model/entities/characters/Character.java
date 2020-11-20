@@ -16,12 +16,12 @@ public abstract class Character extends Entity {
 
     private Direction lastDirection;
 
-    public Character(Coordinates coords, String name, double size, int healthPoints, int strength, int actionRange, double speed, Color color) {
+    public Character(Coordinates coords, String name, double size, int healthPoints, int strength, double speed, Color color) {
         super(coords, name, size, color);
         this.healthPoints = healthPoints;
         this.maxHealth = healthPoints;
         this.strength = strength;
-        this.actionRange = actionRange;
+        this.actionRange = size + 5;
         this.speed = speed;
         this.inventory = new Inventory();
     }

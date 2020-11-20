@@ -6,8 +6,7 @@ import javafx.util.Builder;
 
 public class PlayerBuilder implements Builder<Player> {
     private int healthPoints = 100,
-        strength = 20,
-        actionRange = 40;
+        strength = 20;
     private double speed = 1,
         size = App.DEFAULT_ENTITY_SIZE;
     private Color color = Color.GREEN;
@@ -21,7 +20,7 @@ public class PlayerBuilder implements Builder<Player> {
 
     @Override
     public Player build() {
-        return new Player(name, size, healthPoints, strength, actionRange, speed, color);
+        return new Player(name, size, healthPoints, strength, speed, color);
     }
 
     public PlayerBuilder setHealthPoints(int healthPoints) {
@@ -31,11 +30,6 @@ public class PlayerBuilder implements Builder<Player> {
 
     public PlayerBuilder setStrength(int strength) {
         this.strength = strength;
-        return this;
-    }
-
-    public PlayerBuilder setActionRange(int actionRange) {
-        this.actionRange = actionRange;
         return this;
     }
 
@@ -60,10 +54,6 @@ public class PlayerBuilder implements Builder<Player> {
 
     public int getStrength() {
         return strength;
-    }
-
-    public int getActionRange() {
-        return actionRange;
     }
 
     public double getSpeed() {
