@@ -4,12 +4,18 @@ import controller.App;
 import javafx.application.Platform;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import model.Game;
 import model.entities.Entity;
 import model.rooms.Room;
 import view.graphicalObjects.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,5 +155,24 @@ public class GraphicEngine {
                 root.getScene().setCursor(Cursor.NONE);
             });
         }
+    }
+
+    public static Image createImage(String url) {
+        try {
+            // You have to set an User-Agent in case you get HTTP Error 403
+            // respond while you trying to get the Image from URL.
+            URLConnection conn = new URL(url).openConnection();
+            conn.setRequestProperty("User-Agent", "Wget/1.13.4 (linux-gnu)");
+
+            try (InputStream stream = conn.getInputStream()) {
+                return new Image(stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

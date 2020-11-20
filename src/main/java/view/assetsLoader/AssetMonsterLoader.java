@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterType;
 import model.entities.characters.players.PlayerType;
+import view.GraphicEngine;
 
 public class AssetMonsterLoader {
 
@@ -25,7 +26,7 @@ public class AssetMonsterLoader {
                 image = null;
                 break;
             case THE_BOSS:
-                image = null;
+                image = new Image("/assets/boss_idle.gif");
                 break;
 
             default: throw new MissingAssetException();

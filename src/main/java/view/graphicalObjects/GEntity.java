@@ -8,10 +8,17 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import model.Coordinates;
 import model.entities.Chest;
+import model.entities.DroppedItem;
 import model.entities.Entity;
 import model.entities.OpenedChest;
 import model.entities.characters.Character;
+import model.entities.characters.monsters.Monster;
+import model.entities.characters.players.Player;
+import model.entities.characters.players.PlayerType;
 import view.assetsLoader.AssetEntityLoader;
+import view.assetsLoader.AssetItemsLoader;
+import view.assetsLoader.AssetMonsterLoader;
+import view.assetsLoader.AssetPlayerLoader;
 
 import java.util.*;
 
@@ -29,8 +36,9 @@ public class GEntity implements GObject {
         shape = new Rectangle(coords.getX() - (entity.getSize()/2), coords.getY() - (entity.getSize()/2), entity.getSize(), entity.getSize());
         shape.setFill(color);
 
-        if (entity instanceof Chest || entity instanceof OpenedChest) {
-            Image image = AssetEntityLoader.loadEntity(entity);
+        Image image = AssetEntityLoader.loadEntity(entity);
+
+        if (image != null) {
             shape.setFill(new ImagePattern(image));
         }
 
