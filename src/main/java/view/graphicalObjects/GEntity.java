@@ -8,6 +8,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import model.Coordinates;
+import model.Direction;
 import model.entities.Chest;
 import model.entities.DroppedItem;
 import model.entities.Entity;
@@ -25,11 +26,14 @@ import java.util.*;
 
 public class GEntity implements GObject {
     private final Entity entity;
+    private final boolean isCharacter;
     private final Node shape;
     private GHealthBar gHealthBar;
 
     public GEntity(Entity entity, Color color) {
         this.entity = entity;
+
+        isCharacter = (entity instanceof Character);
 
         Coordinates coords = entity.getCoords();
 
@@ -78,6 +82,11 @@ public class GEntity implements GObject {
 
         shape.setLayoutX(coords.getX() - (entity.getSize()/2));
         shape.setLayoutY(coords.getY() - (entity.getSize()/2));
+
+        if (isCharacter && ((Character) entity).lastDirection() == Direction.RIGHT)
+            shape.setScaleX(-1);
+        else
+            shape.setScaleX(1);
 
         if (gHealthBar != null) gHealthBar.render();
 
