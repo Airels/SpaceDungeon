@@ -36,7 +36,7 @@ public class GPauseMenu implements GObject {
                 .append("To resume game, press ESCAPE").append('\n')
                 .append('\n').append('\n')
                 .append("- CONTROLS").append('\n')
-                .append("Move: W-A-S-Q / Z-Q-S-D / Directional arrows").append('\n')
+                .append("Move: W-A-S-D / Z-Q-S-D / Directional arrows").append('\n')
                 .append("Open chest: E / RIGHT CLICK").append('\n')
                 .append("Attack: LEFT CLICK").append('\n')
                 .append("Use items: 1-9 DIGITS");
