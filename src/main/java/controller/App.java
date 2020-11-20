@@ -33,11 +33,11 @@ public class App extends Application {
     public final static int MOVE_STEP_SIZE = 10;
 
     public static final int DEFAULT_NOTIFICATION_DURATION = 5000,
-        NOTIFICATION_MARGIN = 15,
+        NOTIFICATION_MARGIN = 20,
         NOTIFICATION_FONT_SIZE = 15;
     public static final String NOTIFICATION_FONT_FAMILY = "verdana";
 
-    public static final int HEALTH_BAR_MARGIN = 30;
+    public static final int HEALTH_BAR_MARGIN = 40;
 
 
     @Override
