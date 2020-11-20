@@ -3,12 +3,11 @@ package sounds.observers;
 import model.Observer;
 import sounds.SoundPlayer;
 import sounds.sound.entity.character.SBoss;
-import sounds.sound.entity.character.SMonster;
 
-public class BossObserver implements Observer {
-    private static BossObserver instance;
+public class SoundBossObserver implements Observer {
+    private static SoundBossObserver instance;
 
-    public BossObserver() {
+    public SoundBossObserver() {
         instance = this;
     }
 
@@ -26,7 +25,7 @@ public class BossObserver implements Observer {
         }
     }
 
-    public static BossObserver getInstance() {
+    public static SoundBossObserver getInstance() {
         return instance;
     }
 }

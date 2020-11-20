@@ -6,7 +6,7 @@ import model.Observable;
 import model.entities.Chest;
 import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
-import sounds.observers.BossObserver;
+import sounds.observers.SoundBossObserver;
 import view.GraphicEngine;
 
 import java.util.*;
@@ -34,7 +34,7 @@ public class BossRoom extends Observable implements Room{
 
         generate();
 
-        addObserver(BossObserver.getInstance());
+        addObserver(SoundBossObserver.getInstance());
     }
 
     public BossRoom(Coordinates coords, Monster boss, Direction... directionsOpened) {

@@ -4,10 +4,10 @@ import model.Observer;
 import sounds.SoundPlayer;
 import sounds.sound.SRoom;
 
-public class RoomObserver implements Observer {
-    private static RoomObserver instance;
+public class SoundRoomObserver implements Observer {
+    private static SoundRoomObserver instance;
 
-    public RoomObserver() {
+    public SoundRoomObserver() {
         instance = this;
     }
 
@@ -22,7 +22,7 @@ public class RoomObserver implements Observer {
         }
     }
 
-    public static RoomObserver getInstance() {
+    public static SoundRoomObserver getInstance() {
         return instance;
     }
 }

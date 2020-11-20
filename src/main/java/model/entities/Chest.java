@@ -6,7 +6,7 @@ import model.Coordinates;
 import model.Game;
 import model.entities.characters.players.Player;
 import model.items.Item;
-import sounds.observers.ChestObserver;
+import sounds.observers.SoundChestObserver;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Chest extends Entity {
         super(coords, "Chest", App.DEFAULT_ENTITY_SIZE, Color.BROWN);
 
         this.items = items;
-        addObserver(ChestObserver.getInstance());
+        addObserver(SoundChestObserver.getInstance());
     }
 
     public void openChest() {

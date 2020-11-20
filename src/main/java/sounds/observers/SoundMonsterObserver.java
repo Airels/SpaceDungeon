@@ -2,13 +2,12 @@ package sounds.observers;
 
 import model.Observer;
 import sounds.SoundPlayer;
-import sounds.sound.SGame;
-import sounds.sound.entity.character.SPlayer;
+import sounds.sound.entity.character.SMonster;
 
-public class PlayerObserver implements Observer {
-    private static PlayerObserver instance;
+public class SoundMonsterObserver implements Observer {
+    private static SoundMonsterObserver instance;
 
-    public PlayerObserver() {
+    public SoundMonsterObserver() {
         instance = this;
     }
 
@@ -16,18 +15,17 @@ public class PlayerObserver implements Observer {
     public void handle(int arg) {
         switch (arg) {
             case 0:
-                SoundPlayer.play(SPlayer.TAKE_HIT);
+                SoundPlayer.play(SMonster.TAKE_HIT);
                 break;
             case 1:
-                SoundPlayer.play(SPlayer.DIE);
-                SoundPlayer.stop(SGame.MUSIC_1);
+                SoundPlayer.play(SMonster.DIE);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown argument " + arg);
         }
     }
 
-    public static PlayerObserver getInstance() {
+    public static SoundMonsterObserver getInstance() {
         return instance;
     }
 }

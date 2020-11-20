@@ -1,5 +1,7 @@
 package model;
 
+import sounds.observers.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,5 +28,15 @@ public abstract class Observable {
     public static void notify(int arg, Observer... observers) {
         for (Observer observer : observers)
             observer.handle(arg);
+    }
+
+    public static void initObservers() {
+        new SoundGameObserver();
+        new SoundBossObserver();
+        new SoundChestObserver();
+        new SoundMonsterObserver();
+        new SoundPlayerObserver();
+        new SoundRoomObserver();
+        new SoundItemObserver();
     }
 }

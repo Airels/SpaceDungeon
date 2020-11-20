@@ -4,10 +4,10 @@ import model.Observer;
 import sounds.SoundPlayer;
 import sounds.sound.SGame;
 
-public class GameObserver implements Observer {
-    private static GameObserver instance;
+public class SoundGameObserver implements Observer {
+    private static SoundGameObserver instance;
 
-    public GameObserver() {
+    public SoundGameObserver() {
         instance = this;
     }
 
@@ -31,7 +31,7 @@ public class GameObserver implements Observer {
         }
     }
 
-    public static GameObserver getInstance() {
+    public static SoundGameObserver getInstance() {
         return instance;
     }
 }

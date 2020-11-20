@@ -9,7 +9,7 @@ import model.entities.characters.Character;
 import model.entities.characters.monsters.Monster;
 import model.items.Item;
 import model.rooms.Room;
-import sounds.observers.PlayerObserver;
+import sounds.observers.SoundPlayerObserver;
 
 import java.util.List;
 import java.util.Set;
@@ -27,7 +27,7 @@ public class Player extends Character {
                 color
         );
 
-        addObserver(PlayerObserver.getInstance());
+        addObserver(SoundPlayerObserver.getInstance());
     }
 
     public Player(PlayerBuilder builder) {

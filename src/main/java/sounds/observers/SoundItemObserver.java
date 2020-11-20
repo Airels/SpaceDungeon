@@ -4,10 +4,10 @@ import model.Observer;
 import sounds.SoundPlayer;
 import sounds.sound.SItem;
 
-public class ItemObserver implements Observer {
-    private static ItemObserver instance;
+public class SoundItemObserver implements Observer {
+    private static SoundItemObserver instance;
 
-    public ItemObserver() {
+    public SoundItemObserver() {
         instance = this;
     }
 
@@ -16,7 +16,7 @@ public class ItemObserver implements Observer {
         SoundPlayer.play(SItem.USE);
     }
 
-    public static ItemObserver getInstance() {
+    public static SoundItemObserver getInstance() {
         return instance;
     }
 }

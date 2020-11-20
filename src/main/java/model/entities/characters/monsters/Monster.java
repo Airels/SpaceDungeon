@@ -7,8 +7,8 @@ import model.Game;
 import model.entities.characters.Character;
 import model.entities.characters.players.Player;
 import model.entities.characters.ai.AI;
-import sounds.observers.BossObserver;
-import sounds.observers.MonsterObserver;
+import sounds.observers.SoundBossObserver;
+import sounds.observers.SoundMonsterObserver;
 
 public class Monster extends Character {
     private final AI monsterAI;
@@ -28,8 +28,8 @@ public class Monster extends Character {
         this.monsterAI = monsterAI;
         this.isBoss = isBoss;
 
-        addObserver(MonsterObserver.getInstance());
-        if (isBoss) addObserver(BossObserver.getInstance());
+        addObserver(SoundMonsterObserver.getInstance());
+        if (isBoss) addObserver(SoundBossObserver.getInstance());
     }
 
     public Monster(MonsterBuilder builder) {
