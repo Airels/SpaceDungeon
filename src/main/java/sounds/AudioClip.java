@@ -14,7 +14,7 @@ public class AudioClip extends Thread {
             this.clip = AudioSystem.getClip();
 
             AudioInputStream is = AudioSystem.getAudioInputStream(
-                    SoundPlayer.class.getResourceAsStream(sound.getPath())
+                    getClass().getResourceAsStream(sound.getPath())
             );
 
             clip.open(is);
