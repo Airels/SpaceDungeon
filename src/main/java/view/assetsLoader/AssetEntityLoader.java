@@ -18,9 +18,9 @@ public class AssetEntityLoader {
 
         if (entity instanceof Item) return AssetItemsLoader.loadItem(((DroppedItem) entity).getItem());
 
-        if (entity instanceof Chest) return new Image("/assets/chestlock.png", entity.getSize(), entity.getSize(), true, true);
+        if (entity instanceof Chest) return new Image("/assets/chestlock.png", entity.getSize(), entity.getSize(), false, false);
 
-        if (entity instanceof OpenedChest) return new Image("/assets/chestopen.png", entity.getSize(), entity.getSize(), true, true);
+        if (entity instanceof OpenedChest) return new Image("/assets/chestopen.png", entity.getSize(), entity.getSize(), false, false);
 
 
 

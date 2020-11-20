@@ -12,7 +12,10 @@ public class Fight {
     }
 
     public void doAttack() {
-        if (target.getCoords().getDistance(attacker.getCoords()) > attacker.getActionRange()) return;
+        // if (target.getCoords().getDistance(attacker.getCoords()) > attacker.getActionRange()) return;
+
+        double distance = target.getCoords().getDistance(attacker.getCoords());
+        if (!(distance < target.getActionRange() || distance < attacker.getActionRange())) return;
 
         target.doDamages(attacker.getStrength());
 

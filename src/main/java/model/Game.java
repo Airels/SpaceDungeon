@@ -99,9 +99,20 @@ public class Game extends Thread {
         return closestEntities;
     }
 
-    public List<Monster> closestMonsters() {
+    public List<Monster> getMonsters() {
         if (roomManager.actualRoom() == null) return new ArrayList<>();
 
+        List<Monster> monsters = new ArrayList<>();
+        List<Entity> entities = roomManager.actualRoom().getEntities();
+
+        for (Entity entity : entities) {
+            if (entity instanceof Monster)
+                monsters.add((Monster) entity);
+        }
+
+        return monsters;
+
+        /*
         List<Monster> closestEntities = new ArrayList<>();
 
         double charRange = player.getActionRange();
@@ -115,6 +126,8 @@ public class Game extends Thread {
         }
 
         return closestEntities;
+
+         */
     }
 
     public void addEntity(Entity entity) {

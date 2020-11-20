@@ -93,7 +93,7 @@ public class Player extends Character {
 
     @Override
     public void attack() {
-        List<Monster> closestMonsters = Game.getInstance().closestMonsters();
+        List<Monster> closestMonsters = Game.getInstance().getMonsters();
 
         for (Monster monster : closestMonsters) {
             Fight fight = new Fight(this, monster);
