@@ -39,13 +39,13 @@ public interface Room {
     static Direction directionFromNearestWay(Player player) {
         Coordinates coords = player.getCoords();
 
-        if (coords.getDistance(getTopWayCoordinates()) < player.getActionRange())
+        if (coords.getDistance(getTopWayCoordinates()) < player.getSize() - App.WALL_SIZE)
             return Direction.UP;
-        if (coords.getDistance(getLeftWayCoordinates()) < player.getActionRange())
+        if (coords.getDistance(getLeftWayCoordinates()) < player.getSize() - App.WALL_SIZE)
             return Direction.LEFT;
-        if (coords.getDistance(getDownWayCoordinates()) < player.getActionRange())
+        if (coords.getDistance(getDownWayCoordinates()) < player.getSize() - App.WALL_SIZE)
             return Direction.DOWN;
-        if (coords.getDistance(getRightWayCoordinates()) < player.getActionRange())
+        if (coords.getDistance(getRightWayCoordinates()) < player.getSize() - App.WALL_SIZE)
             return Direction.RIGHT;
 
         return null;

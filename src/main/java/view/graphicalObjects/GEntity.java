@@ -2,6 +2,7 @@ package view.graphicalObjects;
 
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -24,7 +25,7 @@ import java.util.*;
 
 public class GEntity implements GObject {
     private final Entity entity;
-    private final Rectangle shape;
+    private final Node shape;
     private GHealthBar gHealthBar;
 
     public GEntity(Entity entity, Color color) {
@@ -32,15 +33,24 @@ public class GEntity implements GObject {
 
         Coordinates coords = entity.getCoords();
 
-        // shape = new Circle(coords.getX(), coords.getY(), entity.getSize(), color);
-        shape = new Rectangle(coords.getX() - (entity.getSize()/2), coords.getY() - (entity.getSize()/2), entity.getSize(), entity.getSize());
-        shape.setFill(color);
-
         Image image = AssetEntityLoader.loadEntity(entity);
 
         if (image != null) {
-            shape.setFill(new ImagePattern(image));
+            shape = new ImageView(image);
+
+            // shape.setFill(new ImagePattern(image));
+            // shape.setFill(new ImagePattern(view.getImage()));
+        } else {
+            // shape = new Rectangle(coords.getX() - (entity.getSize()/2), coords.getY() - (entity.getSize()/2), entity.getSize(), entity.getSize());
+            shape = new Rectangle();
+            Rectangle rect = (Rectangle) shape;
+            rect.setWidth(entity.getSize());
+            rect.setHeight(entity.getSize());
+            rect.setFill(color);
         }
+
+        shape.setLayoutX(coords.getX() - (entity.getSize()/2));
+        shape.setLayoutY(coords.getY() - (entity.getSize()/2));
 
         if (entity instanceof Character)
             gHealthBar = new GHealthBar((Character) entity);
@@ -66,8 +76,8 @@ public class GEntity implements GObject {
     public void render() {
         Coordinates coords = entity.getCoords();
 
-        shape.setX(coords.getX() - (entity.getSize()/2));
-        shape.setY(coords.getY() - (entity.getSize()/2));
+        shape.setLayoutX(coords.getX() - (entity.getSize()/2));
+        shape.setLayoutY(coords.getY() - (entity.getSize()/2));
 
         if (gHealthBar != null) gHealthBar.render();
 

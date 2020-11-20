@@ -7,7 +7,7 @@ import model.entities.characters.players.PlayerType;
 
 public class AssetPlayerLoader {
 
-    public static Image loadPlayer(PlayerType playerType) {
+    public static Image loadPlayer(PlayerType playerType, double size) {
         /*
         Image image;
 
@@ -31,13 +31,17 @@ public class AssetPlayerLoader {
         return image;
         */
 
-        return new Image("/assets/player.gif");
+        try {
+            return new Image("/assets/player.gif", size, size, false, false);
+        } catch (IllegalArgumentException e) {
+            throw new MissingAssetException();
+        }
     }
 
     public static Image loadPlayer(Player player) {
         for (PlayerType type : PlayerType.values()) {
             if (type.getBuilder().build().equals(player))
-                return loadPlayer(type);
+                return loadPlayer(type, player.getSize());
         }
 
         throw new IllegalArgumentException("Player absent from PlayerType list");

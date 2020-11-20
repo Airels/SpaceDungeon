@@ -21,7 +21,7 @@ public abstract class Character extends Entity {
         this.healthPoints = healthPoints;
         this.maxHealth = healthPoints;
         this.strength = strength;
-        this.actionRange = size;
+        this.actionRange = size/2;
         this.speed = speed;
         this.inventory = new Inventory();
     }
