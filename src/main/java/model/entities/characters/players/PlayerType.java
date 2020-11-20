@@ -13,7 +13,7 @@ public enum PlayerType {
     ),
 
     HARD(new PlayerBuilder("Tarik")
-            .setHealthPoints(50)
+            .setHealthPoints(200)
             .setStrength(10)
             .setSpeed(0.5)
             .setColor(Color.HOTPINK)),

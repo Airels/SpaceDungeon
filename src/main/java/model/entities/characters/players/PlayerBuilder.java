@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Builder;
 
 public class PlayerBuilder implements Builder<Player> {
-    private int healthPoints = 100,
+    private int healthPoints = 400,
         strength = 20;
     private double speed = 1,
         size = App.DEFAULT_ENTITY_SIZE;

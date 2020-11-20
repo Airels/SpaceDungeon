@@ -30,7 +30,7 @@ public enum MonsterType {
     THE_BOSS(new MonsterBuilder("Sett")
             .setHealthPoints(300)
             .setStrength(70)
-            .setSize(40)
+            .setSize(200)
             .setColor(Color.PURPLE)
             .setMonsterAI(new BossMonsterAI())
             .setBoss(true), 0),
