@@ -18,7 +18,7 @@ public enum MonsterType {
             .setHealthPoints(100)
             .setStrength(20)
             .setSpeed(0.75)
-            .setSize(45)
+            .setSize(100)
             .setColor(Color.RED), 0.25),
 
     ALIEN(new MonsterBuilder("Alien")

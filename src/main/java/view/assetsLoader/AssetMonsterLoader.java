@@ -9,7 +9,7 @@ import view.GraphicEngine;
 
 public class AssetMonsterLoader {
 
-    public static Image loadMonster(MonsterType monsterType, double size) throws MissingAssetException {
+    public static Image loadMonster(MonsterType monsterType) throws MissingAssetException {
         Image image;
 
         switch (monsterType) {
@@ -20,13 +20,13 @@ public class AssetMonsterLoader {
                 image = null;
                 break;
             case CHIMERE:
-                image = null;
+                image = new Image("/assets/chimere.gif");
                 break;
             case SWARM:
                 image = null;
                 break;
             case THE_BOSS:
-                image = new Image("/assets/boss_idle.gif", size, size, false, false);
+                image = new Image("/assets/boss.gif");
                 break;
 
             default: throw new MissingAssetException();
@@ -38,7 +38,7 @@ public class AssetMonsterLoader {
     public static Image loadMonster(Monster monster) {
         for (MonsterType type : MonsterType.values()) {
             if (type.getBuilder().build().equals(monster))
-                return loadMonster(type, monster.getSize());
+                return loadMonster(type);
         }
 
         throw new IllegalArgumentException("Monster absent from MonsterType list");
