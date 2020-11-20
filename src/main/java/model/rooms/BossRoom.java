@@ -18,6 +18,7 @@ public class BossRoom extends Observable implements Room{
     private final Coordinates coords;
     private final List<Chest> chests;
     private final List<Entity> entities;
+    private boolean firstTime;
 
 
     public BossRoom(Coordinates coords, List<Chest> chests, Monster boss, Direction... directionsOpened) {
@@ -28,6 +29,8 @@ public class BossRoom extends Observable implements Room{
         openedWays = new HashSet<>(); openedWays.addAll(Arrays.asList(directionsOpened));
         doorWays = new HashSet<>();
         finalWays = new HashSet<>();
+
+        firstTime = true;
 
         generate();
 
@@ -45,9 +48,11 @@ public class BossRoom extends Observable implements Room{
 
     @Override
     public void loadedEvent() {
-        if (!entities.isEmpty()) {
+        if (firstTime) {
             GraphicEngine.getInstance().showNotification("Defeat the boss to win!");
             notify(0);
+
+            firstTime = false;
         }
     }
 
