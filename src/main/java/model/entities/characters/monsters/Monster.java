@@ -55,7 +55,7 @@ public class Monster extends Character {
         game.deleteEntity(this);
 
         if (isBoss)
-            game.showNotification("YOU WON! Now let's pay for a real game!");
+            game.showNotification("YOU WON! Now go pay for a real game!");
 
         notify(1);
     }
