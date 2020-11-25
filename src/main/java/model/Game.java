@@ -2,6 +2,7 @@ package model;
 
 import controller.App;
 import model.entities.Entity;
+import model.entities.EntityFactory;
 import model.entities.characters.Character;
 import model.entities.characters.players.Player;
 import model.entities.characters.monsters.Monster;
@@ -25,7 +26,7 @@ public class Game extends Thread {
         Observable.initObservers();
 
         game = this;
-        player = new Player(playerType);
+        player = new EntityFactory().createPlayer(playerType);
     }
 
     @Override

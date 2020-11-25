@@ -2,6 +2,7 @@ package view.assetsLoader;
 
 import exceptions.MissingAssetException;
 import javafx.scene.image.Image;
+import model.entities.EntityFactory;
 import model.entities.characters.players.Player;
 import model.entities.characters.players.PlayerType;
 
@@ -43,7 +44,7 @@ public class AssetPlayerLoader {
 
     public static Image loadPlayer(Player player, boolean alive) {
         for (PlayerType type : PlayerType.values()) {
-            if (type.getBuilder().build().equals(player))
+            if (new EntityFactory().createPlayer(type).equals(player))
                 return loadPlayer(type, player.getSize(), alive);
         }
 

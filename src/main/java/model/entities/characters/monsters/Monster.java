@@ -32,28 +32,6 @@ public class Monster extends Character {
         if (isBoss) addObserver(SoundBossObserver.getInstance());
     }
 
-    public Monster(MonsterBuilder builder) {
-        this(
-                builder.getCoords(),
-                builder.getName(),
-                builder.getSize(),
-                builder.getHealthPoints(),
-                builder.getStrength(),
-                builder.getSpeed(),
-                builder.getColor(),
-                builder.getMonsterAI(),
-                builder.isBoss()
-        );
-    }
-
-    public Monster(MonsterType monsterType) {
-        this(monsterType.getBuilder());
-    }
-
-    public static Monster create(MonsterType monsterType) {
-        return monsterType.getBuilder().build();
-    }
-
     @Override
     public void action() {
 

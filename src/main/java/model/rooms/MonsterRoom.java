@@ -4,6 +4,7 @@ import model.Coordinates;
 import model.Direction;
 import model.entities.Chest;
 import model.entities.Entity;
+import model.entities.EntityFactory;
 import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterType;
 
@@ -107,7 +108,7 @@ public class MonsterRoom implements Room {
             MonsterType monsterType = MonsterType.randomMonsterType();
 
             if (value <= monsterType.getSpawnRate()){
-                entities.add(new Monster(monsterType));
+                entities.add(new EntityFactory().createMonster(monsterType));
                 nbTriesBeforeForcedSpawn = NB_TRIES_BEFORE_FORCED_SPAWN;
             }
             else

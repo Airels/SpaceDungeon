@@ -30,21 +30,6 @@ public class Player extends Character {
         addObserver(SoundPlayerObserver.getInstance());
     }
 
-    public Player(PlayerBuilder builder) {
-        this(
-                builder.getName(),
-                builder.getSize(),
-                builder.getHealthPoints(),
-                builder.getStrength(),
-                builder.getSpeed(),
-                builder.getColor()
-        );
-    }
-
-    public Player(PlayerType playerType) {
-        this(playerType.getBuilder());
-    }
-
     public void pickupItem() {
         Game game = Game.getInstance();
         Player player = game.getPlayer();

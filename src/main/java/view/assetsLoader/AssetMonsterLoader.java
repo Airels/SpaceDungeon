@@ -2,6 +2,8 @@ package view.assetsLoader;
 
 import exceptions.MissingAssetException;
 import javafx.scene.image.Image;
+import model.entities.Entity;
+import model.entities.EntityFactory;
 import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterType;
 import model.entities.characters.players.PlayerType;
@@ -37,7 +39,7 @@ public class AssetMonsterLoader {
 
     public static Image loadMonster(Monster monster) {
         for (MonsterType type : MonsterType.values()) {
-            if (type.getBuilder().build().equals(monster))
+            if (new EntityFactory().createMonster(type).equals(monster))
                 return loadMonster(type, monster.getSize());
         }
 
