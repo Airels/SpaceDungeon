@@ -16,25 +16,18 @@ public class AssetMonsterLoader {
 
         switch (monsterType) {
             case BLOB:
-                image = new Image("/assets/blob.gif", size, size, false, false);
-                break;
+                return new Image("/assets/blob.gif", size, size, false, false);
             case ALIEN:
-                image = new Image("/assets/alien.gif", size, size, false, false);
-                break;
+                return new Image("/assets/alien.gif", size, size, false, false);
             case CHIMERE:
-                image = new Image("/assets/chimere.gif", size, size, false, false);
-                break;
+                return new Image("/assets/chimere.gif", size, size, false, false);
             case SWARM:
-                image = null;
-                break;
+                throw new MissingAssetException("Swarm asset missing");
             case THE_BOSS:
-                image = new Image("/assets/boss.gif", size, size, false, false);
-                break;
-
-            default: throw new MissingAssetException();
+                return new Image("/assets/boss.gif", size, size, false, false);
         }
 
-        return image;
+        throw new MissingAssetException();
     }
 
     public static Image loadMonster(Monster monster) {

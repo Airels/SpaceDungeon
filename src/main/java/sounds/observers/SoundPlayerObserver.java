@@ -13,7 +13,7 @@ public class SoundPlayerObserver implements Observer {
     }
 
     @Override
-    public void handle(int arg) {
+    public void notify(int arg) {
         switch (arg) {
             case 0:
                 SoundPlayer.play(SPlayer.TAKE_HIT);

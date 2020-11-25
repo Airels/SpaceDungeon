@@ -12,7 +12,7 @@ public class SoundGameObserver implements Observer {
     }
 
     @Override
-    public void handle(int arg) {
+    public void notify(int arg) {
         switch (arg) {
             case 0:
                 SoundPlayer.infinitePlay(SGame.MUSIC_1);

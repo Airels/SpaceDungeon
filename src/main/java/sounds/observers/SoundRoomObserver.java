@@ -12,14 +12,14 @@ public class SoundRoomObserver implements Observer {
     }
 
     @Override
-    public void handle(int arg) {
+    public void notify(int arg) {
         switch (arg) {
             case 0:
                 SoundPlayer.play(SRoom.OPEN_DOOR);
                 break;
-            default:
-                throw new IllegalArgumentException("Unknown argument " + arg);
         }
+
+        throw new IllegalArgumentException("Unknown argument " + arg);
     }
 
     public static SoundRoomObserver getInstance() {

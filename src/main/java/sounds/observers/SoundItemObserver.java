@@ -12,7 +12,7 @@ public class SoundItemObserver implements Observer {
     }
 
     @Override
-    public void handle(int arg) {
+    public void notify(int arg) {
         SoundPlayer.play(SItem.USE);
     }
 

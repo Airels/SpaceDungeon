@@ -8,7 +8,7 @@ import view.GraphicEngine;
 public class RoomManager {
     private final Game game;
     private final GraphicEngine graphicEngine;
-    private Room[][] rooms;
+    private final Room[][] rooms;
     private Room actualRoom;
 
     public RoomManager(DungeonGenerator generator) {

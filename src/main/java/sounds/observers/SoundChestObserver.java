@@ -12,7 +12,7 @@ public class SoundChestObserver implements Observer {
     }
 
     @Override
-    public void handle(int arg) {
+    public void notify(int arg) {
         SoundPlayer.play(SChest.OPEN);
     }
 

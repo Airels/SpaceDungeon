@@ -22,7 +22,6 @@ import java.util.List;
 public class GraphicEngine {
     private static GraphicEngine graphicEngine;
     private final Group root;
-    private GRoom actualRoom;
     private final List<GEntity> guiEntities;
     private GNotification notification;
     private final GInventory inventory;
@@ -107,8 +106,6 @@ public class GraphicEngine {
             addEntity(entity);
 
         addEntity(Game.getInstance().getPlayer());
-
-        actualRoom = guiRoom;
     }
 
     public void showNotification(String message) {

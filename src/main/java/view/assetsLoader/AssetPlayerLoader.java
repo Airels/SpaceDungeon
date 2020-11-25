@@ -9,37 +9,20 @@ import model.entities.characters.players.PlayerType;
 public class AssetPlayerLoader {
 
     public static Image loadPlayer(PlayerType playerType, double size, boolean alive) {
-        /*
         Image image;
 
         switch (playerType) {
             case NORMAL:
-                image = null;
-                break;
             case HARD:
-                image = null;
-                break;
             case IMPOSSIBLE:
-                image = null;
-                break;
             case GOD_OF_HYPERDEATH:
-                image = null;
-                break;
-
-            default: throw new MissingAssetException();
+                if (alive)
+                    return new Image("/assets/player.gif", size, size, false, false);
+                else
+                    return new Image("/assets/player_dead.png", size, size, false, false);
         }
 
-        return image;
-        */
-
-        try {
-            if (alive)
-                return new Image("/assets/player.gif", size, size, false, false);
-            else
-                return new Image("/assets/player_dead.png", size, size, false, false);
-        } catch (IllegalArgumentException e) {
-            throw new MissingAssetException();
-        }
+        throw new MissingAssetException();
     }
 
     public static Image loadPlayer(Player player, boolean alive) {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Observable {
-    private List<Observer> observers;
+    private final List<Observer> observers;
 
     public Observable() {
         observers = new ArrayList<>();
@@ -22,12 +22,12 @@ public abstract class Observable {
 
     public void notify(int arg) {
         for (Observer observer : observers)
-            observer.handle(arg);
+            observer.notify(arg);
     }
 
     public static void notify(int arg, Observer... observers) {
         for (Observer observer : observers)
-            observer.handle(arg);
+            observer.notify(arg);
     }
 
     public static void initObservers() {
