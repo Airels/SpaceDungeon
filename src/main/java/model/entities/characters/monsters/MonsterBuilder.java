@@ -26,10 +26,6 @@ public class MonsterBuilder implements Builder<Monster> {
         this.name = name;
     }
 
-    public static MonsterBuilder newBuilder(String name) {
-        return new MonsterBuilder(name);
-    }
-
     public MonsterBuilder setCoords(Coordinates coords) {
         this.coords = coords;
         return this;
