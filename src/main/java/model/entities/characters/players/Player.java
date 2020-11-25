@@ -8,11 +8,9 @@ import model.entities.Entity;
 import model.entities.characters.Character;
 import model.entities.characters.monsters.Monster;
 import model.items.Item;
-import model.rooms.Room;
 import sounds.observers.SoundPlayerObserver;
 
 import java.util.List;
-import java.util.Set;
 
 public class Player extends Character {
 
@@ -107,17 +105,7 @@ public class Player extends Character {
         super.move(direction);
 
         // CHANGEMENT DE SALLE
-        if (Room.isNearFromWay(this)){
-            Game game = Game.getInstance();
-            Set<Direction> ways = game.roomManager().actualRoom().getOpenedWays();
-            Set<Direction> doorWays = game.roomManager().actualRoom().getDoorWays();
-            Direction directionFromNearestWay = Room.directionFromNearestWay(this);
-
-            if (ways.contains(directionFromNearestWay) && !doorWays.contains(directionFromNearestWay)) {
-                if (this.lastDirection() == directionFromNearestWay)
-                    game.roomManager().loadNextRoom(directionFromNearestWay);
-            }
-        }
+        RoomManager.goToNextRoomIfPossible(this);
     }
 
     public void useItem(int index) {

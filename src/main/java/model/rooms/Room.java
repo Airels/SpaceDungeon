@@ -32,59 +32,6 @@ public interface Room {
 
     void generate();
 
-    static boolean isNearFromWay(Player player) {
-        return !(directionFromNearestWay(player) == null);
-    }
-
-    static Direction directionFromNearestWay(Player player) {
-        Coordinates coords = player.getCoords();
-
-        if (coords.getDistance(getTopWayCoordinates()) < player.getSize() - App.WALL_SIZE)
-            return Direction.UP;
-        if (coords.getDistance(getLeftWayCoordinates()) < player.getSize() - App.WALL_SIZE)
-            return Direction.LEFT;
-        if (coords.getDistance(getDownWayCoordinates()) < player.getSize() - App.WALL_SIZE)
-            return Direction.DOWN;
-        if (coords.getDistance(getRightWayCoordinates()) < player.getSize() - App.WALL_SIZE)
-            return Direction.RIGHT;
-
-        return null;
-    }
-
-    static boolean isNearFromDoor(Player player) {
-        return !(directionFromNearestDoor(player) == null);
-    }
-
-    static Direction directionFromNearestDoor(Player player) {
-        Coordinates coords = player.getCoords();
-        Set<Direction> waysClosedByDoor = Game.getInstance().roomManager().actualRoom().getDoorWays();
-
-        for (Direction wayClosedByDoor : waysClosedByDoor) {
-            switch (wayClosedByDoor) {
-                case UP:
-                    if (coords.getDistance(getTopWayCoordinates()) < player.getActionRange())
-                        return Direction.UP;
-                    break;
-                case DOWN:
-                    if (coords.getDistance(getDownWayCoordinates()) < player.getActionRange())
-                        return Direction.DOWN;
-                    break;
-                case LEFT:
-                    if (coords.getDistance(getLeftWayCoordinates()) < player.getActionRange())
-                        return Direction.LEFT;
-                    break;
-                case RIGHT:
-                    if (coords.getDistance(getRightWayCoordinates()) < player.getActionRange())
-                        return Direction.RIGHT;
-                    break;
-                default:
-                    throw new RuntimeException("Unhandled direction: " + wayClosedByDoor);
-            }
-        }
-
-        return null;
-    }
-
     static Coordinates getTopWayCoordinates() {
         return new Coordinates(App.WIDTH/2, App.WALL_SIZE);
     }

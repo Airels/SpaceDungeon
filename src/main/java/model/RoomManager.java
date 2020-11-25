@@ -1,9 +1,13 @@
 package model;
 
+import controller.App;
 import exceptions.RoomNotGeneratedException;
+import model.entities.characters.players.Player;
 import model.generators.DungeonGenerator;
 import model.rooms.Room;
 import view.GraphicEngine;
+
+import java.util.Set;
 
 public class RoomManager {
     private final Game game;
@@ -100,5 +104,72 @@ public class RoomManager {
         reloadRoom();
 
         game.showNotification("You opened a door!");
+    }
+
+    public static void goToNextRoomIfPossible(Player player) {
+        if (isNearFromWay(player)){
+            Game game = Game.getInstance();
+            Set<Direction> ways = game.roomManager().actualRoom().getOpenedWays();
+            Set<Direction> doorWays = game.roomManager().actualRoom().getDoorWays();
+            Direction directionFromNearestWay = directionFromNearestWay(player);
+
+            if (ways.contains(directionFromNearestWay) && !doorWays.contains(directionFromNearestWay)) {
+                if (player.lastDirection() == directionFromNearestWay)
+                    game.roomManager().loadNextRoom(directionFromNearestWay);
+            }
+        }
+    }
+
+    public static boolean isNearFromWay(Player player) {
+        return !(directionFromNearestWay(player) == null);
+    }
+
+    public static Direction directionFromNearestWay(Player player) {
+        Coordinates coords = player.getCoords();
+
+        if (coords.getDistance(Room.getTopWayCoordinates()) < player.getSize() - App.WALL_SIZE)
+            return Direction.UP;
+        if (coords.getDistance(Room.getLeftWayCoordinates()) < player.getSize() - App.WALL_SIZE)
+            return Direction.LEFT;
+        if (coords.getDistance(Room.getDownWayCoordinates()) < player.getSize() - App.WALL_SIZE)
+            return Direction.DOWN;
+        if (coords.getDistance(Room.getRightWayCoordinates()) < player.getSize() - App.WALL_SIZE)
+            return Direction.RIGHT;
+
+        return null;
+    }
+
+    public static boolean isNearFromDoor(Player player) {
+        return !(directionFromNearestDoor(player) == null);
+    }
+
+    public static Direction directionFromNearestDoor(Player player) {
+        Coordinates coords = player.getCoords();
+        Set<Direction> waysClosedByDoor = Game.getInstance().roomManager().actualRoom().getDoorWays();
+
+        for (Direction wayClosedByDoor : waysClosedByDoor) {
+            switch (wayClosedByDoor) {
+                case UP:
+                    if (coords.getDistance(Room.getTopWayCoordinates()) < player.getActionRange())
+                        return Direction.UP;
+                    break;
+                case DOWN:
+                    if (coords.getDistance(Room.getDownWayCoordinates()) < player.getActionRange())
+                        return Direction.DOWN;
+                    break;
+                case LEFT:
+                    if (coords.getDistance(Room.getLeftWayCoordinates()) < player.getActionRange())
+                        return Direction.LEFT;
+                    break;
+                case RIGHT:
+                    if (coords.getDistance(Room.getRightWayCoordinates()) < player.getActionRange())
+                        return Direction.RIGHT;
+                    break;
+                default:
+                    throw new RuntimeException("Unhandled direction: " + wayClosedByDoor);
+            }
+        }
+
+        return null;
     }
 }
