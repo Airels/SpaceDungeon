@@ -16,8 +16,8 @@ public abstract class Character extends Entity {
 
     private Direction lastDirection;
 
-    public Character(Coordinates coords, String name, double size, int healthPoints, int strength, double speed, Color color) {
-        super(coords, name, size, color);
+    public Character(Coordinates coords, String name, double size, int healthPoints, int strength, double speed) {
+        super(coords, name, size);
         this.healthPoints = healthPoints;
         this.maxHealth = healthPoints;
         this.strength = strength;

@@ -66,12 +66,7 @@ public class GraphicEngine {
     }
 
     public void addEntity(Entity entity) {
-        Color colorOfEntity = entity.getColor();
-        addEntity(entity, entity.getColor());
-    }
-
-    private void addEntity(Entity entity, Color color) {
-        GEntity gEntity = new GEntity(entity, color);
+        GEntity gEntity = new GEntity(entity);
         guiEntities.add(gEntity);
 
         Platform.runLater(() -> root.getChildren().addAll(gEntity.getFxModels()));

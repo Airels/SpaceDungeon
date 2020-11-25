@@ -10,13 +10,11 @@ public abstract class Entity extends Observable {
     protected final Coordinates coords;
     protected final String name;
     protected final double size;
-    protected final Color color;
 
-    public Entity(Coordinates coords, String name, double size, Color color) {
+    public Entity(Coordinates coords, String name, double size) {
         this.coords = coords;
         this.name = name;
         this.size = size;
-        this.color = color;
     }
 
     public Coordinates getCoords() {
@@ -41,10 +39,6 @@ public abstract class Entity extends Observable {
 
     public double getSize() {
         return (size == 0) ? App.DEFAULT_ENTITY_SIZE : size;
-    }
-
-    public Color getColor() {
-        return color;
     }
 
     @Override

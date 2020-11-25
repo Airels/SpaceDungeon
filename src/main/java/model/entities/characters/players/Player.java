@@ -23,8 +23,7 @@ public class Player extends Character {
                 size,
                 healthPoints,
                 strength,
-                speed,
-                color
+                speed
         );
 
         addObserver(SoundPlayerObserver.getInstance());

@@ -21,8 +21,7 @@ public class Monster extends Character {
                 size,
                 healthPoints,
                 strength,
-                speed,
-                color
+                speed
         );
 
         this.monsterAI = monsterAI;

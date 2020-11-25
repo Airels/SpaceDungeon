@@ -24,7 +24,7 @@ public class Chest extends Entity {
     }
 
     public Chest(Coordinates coords, List<Item> items) {
-        super(coords, "Chest", App.DEFAULT_ENTITY_SIZE, Color.BROWN);
+        super(coords, "Chest", App.DEFAULT_ENTITY_SIZE);
 
         this.items = items;
         addObserver(SoundChestObserver.getInstance());

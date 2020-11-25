@@ -30,7 +30,7 @@ public class GEntity implements GObject {
     private final Node shape;
     private GHealthBar gHealthBar;
 
-    public GEntity(Entity entity, Color color) {
+    public GEntity(Entity entity) {
         this.entity = entity;
 
         isCharacter = (entity instanceof Character);
@@ -41,16 +41,12 @@ public class GEntity implements GObject {
 
         if (image != null) {
             shape = new ImageView(image);
-
-            // shape.setFill(new ImagePattern(image));
-            // shape.setFill(new ImagePattern(view.getImage()));
         } else {
-            // shape = new Rectangle(coords.getX() - (entity.getSize()/2), coords.getY() - (entity.getSize()/2), entity.getSize(), entity.getSize());
             shape = new Rectangle();
             Rectangle rect = (Rectangle) shape;
             rect.setWidth(entity.getSize());
             rect.setHeight(entity.getSize());
-            rect.setFill(color);
+            rect.setFill(Color.RED);
         }
 
         shape.setLayoutX(coords.getX() - (entity.getSize()/2));

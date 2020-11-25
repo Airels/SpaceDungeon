@@ -13,7 +13,7 @@ public class TrappedChest extends Entity{
     private final MonsterType monster;
 
     public TrappedChest(Coordinates coords, String name, double size, Color color, MonsterType monster) {
-        super(coords, name, size, color);
+        super(coords, name, size);
         this.monster = monster;
     }
 
