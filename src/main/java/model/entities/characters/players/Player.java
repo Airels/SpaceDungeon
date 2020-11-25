@@ -119,4 +119,9 @@ public class Player extends Character {
             }
         }
     }
+
+    public void useItem(int index) {
+        Item item = getInventory().getItem(index);
+        if (item != null) item.use();
+    }
 }

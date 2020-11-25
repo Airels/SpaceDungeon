@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Game;
 import model.entities.characters.players.Player;
+import model.entities.characters.players.PlayerObserver;
 import model.entities.characters.players.PlayerType;
 import view.GraphicEngine;
 
@@ -39,6 +40,7 @@ public class App extends Application {
 
     public static final int HEALTH_BAR_MARGIN = 40;
 
+    public static final PlayerType PLAYER_TYPE = PlayerType.NORMAL;
 
     @Override
     public void start(Stage primaryStage) {
@@ -52,13 +54,14 @@ public class App extends Application {
         primaryStage.show();
 
 
-        Game game = new Game(PlayerType.NORMAL);
+        Game game = new Game(PLAYER_TYPE);
         GraphicEngine gui = new GraphicEngine(root);
 
+        PlayerObserver playerObserver = new PlayerObserver(game.getPlayer());
 
         primaryStage.setOnCloseRequest(e -> System.exit(0));
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(game.getPlayer()));
-        primaryStage.addEventHandler(MouseEvent.MOUSE_PRESSED, JavaFXController.getMousePressedEventHandler(game.getPlayer()));
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(playerObserver));
+        primaryStage.addEventHandler(MouseEvent.MOUSE_PRESSED, JavaFXController.getMousePressedEventHandler(playerObserver));
 
         game.start();
     }
