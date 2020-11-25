@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Game;
+import model.GameObserver;
 import model.entities.characters.players.Player;
 import model.entities.characters.players.PlayerObserver;
 import model.entities.characters.players.PlayerType;
@@ -57,10 +58,11 @@ public class App extends Application {
         Game game = new Game(PLAYER_TYPE);
         GraphicEngine gui = new GraphicEngine(root);
 
+        GameObserver gameObserver = new GameObserver(game);
         PlayerObserver playerObserver = new PlayerObserver(game.getPlayer());
 
         primaryStage.setOnCloseRequest(e -> System.exit(0));
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(playerObserver));
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, JavaFXController.getKeyEventHandler(gameObserver, playerObserver));
         primaryStage.addEventHandler(MouseEvent.MOUSE_PRESSED, JavaFXController.getMousePressedEventHandler(playerObserver));
 
         game.start();
