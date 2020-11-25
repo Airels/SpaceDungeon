@@ -34,9 +34,9 @@ public class EntityFactory {
                         .setStrength(0)
                         .setSpeed(2)
                         .build();
-            default:
-                throw new IllegalArgumentException();
         }
+
+        throw new IllegalArgumentException();
     }
 
     public Monster createMonster(MonsterType monsterType) {
@@ -82,8 +82,8 @@ public class EntityFactory {
                         .setSize(40)
                         .setColor(Color.GREY)
                         .build();
-            default:
-                throw new IllegalArgumentException();
         }
+
+        throw new IllegalArgumentException();
     }
 }
