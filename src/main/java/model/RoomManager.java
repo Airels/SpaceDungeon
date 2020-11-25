@@ -150,19 +150,19 @@ public class RoomManager {
         for (Direction wayClosedByDoor : waysClosedByDoor) {
             switch (wayClosedByDoor) {
                 case UP:
-                    if (coords.getDistance(Room.getTopWayCoordinates()) < player.getActionRange())
+                    if (coords.getDistance(Room.getTopWayCoordinates()) < player.getSize())
                         return Direction.UP;
                     break;
                 case DOWN:
-                    if (coords.getDistance(Room.getDownWayCoordinates()) < player.getActionRange())
+                    if (coords.getDistance(Room.getDownWayCoordinates()) < player.getSize())
                         return Direction.DOWN;
                     break;
                 case LEFT:
-                    if (coords.getDistance(Room.getLeftWayCoordinates()) < player.getActionRange())
+                    if (coords.getDistance(Room.getLeftWayCoordinates()) < player.getSize())
                         return Direction.LEFT;
                     break;
                 case RIGHT:
-                    if (coords.getDistance(Room.getRightWayCoordinates()) < player.getActionRange())
+                    if (coords.getDistance(Room.getRightWayCoordinates()) < player.getSize())
                         return Direction.RIGHT;
                     break;
                 default:
