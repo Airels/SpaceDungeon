@@ -41,7 +41,7 @@ public class Game extends Thread {
 
         Observable.notify(0, SoundGameObserver.getInstance());
 
-        showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
+        showNotification("Find and defeat the BOSS!\nOr you will die!\nAnd careful about small ones!", 8000);
 
         graphicEngine.render(); // Premier render (initialisation)
 
