@@ -13,6 +13,12 @@ import model.entities.characters.players.PlayerObserver;
 import model.entities.characters.players.PlayerType;
 import view.GraphicEngine;
 
+/*
+    TP Réalisé par :
+        - NICOLAI Guillaume
+        - VIZCAINO Yohan
+*/
+
 public class App extends Application {
 
     /* === BEGIN SETTINGS === */
