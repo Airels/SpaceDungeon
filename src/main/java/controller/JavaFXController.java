@@ -1,17 +1,10 @@
 package controller;
 
-import javafx.beans.InvalidationListener;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import model.Direction;
-import model.Game;
 import model.GameObserver;
-import model.Observable;
-import model.entities.characters.players.Player;
 import model.entities.characters.players.PlayerObserver;
-import model.items.Item;
 
 public class JavaFXController {
 

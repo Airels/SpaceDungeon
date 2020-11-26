@@ -3,13 +3,20 @@ package model;
 import controller.App;
 import exceptions.RoomNotGeneratedException;
 import model.entities.characters.players.Player;
+import model.entities.characters.players.PlayerObserver;
 import model.generators.DungeonGenerator;
 import model.rooms.Room;
+import utils.Observable;
 import view.GraphicEngine;
 
 import java.util.Set;
 
-public class RoomManager {
+public class RoomManager extends Observable {
+    public static final Coordinates TOP_WAY_COORDINATES = new Coordinates(App.WIDTH/2, App.WALL_SIZE);
+    public static final Coordinates LEFT_WAY_COORDINATES = new Coordinates(App.WALL_SIZE, App.HEIGHT/2);
+    public static final Coordinates DOWN_WAY_COORDINATES = new Coordinates(App.WIDTH/2, App.HEIGHT-App.WALL_SIZE);
+    public static final Coordinates RIGHT_WAY_COORDINATES = new Coordinates(App.WIDTH-App.WALL_SIZE, App.HEIGHT/2);
+
     private final Game game;
     private final GraphicEngine graphicEngine;
     private final Room[][] rooms;
@@ -20,6 +27,8 @@ public class RoomManager {
         graphicEngine = GraphicEngine.getInstance();
 
         rooms = generator.generate();
+
+        addObserver(PlayerObserver.getInstance());
 
         loadRoom(generator.getSpawnRoom());
     }
@@ -32,7 +41,7 @@ public class RoomManager {
         room.loadedEvent();
     }
 
-    private Room getNextRoom(Direction direction) {
+    public Room getNextRoom(Direction direction) {
         int x = (int) actualRoom.getCoords().getX();
         int y = (int) actualRoom.getCoords().getY();
         Room newRoom;
@@ -69,16 +78,16 @@ public class RoomManager {
     public void loadNextRoom(Direction direction) {
         switch (direction) {
             case UP:
-                game.getPlayer().moveToDoor(Direction.DOWN);
+                notify(18);
                 break;
             case RIGHT:
-                game.getPlayer().moveToDoor(Direction.LEFT);
+                notify(17);
                 break;
             case DOWN:
-                game.getPlayer().moveToDoor(Direction.UP);
+                notify(16);
                 break;
             case LEFT:
-                game.getPlayer().moveToDoor(Direction.RIGHT);
+                notify(19);
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected value: " + direction);
@@ -106,7 +115,7 @@ public class RoomManager {
         game.showNotification("You opened a door!");
     }
 
-    public static void goToNextRoomIfPossible(Player player) {
+    public static void changeRoomTrigger(Player player) {
         if (isNearFromWay(player)){
             Game game = Game.getInstance();
             Set<Direction> ways = game.roomManager().actualRoom().getOpenedWays();
@@ -127,13 +136,13 @@ public class RoomManager {
     public static Direction directionFromNearestWay(Player player) {
         Coordinates coords = player.getCoords();
 
-        if (coords.getDistance(Room.getTopWayCoordinates()) < player.getSize() - App.WALL_SIZE)
+        if (coords.getDistance(TOP_WAY_COORDINATES) < player.getSize() - App.WALL_SIZE)
             return Direction.UP;
-        if (coords.getDistance(Room.getLeftWayCoordinates()) < player.getSize() - App.WALL_SIZE)
+        if (coords.getDistance(LEFT_WAY_COORDINATES) < player.getSize() - App.WALL_SIZE)
             return Direction.LEFT;
-        if (coords.getDistance(Room.getDownWayCoordinates()) < player.getSize() - App.WALL_SIZE)
+        if (coords.getDistance(DOWN_WAY_COORDINATES) < player.getSize() - App.WALL_SIZE)
             return Direction.DOWN;
-        if (coords.getDistance(Room.getRightWayCoordinates()) < player.getSize() - App.WALL_SIZE)
+        if (coords.getDistance(RIGHT_WAY_COORDINATES) < player.getSize() - App.WALL_SIZE)
             return Direction.RIGHT;
 
         return null;
@@ -150,19 +159,19 @@ public class RoomManager {
         for (Direction wayClosedByDoor : waysClosedByDoor) {
             switch (wayClosedByDoor) {
                 case UP:
-                    if (coords.getDistance(Room.getTopWayCoordinates()) < player.getSize())
+                    if (coords.getDistance(TOP_WAY_COORDINATES) < player.getSize())
                         return Direction.UP;
                     break;
                 case DOWN:
-                    if (coords.getDistance(Room.getDownWayCoordinates()) < player.getSize())
+                    if (coords.getDistance(DOWN_WAY_COORDINATES) < player.getSize())
                         return Direction.DOWN;
                     break;
                 case LEFT:
-                    if (coords.getDistance(Room.getLeftWayCoordinates()) < player.getSize())
+                    if (coords.getDistance(LEFT_WAY_COORDINATES) < player.getSize())
                         return Direction.LEFT;
                     break;
                 case RIGHT:
-                    if (coords.getDistance(Room.getRightWayCoordinates()) < player.getSize())
+                    if (coords.getDistance(RIGHT_WAY_COORDINATES) < player.getSize())
                         return Direction.RIGHT;
                     break;
                 default:

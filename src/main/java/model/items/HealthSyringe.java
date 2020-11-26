@@ -1,32 +1,22 @@
 package model.items;
 
-
-import javafx.scene.paint.Color;
 import model.Game;
 import model.entities.characters.Inventory;
 import model.entities.characters.players.Player;
 
-public class Syringe implements Item {
+public class HealthSyringe implements Item {
 
     private final double healPercentage;
-    private final int value;
-    private final Color color;
 
-    public Syringe(){
-        this.value = (int)(Math.random()*(101));
+    public HealthSyringe(){
+        int value = (int) (Math.random() * (101));
 
-        if(value <= 69){
+        if(value <= 69)
             this.healPercentage = 0.25;
-            this.color = Color.WHITE;
-        }
-        else if(value > 89){
+        else if(value > 89)
             this.healPercentage = 0.75;
-            this.color = Color.RED;
-        }
-        else {
+        else
             this.healPercentage = 0.50;
-            this.color = Color.GREEN;
-        }
     }
 
     @Override
@@ -41,11 +31,6 @@ public class Syringe implements Item {
 
     @Override
     public String name() {
-        return "Syringe";
-    }
-
-    @Override
-    public Color getColor() {
-        return Color.DARKGREEN;
+        return "Health syringe";
     }
 }

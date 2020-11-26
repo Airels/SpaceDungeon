@@ -1,6 +1,5 @@
 package model.generators;
 
-import controller.App;
 import model.Coordinates;
 import model.Direction;
 import model.entities.Chest;
@@ -8,9 +7,6 @@ import model.items.Key;
 import model.rooms.MonsterRoom;
 import model.rooms.Room;
 import model.rooms.SimpleRoom;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class TestGenerator implements DungeonGenerator {
     private Room[][] rooms;

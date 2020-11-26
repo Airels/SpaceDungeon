@@ -1,7 +1,6 @@
 package model.entities;
 
 import controller.App;
-import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Game;
 import model.entities.characters.players.Player;
@@ -19,8 +18,8 @@ public class Chest extends Entity {
     }
 
     public Chest(List<Item> items){
-        // TODO : Coordonnées aléatoires à implémenter
-        this(new Coordinates(App.WIDTH/2, App.HEIGHT/2), items);
+        this(new Coordinates(100 + Math.random() * (App.WIDTH-200), 100 + Math.random() * (App.HEIGHT-200)), items);
+        // this(new Coordinates(App.WIDTH/2, App.HEIGHT/2), items);
     }
 
     public Chest(Coordinates coords, List<Item> items) {
@@ -33,22 +32,27 @@ public class Chest extends Entity {
     public void openChest() {
         System.out.println("Chest picked up");
 
-        Game game = Game.getInstance();
-        Player player = game.getPlayer();
+        Player player = Game.getInstance().getPlayer();
 
         player.getInventory().addAll(items, true);
 
-        game.addEntity(new OpenedChest(this.coords));
-        game.deleteEntity(this);
-        game.roomManager().reloadRoom();
+        createOpenedChestEntity();
+        chestOpenedNotification();
+    }
 
+    private void createOpenedChestEntity() {
+        new OpenedChest(this.coords).spawn();
+        unspawn();
+    }
+
+    private void chestOpenedNotification() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("You opened a chest, you got :");
 
         for (Item item : items)
             stringBuilder.append("\n- ").append(item.name());
 
-        game.showNotification(stringBuilder.toString());
+        Game.getInstance().showNotification(stringBuilder.toString());
 
         notify(0);
     }

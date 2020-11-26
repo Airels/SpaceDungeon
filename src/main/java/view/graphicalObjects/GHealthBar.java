@@ -16,8 +16,6 @@ public class GHealthBar implements GObject {
     public GHealthBar(Character character) {
         this.character = character;
         healthBar = new ProgressBar();
-
-        render();
     }
 
     @Override
@@ -31,7 +29,7 @@ public class GHealthBar implements GObject {
     }
 
     @Override
-    public List<Node> getFxModels() {
+    public List<Node> getFxNodes() {
         return Collections.singletonList(healthBar);
     }
 }

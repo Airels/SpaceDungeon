@@ -1,7 +1,5 @@
 package model.rooms;
 
-import model.generators.LabyrinthGenerator;
-
 public enum RoomType {
     SIMPLE_ROOM,
     MONSTER_ROOM,

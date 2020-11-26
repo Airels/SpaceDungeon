@@ -1,7 +1,6 @@
 package model.entities;
 
 import controller.App;
-import javafx.scene.paint.Color;
 import model.Coordinates;
 
 public class OpenedChest extends Entity {

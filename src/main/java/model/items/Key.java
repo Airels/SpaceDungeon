@@ -1,11 +1,9 @@
 package model.items;
 
-import javafx.scene.paint.Color;
 import model.Direction;
 import model.Game;
 import model.RoomManager;
 import model.entities.characters.players.Player;
-import model.rooms.Room;
 
 public class Key implements Item {
     private boolean finalKey;
@@ -29,10 +27,5 @@ public class Key implements Item {
     @Override
     public String name() {
         return "Key";
-    }
-
-    @Override
-    public Color getColor() {
-        return Color.GOLD;
     }
 }

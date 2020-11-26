@@ -2,8 +2,7 @@ package model.rooms;
 
 import model.Coordinates;
 import model.Direction;
-import model.Observable;
-import model.entities.Chest;
+import utils.Observable;
 import model.entities.Entity;
 import model.entities.characters.monsters.Monster;
 import sounds.observers.SoundBossObserver;
@@ -16,14 +15,12 @@ public class BossRoom extends Observable implements Room{
     private final Set<Direction> doorWays;
     private final Set<Direction> finalWays;
     private final Coordinates coords;
-    private final List<Chest> chests;
     private final List<Entity> entities;
     private boolean firstTime;
 
 
-    public BossRoom(Coordinates coords, List<Chest> chests, Monster boss, Direction... directionsOpened) {
+    public BossRoom(Coordinates coords, Monster boss, Direction... directionsOpened) {
         this.coords = coords;
-        this.chests = (chests == null) ? new ArrayList<>() : chests;
         this.entities = new ArrayList<>(); entities.add(boss);
 
         openedWays = new HashSet<>(); openedWays.addAll(Arrays.asList(directionsOpened));
@@ -35,10 +32,6 @@ public class BossRoom extends Observable implements Room{
         generate();
 
         addObserver(SoundBossObserver.getInstance());
-    }
-
-    public BossRoom(Coordinates coords, Monster boss, Direction... directionsOpened) {
-        this(coords, new ArrayList<>(), boss, directionsOpened);
     }
 
     @Override
@@ -109,6 +102,6 @@ public class BossRoom extends Observable implements Room{
 
     @Override
     public void generate() {
-
+        // Nothing to generate
     }
 }

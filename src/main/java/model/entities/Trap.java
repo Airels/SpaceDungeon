@@ -10,7 +10,7 @@ public class Trap extends Entity {
         super(coords, name, size);
     }
 
-    public void activate(){
+    public void action() {
 
     }
 }

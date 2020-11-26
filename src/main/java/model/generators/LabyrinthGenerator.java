@@ -4,11 +4,10 @@ import model.Coordinates;
 import model.Direction;
 import model.entities.Chest;
 import model.entities.EntityFactory;
-import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterType;
 import model.items.Item;
-import model.items.StrengthPotion;
-import model.items.Syringe;
+import model.items.StrengthSyringe;
+import model.items.HealthSyringe;
 import model.rooms.*;
 
 import java.util.*;
@@ -16,10 +15,8 @@ import java.util.*;
 import static java.lang.Math.*;
 
 public class LabyrinthGenerator implements DungeonGenerator {
-
     private static final int NB_OF_BOSS_ROOMS = 1;
     private static final MonsterType BOSS_MONSTER = MonsterType.THE_BOSS;
-
 
     private final int nbOfRooms;
     private final int nbOfMonsterRooms;
@@ -119,7 +116,7 @@ public class LabyrinthGenerator implements DungeonGenerator {
         if(!(x - 1 < 0 )){
             closeRooms.add(rooms[x-1][y]);
         }
-        Collections.shuffle(closeRooms); // pour éviter que les salles soit toujours générer dans le meme sens
+        Collections.shuffle(closeRooms); // pour éviter que les salles soit toujours générés dans le même sens
 
         for (Room room:closeRooms) {
             int currentX = (int) room.getCoords().getX();
@@ -179,9 +176,9 @@ public class LabyrinthGenerator implements DungeonGenerator {
             }
             itemType = (int) (Math.random()*2);
             if (itemType == 1){
-                item = new Syringe();
+                item = new HealthSyringe();
             }else{
-                item = new StrengthPotion();
+                item = new StrengthSyringe();
             }
 
             currentRoom.getEntities().add(new Chest(item));

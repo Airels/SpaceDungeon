@@ -1,7 +1,5 @@
 package model.entities.characters.players;
 
-import controller.App;
-import javafx.scene.paint.Color;
 import javafx.util.Builder;
 
 public class PlayerBuilder implements Builder<Player> {
@@ -9,7 +7,6 @@ public class PlayerBuilder implements Builder<Player> {
         strength = 20;
     private double speed = 1,
         size = 100;
-    private Color color = Color.GREEN;
 
     private String name;
 
@@ -20,7 +17,7 @@ public class PlayerBuilder implements Builder<Player> {
 
     @Override
     public Player build() {
-        return new Player(name, size, healthPoints, strength, speed, color);
+        return new Player(name, size, healthPoints, strength, speed);
     }
 
     public PlayerBuilder setHealthPoints(int healthPoints) {
@@ -43,11 +40,6 @@ public class PlayerBuilder implements Builder<Player> {
         return this;
     }
 
-    public PlayerBuilder setColor(Color color) {
-        this.color = color;
-        return this;
-    }
-
     public int getHealthPoints() {
         return healthPoints;
     }
@@ -62,10 +54,6 @@ public class PlayerBuilder implements Builder<Player> {
 
     public double getSize() {
         return size;
-    }
-
-    public Color getColor() {
-        return color;
     }
 
     public String getName() {

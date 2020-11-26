@@ -1,6 +1,6 @@
 package sounds.observers;
 
-import model.Observer;
+import utils.Observer;
 import sounds.SoundPlayer;
 import sounds.sound.entity.character.SMonster;
 

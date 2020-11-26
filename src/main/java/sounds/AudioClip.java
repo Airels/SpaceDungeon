@@ -5,7 +5,6 @@ import sounds.sound.SGame;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
-import java.io.IOException;
 
 public class AudioClip extends Thread {
     private Clip clip;
@@ -34,11 +33,7 @@ public class AudioClip extends Thread {
 
         } catch (NullPointerException e) {
             throw new MissingSoundException(sound.getPath());
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

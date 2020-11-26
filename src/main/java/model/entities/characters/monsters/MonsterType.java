@@ -1,8 +1,6 @@
 package model.entities.characters.monsters;
 
-import javafx.scene.paint.Color;
-import model.entities.characters.ai.BossMonsterAI;
-import model.entities.characters.ai.StupidMonsterAI;
+import model.entities.EntityFactory;
 
 public enum MonsterType {
 
@@ -33,5 +31,14 @@ public enum MonsterType {
         int value = (int) (Math.random()*(nbOfMonsters));
 
         return MonsterType.values()[value];
+    }
+
+    public static MonsterType getMonsterType(Monster monster) {
+        for (MonsterType type : MonsterType.values()) {
+            if (new EntityFactory().createMonster(type).equals(monster))
+                return type;
+        }
+
+        return null;
     }
 }

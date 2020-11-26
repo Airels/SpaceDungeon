@@ -10,6 +10,7 @@ import model.entities.characters.players.PlayerType;
 import model.generators.DungeonGenerator;
 import model.generators.LabyrinthGenerator;
 import sounds.observers.*;
+import utils.Observable;
 import view.GraphicEngine;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class Game extends Thread {
     private static Game game;
+    private GraphicEngine graphicEngine;
     private RoomManager roomManager;
     private final Player player;
     private boolean isPaused = false;
@@ -31,15 +33,19 @@ public class Game extends Thread {
 
     @Override
     public void run() {
+        graphicEngine = GraphicEngine.getInstance();
+
         // DungeonGenerator generator = new TestGenerator();
-        DungeonGenerator generator = new LabyrinthGenerator(27, 18, 9);
+        DungeonGenerator generator = new LabyrinthGenerator(25, 15, 10);
         roomManager = new RoomManager(generator);
+
+        Observable.notify(0, SoundGameObserver.getInstance());
 
         showNotification("Find and defeat the BOSS!\nOr you will die!\nBecause you are noob", 3000);
 
-        game.pause();
+        graphicEngine.render(); // Premier render (initialisation)
 
-        Observable.notify(0, SoundGameObserver.getInstance());
+        game.pause(); // Pour afficher les contrôles avant de commencer la partie
 
         loop();
     }
@@ -56,16 +62,17 @@ public class Game extends Thread {
                     monster.getMonsterAI().process(monster);
                 }
 
-                GraphicEngine.getInstance().render();
+                graphicEngine.render();
             }
 
             try {
                 Thread.sleep(1000 / App.FPS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                System.exit(1);
+            } catch (InterruptedException ignored) {
+                stopGame();
             }
         }
+
+        stopGame();
     }
 
     public static Game getInstance() {
@@ -106,28 +113,12 @@ public class Game extends Thread {
         }
 
         return monsters;
-
-        /*
-        List<Monster> closestEntities = new ArrayList<>();
-
-        double charRange = player.getActionRange();
-        Coordinates charCoords = player.getCoords();
-
-        for (Entity entity : roomManager.actualRoom().getEntities()) {
-            if (!(entity instanceof Monster)) continue;
-
-            if (charCoords.getDistance(entity.getCoords()) <= charRange)
-                closestEntities.add((Monster) entity);
-        }
-
-        return closestEntities;
-
-         */
     }
 
     public void addEntity(Entity entity) {
         roomManager.actualRoom().getEntities().add(entity);
         GraphicEngine.getInstance().addEntity(entity);
+        game.roomManager().reloadRoom();
     }
 
     public void deleteEntity(Entity entity) {
@@ -138,12 +129,10 @@ public class Game extends Thread {
     }
 
     public void gameOver() {
-        // TODO : A implémenter
         System.out.println("GAME OVER");
 
-        GraphicEngine.getInstance().showNotification("YOU DIED\nGAME OVER", 5000);
-
-        GraphicEngine.getInstance().render();
+        graphicEngine.showNotification("YOU DIED\nGAME OVER", 5000);
+        graphicEngine.render(); // Pour afficher le sprite "game over" du personnage
 
         try {
             Thread.sleep(5000);
@@ -151,7 +140,7 @@ public class Game extends Thread {
             e.printStackTrace();
         }
 
-        System.exit(0);
+        stopGame();
     }
 
     public void showNotification(String message) {
@@ -162,16 +151,20 @@ public class Game extends Thread {
         GraphicEngine.getInstance().showNotification(message, duration);
     }
 
+    public void play() {
+        isPaused = false;
+        GraphicEngine.getInstance().togglePauseMenu(false);
+        Observable.notify(3, SoundGameObserver.getInstance());
+    }
+
     public void pause() {
         isPaused = true;
         GraphicEngine.getInstance().togglePauseMenu(true);
         Observable.notify(2, SoundGameObserver.getInstance());
     }
 
-    public void play() {
-        isPaused = false;
-        GraphicEngine.getInstance().togglePauseMenu(false);
-        Observable.notify(3, SoundGameObserver.getInstance());
+    public void stopGame() {
+        System.exit(0);
     }
 
     public boolean isPaused() {

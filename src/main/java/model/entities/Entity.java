@@ -1,10 +1,9 @@
 package model.entities;
 
 import controller.App;
-import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Game;
-import model.Observable;
+import utils.Observable;
 
 public abstract class Entity extends Observable {
     protected final Coordinates coords;
@@ -22,18 +21,10 @@ public abstract class Entity extends Observable {
     }
 
     public void spawn() {
-        createEntity();
-    }
-
-    public void unspawn() {
-        deleteEntity();
-    }
-
-    public void createEntity() {
         Game.getInstance().addEntity(this);
     }
 
-    public void deleteEntity() {
+    public void unspawn() {
         Game.getInstance().deleteEntity(this);
     }
 

@@ -11,17 +11,16 @@ import java.util.List;
 
 public class GNotification implements GObject {
     private final Text text;
-    private final int duration; // in milliseconds
+    private final int duration; // En millisecondes
     private final long creationTime;
 
     public GNotification(String message, int duration) {
         text = new Text(message);
-        text.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
+        text.setFont(Font.font(App.TEXT_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
         text.setTextAlignment(TextAlignment.CENTER);
 
         this.duration = duration;
         creationTime = System.currentTimeMillis();
-        render();
     }
 
     @Override
@@ -33,7 +32,7 @@ public class GNotification implements GObject {
     }
 
     @Override
-    public List<Node> getFxModels() {
+    public List<Node> getFxNodes() {
         return Collections.singletonList(text);
     }
 

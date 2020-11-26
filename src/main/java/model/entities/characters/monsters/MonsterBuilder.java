@@ -1,7 +1,6 @@
 package model.entities.characters.monsters;
 
 import controller.App;
-import javafx.scene.paint.Color;
 import javafx.util.Builder;
 import model.Coordinates;
 import model.entities.characters.ai.AI;
@@ -9,7 +8,6 @@ import model.entities.characters.ai.SimpleMonsterAI;
 
 public class MonsterBuilder implements Builder<Monster> {
     private boolean isBoss = false;
-    private Color color = Color.RED;
     private AI monsterAI = new SimpleMonsterAI();
     private double speed = 1,
         size = App.DEFAULT_ENTITY_SIZE;
@@ -28,12 +26,6 @@ public class MonsterBuilder implements Builder<Monster> {
 
     public MonsterBuilder setCoords(Coordinates coords) {
         this.coords = coords;
-        return this;
-    }
-
-    public MonsterBuilder setColor(Color color) {
-        this.color = color;
-
         return this;
     }
 
@@ -87,11 +79,7 @@ public class MonsterBuilder implements Builder<Monster> {
 
     @Override
     public Monster build() {
-        return new Monster(coords, name, size, healthPoints, strength, speed, color, monsterAI, isBoss);
-    }
-
-    public Color getColor() {
-        return color;
+        return new Monster(coords, name, size, healthPoints, strength, speed, monsterAI, isBoss);
     }
 
     public AI getMonsterAI() {

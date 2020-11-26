@@ -1,6 +1,5 @@
 package model.entities.characters.monsters;
 
-import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Fight;
 import model.Game;
@@ -14,7 +13,7 @@ public class Monster extends Character {
     private final AI monsterAI;
     private final boolean isBoss;
 
-    public Monster(Coordinates coords, String name, double size, int healthPoints, int strength, double speed, Color color, AI monsterAI, boolean isBoss) {
+    public Monster(Coordinates coords, String name, double size, int healthPoints, int strength, double speed, AI monsterAI, boolean isBoss) {
         super(
                 coords,
                 name,
@@ -33,7 +32,7 @@ public class Monster extends Character {
 
     @Override
     public void action() {
-
+        // No actions
     }
 
     @Override
@@ -45,11 +44,6 @@ public class Monster extends Character {
     }
 
     @Override
-    public int getStrength() {
-        return strength;
-    }
-
-    @Override
     public void deathAction() {
         Game game = Game.getInstance();
         game.deleteEntity(this);
@@ -58,11 +52,6 @@ public class Monster extends Character {
             game.showNotification("YOU WON! Now go pay for a real game!");
 
         notify(1);
-    }
-
-    @Override
-    public int getHealthPoints() {
-        return healthPoints;
     }
 
     public AI getMonsterAI() {

@@ -1,6 +1,7 @@
 package model.entities;
 
-import javafx.scene.paint.Color;
+import controller.App;
+import model.Coordinates;
 import model.entities.characters.ai.BossMonsterAI;
 import model.entities.characters.ai.StupidMonsterAI;
 import model.entities.characters.monsters.Monster;
@@ -19,14 +20,12 @@ public class EntityFactory {
                 new PlayerBuilder("Asriel Dreemurr - God Of HyperDeath")
                         .setHealthPoints(1_000_000)
                         .setStrength(1_000_000)
-                        .setColor(Color.LIGHTGREEN)
                         .build();
             case HARD:
                 return new PlayerBuilder("Tarik")
                         .setHealthPoints(200)
                         .setStrength(10)
                         .setSpeed(0.5)
-                        .setColor(Color.HOTPINK)
                         .build();
             case IMPOSSIBLE:
                 return new PlayerBuilder("Tom")
@@ -47,7 +46,6 @@ public class EntityFactory {
                         .setStrength(5)
                         .setSpeed(0.50)
                         .setSize(50)
-                        .setColor(Color.CYAN)
                         .setMonsterAI(new StupidMonsterAI())
                         .build();
             case CHIMERE:
@@ -56,21 +54,19 @@ public class EntityFactory {
                         .setStrength(20)
                         .setSpeed(0.75)
                         .setSize(150)
-                        .setColor(Color.RED)
                         .build();
             case ALIEN:
                 return new MonsterBuilder("Alien")
                         .setHealthPoints(200)
                         .setStrength(50)
                         .setSize(100)
-                        .setColor(Color.BLACK)
                         .build();
             case THE_BOSS:
                 return new MonsterBuilder("Sett")
+                        .setCoords(new Coordinates(App.WIDTH/2, App.HEIGHT/2))
                         .setHealthPoints(300)
                         .setStrength(70)
                         .setSize(200)
-                        .setColor(Color.PURPLE)
                         .setMonsterAI(new BossMonsterAI())
                         .setBoss(true)
                         .build();
@@ -80,7 +76,6 @@ public class EntityFactory {
                         .setStrength(10)
                         .setSpeed(0.75)
                         .setSize(40)
-                        .setColor(Color.GREY)
                         .build();
         }
 

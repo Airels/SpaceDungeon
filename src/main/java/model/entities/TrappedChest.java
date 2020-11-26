@@ -3,10 +3,7 @@ package model.entities;
 import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Game;
-import model.entities.characters.monsters.Monster;
 import model.entities.characters.monsters.MonsterType;
-import model.entities.characters.players.Player;
-import model.rooms.Room;
 
 
 public class TrappedChest extends Entity{

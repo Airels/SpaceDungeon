@@ -2,13 +2,11 @@ package sounds;
 
 import exceptions.MissingSoundException;
 
-import javax.sound.sampled.*;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SoundPlayer {
-    private final static Map<Sound, AudioClip> playingAudio = new HashMap<>();
+    private final static Map<Sound, AudioClip> soundsPlayed = new HashMap<>();
 
     public static void infinitePlay(Sound sound) {
         play(sound, true);
@@ -27,13 +25,13 @@ public class SoundPlayer {
 
         soundPlayer.start();
 
-        playingAudio.put(sound, soundPlayer);
+        soundsPlayed.put(sound, soundPlayer);
     }
 
     public static void stop(Sound sound) {
-        if (playingAudio.containsKey(sound)) {
-            playingAudio.get(sound).interrupt();
-            playingAudio.remove(sound);
+        if (soundsPlayed.containsKey(sound)) {
+            soundsPlayed.get(sound).interrupt();
+            soundsPlayed.remove(sound);
         }
     }
 }

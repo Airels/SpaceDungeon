@@ -16,7 +16,5 @@ public class DirectionTest {
         assertEquals(Direction.UP, down.reverse());
         assertEquals(Direction.RIGHT, left.reverse());
         assertEquals(Direction.LEFT, right.reverse());
-
-        assertEquals(Direction.DOWN, Direction.reverse(up));
     }
 }

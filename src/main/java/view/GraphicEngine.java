@@ -2,20 +2,12 @@ package view;
 
 import controller.App;
 import javafx.application.Platform;
-import javafx.scene.Cursor;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import model.Game;
 import model.entities.Entity;
 import model.rooms.Room;
 import view.graphicalObjects.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +60,7 @@ public class GraphicEngine {
         GEntity gEntity = new GEntity(entity);
         guiEntities.add(gEntity);
 
-        Platform.runLater(() -> root.getChildren().addAll(gEntity.getFxModels()));
+        Platform.runLater(() -> root.getChildren().addAll(gEntity.getFxNodes()));
     }
 
     public void removeEntity(Entity entity) {
@@ -83,7 +75,7 @@ public class GraphicEngine {
     private void removeEntity(GEntity gEntity) {
         if (guiEntities.contains(gEntity)) {
             guiEntities.remove(gEntity);
-            Platform.runLater(() -> root.getChildren().removeAll(gEntity.getFxModels()));
+            Platform.runLater(() -> root.getChildren().removeAll(gEntity.getFxNodes()));
         }
     }
 
@@ -95,11 +87,11 @@ public class GraphicEngine {
         guiEntities.clear();
 
         Platform.runLater(() ->  {
-            root.getChildren().addAll(guiRoom.getFxModels());
-            root.getChildren().addAll(inventory.getFxModels());
+            root.getChildren().addAll(guiRoom.getFxNodes());
+            root.getChildren().addAll(inventory.getFxNodes());
 
             if (!notification.expired())
-                root.getChildren().addAll(notification.getFxModels());
+                root.getChildren().addAll(notification.getFxNodes());
         });
 
         for (Entity entity : room.getEntities())
@@ -118,53 +110,28 @@ public class GraphicEngine {
         GNotification notification = new GNotification(message, duration);
         this.notification = notification;
         Platform.runLater(() -> {
-            if (root.getChildren().containsAll(notification.getFxModels()))
-                root.getChildren().removeAll(notification.getFxModels());
+            if (root.getChildren().containsAll(notification.getFxNodes()))
+                root.getChildren().removeAll(notification.getFxNodes());
 
-            root.getChildren().addAll(notification.getFxModels());
+            root.getChildren().addAll(notification.getFxNodes());
         });
     }
 
-    void removeNotification() {
+    public void removeNotification() {
         GNotification notification = this.notification;
 
         if (notification != null)
-            Platform.runLater(() -> root.getChildren().removeAll(notification.getFxModels()));
+            Platform.runLater(() -> root.getChildren().removeAll(notification.getFxNodes()));
     }
 
     public void togglePauseMenu(boolean isPaused) {
         if (isPaused) {
             pauseMenu.render();
-            Platform.runLater(() -> {
-                root.getChildren().addAll(pauseMenu.getFxModels());
-                root.getScene().setCursor(Cursor.DEFAULT);
-            });
 
+            Platform.runLater(() -> root.getChildren().addAll(pauseMenu.getFxNodes()));
         }
         else {
-            Platform.runLater(() -> {
-                root.getChildren().removeAll(pauseMenu.getFxModels());
-                root.getScene().setCursor(Cursor.NONE);
-            });
+            Platform.runLater(() -> root.getChildren().removeAll(pauseMenu.getFxNodes()));
         }
-    }
-
-    public static Image createImage(String url) {
-        try {
-            // You have to set an User-Agent in case you get HTTP Error 403
-            // respond while you trying to get the Image from URL.
-            URLConnection conn = new URL(url).openConnection();
-            conn.setRequestProperty("User-Agent", "Wget/1.13.4 (linux-gnu)");
-
-            try (InputStream stream = conn.getInputStream()) {
-                return new Image(stream);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }

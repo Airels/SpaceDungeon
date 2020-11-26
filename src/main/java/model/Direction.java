@@ -41,8 +41,4 @@ public enum Direction {
                 throw new IllegalStateException("Unknown direction " + this.toString());
         }
     }
-
-    public static Direction reverse(Direction direction) {
-        return direction.reverse();
-    }
 }

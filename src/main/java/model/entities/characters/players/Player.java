@@ -1,7 +1,6 @@
 package model.entities.characters.players;
 
 import controller.App;
-import javafx.scene.paint.Color;
 import model.*;
 import model.entities.Chest;
 import model.entities.Entity;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class Player extends Character {
 
-    public Player(String name, double size, int healthPoints, int strength, double speed, Color color) {
+    public Player(String name, double size, int healthPoints, int strength, double speed) {
         super(
                 new Coordinates(App.WIDTH/2, App.HEIGHT/2),
                 name,
@@ -25,40 +24,6 @@ public class Player extends Character {
         );
 
         addObserver(SoundPlayerObserver.getInstance());
-    }
-
-    public void pickupItem() {
-        Game game = Game.getInstance();
-        Player player = game.getPlayer();
-
-        List<Entity> closestEntities = game.closestEntities(this);
-
-        for (Entity entity : closestEntities) {
-            if (!(entity instanceof Item)) continue;
-
-            player.getInventory().addItem((Item) entity);
-        }
-    }
-
-    public void moveToDoor(Direction position) {
-        switch (position) {
-            case LEFT:
-                coords.setX(App.WALL_SIZE + size);
-                coords.setY(App.HEIGHT/2);
-                break;
-            case UP:
-                coords.setX(App.WIDTH/2);
-                coords.setY(App.WALL_SIZE + size);
-                break;
-            case RIGHT:
-                coords.setX(App.WIDTH-App.WALL_SIZE - size);
-                coords.setY(App.HEIGHT/2);
-                break;
-            case DOWN:
-                coords.setX(App.WIDTH/2);
-                coords.setY(App.HEIGHT-App.WALL_SIZE - size);
-                break;
-        }
     }
 
     @Override
@@ -84,32 +49,54 @@ public class Player extends Character {
     }
 
     @Override
-    public int getStrength() {
-        return strength;
-    }
-
-    @Override
     public void deathAction() {
         notify(1);
         Game.getInstance().gameOver();
     }
 
     @Override
-    public int getHealthPoints() {
-        return healthPoints;
-    }
-
-
-    @Override
     public void move(Direction direction) {
         super.move(direction);
 
-        // CHANGEMENT DE SALLE
-        RoomManager.goToNextRoomIfPossible(this);
+        RoomManager.changeRoomTrigger(this);
+    }
+
+    public void moveToDoor(Direction position) {
+        switch (position) {
+            case LEFT:
+                coords.setX(App.WALL_SIZE + size);
+                coords.setY(App.HEIGHT/2);
+                break;
+            case UP:
+                coords.setX(App.WIDTH/2);
+                coords.setY(App.WALL_SIZE + size);
+                break;
+            case RIGHT:
+                coords.setX(App.WIDTH-App.WALL_SIZE - size);
+                coords.setY(App.HEIGHT/2);
+                break;
+            case DOWN:
+                coords.setX(App.WIDTH/2);
+                coords.setY(App.HEIGHT-App.WALL_SIZE - size);
+                break;
+        }
     }
 
     public void useItem(int index) {
         Item item = getInventory().getItem(index);
         if (item != null) item.use();
+    }
+
+    public void pickupItem() {
+        Game game = Game.getInstance();
+        Player player = game.getPlayer();
+
+        List<Entity> closestEntities = game.closestEntities(this);
+
+        for (Entity entity : closestEntities) {
+            if (!(entity instanceof Item)) continue;
+
+            player.getInventory().addItem((Item) entity);
+        }
     }
 }

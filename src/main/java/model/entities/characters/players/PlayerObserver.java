@@ -1,18 +1,22 @@
 package model.entities.characters.players;
 
 import model.Direction;
-import model.Observer;
-import model.items.Item;
+import model.Game;
+import utils.Observer;
 
 public class PlayerObserver implements Observer {
-    private Player player;
+    private static PlayerObserver instance;
+    private final Player player;
 
     public PlayerObserver(Player player) {
+        instance = this;
         this.player = player;
     }
 
     @Override
     public void notify(int arg) {
+        if (player.isDead() || Game.getInstance().isPaused()) return;
+
         switch (arg) {
             case 0:
             case 1:
@@ -43,8 +47,24 @@ public class PlayerObserver implements Observer {
             case 15:
                 player.action();
                 break;
+            case 16:
+                player.moveToDoor(Direction.UP);
+                break;
+            case 17:
+                player.moveToDoor(Direction.LEFT);
+                break;
+            case 18:
+                player.moveToDoor(Direction.DOWN);
+                break;
+            case 19:
+                player.moveToDoor(Direction.RIGHT);
+                break;
             default:
                 throw new IllegalArgumentException("Unknown argument: " + arg);
         }
+    }
+
+    public static PlayerObserver getInstance() {
+        return instance;
     }
 }

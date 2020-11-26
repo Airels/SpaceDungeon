@@ -2,7 +2,6 @@ package model.rooms;
 
 import model.Coordinates;
 import model.Direction;
-import model.entities.Chest;
 import model.entities.Entity;
 
 import java.util.*;
@@ -12,21 +11,15 @@ public class SimpleRoom implements Room {
     private final Set<Direction> doorWays;
     private final Set<Direction> finalWays;
     private final Coordinates coords;
-    private final List<Chest> chests;
     private final List<Entity> entities;
 
-    public SimpleRoom(Coordinates coords, List<Chest> chests, Direction... directionsOpened) {
+    public SimpleRoom(Coordinates coords, Direction... directionsOpened) {
         this.coords = coords;
-        this.chests = (chests == null) ? new ArrayList<>() : chests;
         this.entities = new ArrayList<>();
 
         openedWays = new HashSet<>(); openedWays.addAll(Arrays.asList(directionsOpened));
         doorWays = new HashSet<>();
         finalWays = new HashSet<>();
-    }
-
-    public SimpleRoom(Coordinates coords, Direction... directionsOpened) {
-        this(coords, new ArrayList<>(), directionsOpened);
     }
 
     @Override
@@ -36,7 +29,7 @@ public class SimpleRoom implements Room {
 
     @Override
     public void loadedEvent() {
-
+        // No events
     }
 
     @Override
@@ -91,6 +84,6 @@ public class SimpleRoom implements Room {
 
     @Override
     public void generate() {
-
+        // Nothing to generate
     }
 }

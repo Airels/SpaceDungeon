@@ -1,7 +1,6 @@
 package model.entities.characters;
 
 import controller.App;
-import javafx.scene.paint.Color;
 import model.Coordinates;
 import model.Direction;
 import model.entities.Entity;
@@ -13,7 +12,6 @@ public abstract class Character extends Entity {
     protected final int maxHealth;
     protected final double speed, actionRange;
     protected final Inventory inventory;
-
     private Direction lastDirection;
 
     public Character(Coordinates coords, String name, double size, int healthPoints, int strength, double speed) {
@@ -27,9 +25,8 @@ public abstract class Character extends Entity {
         this.lastDirection = Direction.LEFT; // Default value to avoid null
     }
 
-    public abstract void action();
     public abstract void attack();
-    public abstract int getStrength();
+    public abstract void action();
     public abstract void deathAction();
 
     public void move(Direction direction) {
@@ -73,11 +70,15 @@ public abstract class Character extends Entity {
     }
 
     public int getHealthPoints() {
-        return healthPoints;
+        return Math.max(healthPoints, 0);
     }
 
     public int getMaxHealth() {
         return maxHealth;
+    }
+
+    public int getStrength() {
+        return strength;
     }
 
     public void addStrength(int value){
@@ -104,9 +105,10 @@ public abstract class Character extends Entity {
     }
 
     public void doKnockback(Direction direction) {
-        this.move(direction);
-        this.move(direction);
-        this.move(direction);
+        for (int knockbacks = 0; knockbacks < 6; knockbacks++)
+            this.move(direction);
+
+        this.move(direction.reverse()); // To reverse Character sprite
     }
 
     @Override

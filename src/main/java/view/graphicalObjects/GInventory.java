@@ -15,7 +15,7 @@ public class GInventory implements GObject {
 
     public GInventory() {
         text = new Text("- Inventory -\n");
-        text.setFont(Font.font(App.NOTIFICATION_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
+        text.setFont(Font.font(App.TEXT_FONT_FAMILY, FontWeight.BOLD, FontPosture.REGULAR, App.NOTIFICATION_FONT_SIZE));
         text.setTextAlignment(TextAlignment.LEFT);
         text.setX(30);
         text.setY(40);
@@ -42,7 +42,7 @@ public class GInventory implements GObject {
     }
 
     @Override
-    public List<Node> getFxModels() {
+    public List<Node> getFxNodes() {
         return Collections.singletonList(text);
     }
 }

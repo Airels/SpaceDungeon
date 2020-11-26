@@ -1,6 +1,5 @@
 package model.entities.characters.ai;
 
-import controller.App;
 import model.Coordinates;
 import model.Game;
 import model.entities.characters.Character;

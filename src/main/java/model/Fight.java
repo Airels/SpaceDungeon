@@ -12,13 +12,17 @@ public class Fight {
     }
 
     public void doAttack() {
-        // if (target.getCoords().getDistance(attacker.getCoords()) > attacker.getActionRange()) return;
-
         double distance = target.getCoords().getDistance(attacker.getCoords());
         if (!(distance < target.getActionRange() || distance < attacker.getActionRange())) return;
 
         target.doDamages(attacker.getStrength());
 
+        doKnockback();
+
+        System.out.println(attacker + ": " + attacker.getHealthPoints() + " - " + target + ": " + target.getHealthPoints());
+    }
+
+    private void doKnockback() {
         double distanceX = target.getCoords().getX() - attacker.getCoords().getX();
         double distanceY = target.getCoords().getY() - attacker.getCoords().getY();
 
@@ -29,7 +33,5 @@ public class Fight {
             if (distanceY > 0) target.doKnockback(Direction.DOWN);
             else target.doKnockback(Direction.LEFT);
         }
-
-        System.out.println(attacker + ": " + attacker.getHealthPoints() + " - " + target + ": " + target.getHealthPoints());
     }
 }
