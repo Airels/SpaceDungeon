@@ -6,9 +6,9 @@ public enum MonsterType {
 
     BLOB(0.50),
 
-    CHIMERE(0.25),
+    CHIMERE(0.32),
 
-    ALIEN(0.15),
+    ALIEN(0.23),
 
     THE_BOSS(0),
 
